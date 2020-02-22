@@ -14,6 +14,7 @@ Layout = "~/Views/Shared/_Layout.cshtml";
 
 @using (Html.BeginForm("CriarProjeto", "Projetos"))
 {
+    @Html.ValidationSummary(true, "Verifique os erros a seguir:")
     <div class="form-group">
         @Html.LabelFor(m => m.Projetos.NomeProjeto)
         @Html.TextBoxFor(m => m.Projetos.NomeProjeto, new { @class = "form-control" })
