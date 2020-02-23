@@ -8295,3 +8295,8 @@ a.list-group-item-danger.active {
 .popover {
     color: #333333;
 }
+.navbar-nav.navbar-center {
+    position: relative;
+    left: 40%;
+    transform: translate(-40%);
+}

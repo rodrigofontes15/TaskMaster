@@ -26,7 +26,7 @@
 }
 else
 {
-    <table class="table table-bordered table-hover">
+    <table id="projetos" class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Projetos</th>
@@ -34,6 +34,7 @@ else
                 <th>Data de Início</th>
                 <th>Data Estimada de Término</th>
                 <th>Data Real de Término</th>
+                <th>Excluir</th>
             </tr>
         </thead>
         <tbody>
@@ -45,8 +46,35 @@ else
                 <td>@projeto.DataInicio</td>
                 <td>@projeto.DataEstimada</td>
                 <td>@projeto.DataReal</td>
+                <td>
+                    <button data-projeto-id="@projeto.Id" class="btn-link js-excluir">Excluir</button>
+                </td>
             </tr>
             }
         </tbody>
     </table>
 }
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+         var tabela =  $("#projetos").DataTable();
+
+            $("#projetos .js-excluir").on("click", function () {
+                var button = $(this);
+
+                bootbox.confirm("Confirma a Exclusão do Projeto?", function (resultado) {
+                    if (resultado) {
+                        $.ajax({
+                            url: "/api/projetos/" + button.attr("data-projeto-id"),
+                            method: "DELETE",
+                            success: function () {
+                                tabela.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });        
+        });
+    </script>
+    }

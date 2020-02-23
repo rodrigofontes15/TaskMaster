@@ -64,7 +64,7 @@ namespace TaskMaster.Controllers.Api
             _context.SaveChanges();
         }
 
-        // PUT /api/projetos/id
+        // DELETE /api/projetos/
         [HttpDelete]
         public void DeleteProjeto(int id)
         {
