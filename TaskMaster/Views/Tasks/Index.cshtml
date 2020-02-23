@@ -57,7 +57,19 @@
 {
     <script>
         $(document).ready(function () {
-            var tabela = $("#tasks").DataTable();
+            var tabela = $("#tasks").DataTable({
+                "language": {
+                    "search": "Buscar:",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "lengthMenu": "Mostrando _MENU_ registros",
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Ultima",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    }
+                }
+            });
             $("#tasks .js-excluir").on("click", function () {
                 var button = $(this);
                 bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
