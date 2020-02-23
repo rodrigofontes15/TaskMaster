@@ -211,8 +211,14 @@
     <Compile Include="Migrations\202002231913433_AdicionarGP.Designer.cs">
       <DependentUpon>202002231913433_AdicionarGP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002231949067_AdicionarTabelasBugseDevs.cs" />
+    <Compile Include="Migrations\202002231949067_AdicionarTabelasBugseDevs.Designer.cs">
+      <DependentUpon>202002231949067_AdicionarTabelasBugseDevs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Bugs.cs" />
+    <Compile Include="Models\Devs.cs" />
     <Compile Include="Models\GerenteProjs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -465,6 +471,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Bugs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -497,6 +504,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002231913433_AdicionarGP.resx">
       <DependentUpon>202002231913433_AdicionarGP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231949067_AdicionarTabelasBugseDevs.resx">
+      <DependentUpon>202002231949067_AdicionarTabelasBugseDevs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

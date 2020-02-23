@@ -24,6 +24,8 @@ namespace TaskMaster.Models
        public DbSet<GerenteProjs> GerenteProjs { get; set; }
        public DbSet<Tasks> Tasks { get; set; }
        public DbSet<Testers> Testers { get; set; }
+       public DbSet<Bugs> Bugs { get; set; }
+       public DbSet<Devs> Devs { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
