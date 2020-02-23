@@ -9,7 +9,7 @@ namespace TaskMaster.Models
 {
     public class Projetos
     {
-        public int Id { get; set; }
+        public int ProjetosId { get; set; }
 
         [Required]
         [StringLength(255)]

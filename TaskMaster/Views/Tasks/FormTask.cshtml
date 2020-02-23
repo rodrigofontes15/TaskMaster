@@ -1,0 +1,56 @@
+﻿@model TaskMaster.ViewModels.TaskViewModel
+@{
+    /**/
+
+    /**/
+
+    /**/
+
+    /**/
+
+    ViewBag.Title = Model.Titulo;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Titulo</h2>
+
+@using (Html.BeginForm("Salvar", "Tasks"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.NomeTask)
+        @Html.TextBoxFor(m => m.NomeTask, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.NomeTask)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProjetosId)
+        @Html.DropDownListFor(m => m.ProjetosId, new SelectList(Model.Projetos, "ProjetosId", "NomeProjeto"), "Selecione...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProjetosId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DataInicio)
+        @Html.TextBoxFor(m => m.DataInicio, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DataInicio)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DataEstimada)
+        @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DataEstimada)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.TestersId)
+        @Html.DropDownListFor(m => m.TestersId, new SelectList(Model.Testers, "TestersId", "Nome"), "Selecione...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TestersId)
+    </div>
+
+    @Html.HiddenFor(c => c.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Salvar</button>
+
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

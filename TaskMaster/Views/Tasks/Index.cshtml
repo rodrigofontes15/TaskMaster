@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TaskMaster.Models.Projetos>
+﻿@model IEnumerable<TaskMaster.Models.Tasks>
 @*
     NOTA DO PROFESSOR DO CURSO (MOSH): I've set the model for this view to IEnumerable<Customer>.
     This is a simple interface implemented by the list class. Since
@@ -11,35 +11,29 @@
 *@
 
 @{
-    ViewBag.Title = "Projetos";
+    ViewBag.Title = "Tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Projetos</h2>
+<h2>Tasks</h2>
 <p>
-    @Html.ActionLink("Cadastrar Projeto", "NovoProjeto", "Projetos", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary" })
 </p>
 
-@if (!Model.Any())
-{
-    <p>Nenhum Projeto Cadastrado!</p>
-}
-else
-{
-    <table id="projetos" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Projetos</th>
-                <th>Gerente de Projeto</th>
-                <th>Data de Início</th>
-                <th>Data Estimada de Término</th>
-                <th>Data Real de Término</th>
-                <th>Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var projeto in Model)
-            {
+<table id="tasks" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Tasks</th>
+            <th>Projeto Relacionado</th>
+            <th>Data de Início</th>
+            <th>Data Estimada de Término</th>
+            <th>Testador Responsavel</th>
+            <th>Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var projeto in Model)
+        {
             <tr>
                 <td>@Html.ActionLink(projeto.NomeProjeto, "Editar", "Projetos", new { id = projeto.ProjetosId }, null)</td>
                 <td>@projeto.GerenteProjs.Nome</td>
@@ -50,15 +44,15 @@ else
                     <button data-projeto-id="@projeto.ProjetosId" class="btn-link js-excluir">Excluir</button>
                 </td>
             </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 }
 @section scripts
 {
     <script>
         $(document).ready(function () {
-         var tabela =  $("#projetos").DataTable();
+            var tabela = $("#projetos").DataTable();
 
             $("#projetos .js-excluir").on("click", function () {
                 var button = $(this);
@@ -74,7 +68,7 @@ else
                         });
                     }
                 });
-            });        
+            });
         });
     </script>
-    }
+}

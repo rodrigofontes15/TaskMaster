@@ -12,7 +12,7 @@ namespace TaskMaster.ViewModels
     {
         public IEnumerable<GerenteProjs> GerenteProjs { get; set; }
         
-        public int? Id { get; set; }
+        public int? ProjetosId { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -36,18 +36,18 @@ namespace TaskMaster.ViewModels
         {
             get
             {
-                return Id != 0 ? "Editar Projeto" : "Novo Projeto";
+                return ProjetosId != 0 ? "Editar Projeto" : "Novo Projeto";
             }
         }
 
         public ProjetoViewModel()
         {
-            Id = 0;
+            ProjetosId = 0;
         }
 
         public ProjetoViewModel(Projetos projeto)
         {
-            Id = projeto.Id;
+            ProjetosId = projeto.ProjetosId;
             NomeProjeto = projeto.NomeProjeto;
             GerenteProjsId = projeto.GerenteProjsId;
             DataInicio = projeto.DataInicio;

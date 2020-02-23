@@ -25,7 +25,7 @@ namespace TaskMaster.Controllers.Api
         // GET /api/projetos/id
         public Projetos GetProjeto(int id)
         {
-            var projeto = _context.Projetos.SingleOrDefault(c => c.Id == id);
+            var projeto = _context.Projetos.SingleOrDefault(c => c.ProjetosId == id);
 
             if (projeto == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -52,7 +52,7 @@ namespace TaskMaster.Controllers.Api
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            var projetoInDb = _context.Projetos.SingleOrDefault(c => projetos.Id == id);
+            var projetoInDb = _context.Projetos.SingleOrDefault(c => projetos.ProjetosId == id);
             if (projetoInDb==null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -69,7 +69,7 @@ namespace TaskMaster.Controllers.Api
         public void DeleteProjeto(int id)
         {
             
-            var projetoInDb = _context.Projetos.SingleOrDefault(c => c.Id == id);
+            var projetoInDb = _context.Projetos.SingleOrDefault(c => c.ProjetosId == id);
             if (projetoInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 

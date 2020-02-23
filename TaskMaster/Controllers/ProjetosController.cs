@@ -49,11 +49,11 @@ namespace TaskMaster.Controllers
                 return View("FormProjeto", viewModel);
             }
 
-            if (projetos.Id == 0)
+            if (projetos.ProjetosId == 0)
                 _context.Projetos.Add(projetos);
             else
             {
-                var projetoInDb = _context.Projetos.Single(p => p.Id == projetos.Id);
+                var projetoInDb = _context.Projetos.Single(p => p.ProjetosId == projetos.ProjetosId);
                 projetoInDb.NomeProjeto = projetos.NomeProjeto;
                 projetoInDb.GerenteProjsId = projetos.GerenteProjsId;
                 projetoInDb.DataInicio = projetos.DataInicio;
@@ -76,7 +76,7 @@ namespace TaskMaster.Controllers
 
         public ActionResult Editar(int id)
         {
-            var projeto = _context.Projetos.SingleOrDefault(c => c.Id == id);
+            var projeto = _context.Projetos.SingleOrDefault(c => c.ProjetosId == id);
 
             if (projeto == null)
                 return HttpNotFound();
@@ -91,7 +91,7 @@ namespace TaskMaster.Controllers
 
         public ActionResult Detalhes(int id)
         {
-            var projeto = _context.Projetos.SingleOrDefault(c => c.Id == id);
+            var projeto = _context.Projetos.SingleOrDefault(c => c.ProjetosId == id);
 
             if (projeto == null)
                 return HttpNotFound();
