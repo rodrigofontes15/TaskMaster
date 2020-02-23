@@ -70,7 +70,7 @@ else
                     bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
                         if (resultado) {
                             $.ajax({
-                                url: "/api/projetos/" + button.attr("data-task-id"),
+                                url: "/api/tasks/" + button.attr("data-task-id"),
                                 method: "DELETE",
                                 success: function () {
                                     tabela.row(button.parents("tr")).remove().draw();
