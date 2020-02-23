@@ -29,5 +29,6 @@ namespace TaskMaster.Models
         public DateTime? DataEstimada { get; set; }
 
         public DateTime? DataReal { get; set; }
+
     }
 }

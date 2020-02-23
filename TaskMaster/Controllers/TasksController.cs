@@ -69,9 +69,11 @@ namespace TaskMaster.Controllers
         }
 
 
-        public ViewResult Index(TaskViewModel task)
+        public ViewResult Index()
         {
-            return View(task);
+            var tasks = _context.Tasks.Include(g => g.Projetos).ToList();
+
+            return View(tasks);
         }
 
 

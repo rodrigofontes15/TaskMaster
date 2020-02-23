@@ -14,6 +14,7 @@
 
 <h2>@Model.Titulo</h2>
 
+
 @using (Html.BeginForm("Salvar", "Tasks"))
 {
     <div class="form-group">
@@ -46,7 +47,7 @@
         @Html.ValidationMessageFor(m => m.TestersId)
     </div>
 
-    @Html.HiddenFor(c => c.Id)
+    @Html.HiddenFor(c => c.TasksId)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Salvar</button>
 

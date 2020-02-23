@@ -8,6 +8,7 @@ namespace TaskMaster.Models
 {
     public class Testers
     {
+
         public int TestersId { get; set; }
 
         [Required]

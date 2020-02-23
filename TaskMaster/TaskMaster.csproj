@@ -456,6 +456,7 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Tasks\FormTask.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
+    <Content Include="Views\Tasks\Detalhes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

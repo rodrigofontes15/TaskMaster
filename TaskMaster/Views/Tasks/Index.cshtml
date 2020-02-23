@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<TaskMaster.Models.Tasks>
 @*
-    NOTA DO PROFESSOR DO CURSO (MOSH): I've set the model for this view to IEnumerable<Customer>.
+    NOTA DO PROFESSOR DO CURSO (MOSH): I've set the model for this view to IEnumerable.
     This is a simple interface implemented by the list class. Since
     in this view we only want to iterate over this list, and we don't
     need any of the operations in the List class (eg Add, Remove, etc),
@@ -19,56 +19,66 @@
 <p>
     @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary" })
 </p>
+@if (!Model.Any())
+{
+    <p>Nenhum Projeto Cadastrado!</p>
+}
+else
+{
 
-<table id="tasks" class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Tasks</th>
-            <th>Projeto Relacionado</th>
-            <th>Data de Início</th>
-            <th>Data Estimada de Término</th>
-            <th>Testador Responsavel</th>
-            <th>Excluir</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var projeto in Model)
-        {
+    <table id="tasks" class="table table-bordered table-hover">
+        <thead>
             <tr>
-                <td>@Html.ActionLink(projeto.NomeProjeto, "Editar", "Projetos", new { id = projeto.ProjetosId }, null)</td>
-                <td>@projeto.GerenteProjs.Nome</td>
-                <td>@projeto.DataInicio</td>
-                <td>@projeto.DataEstimada</td>
-                <td>@projeto.DataReal</td>
+                <th>Tasks</th>
+                <th>Projeto Relacionado</th>
+                <th>Data de Início</th>
+                <th>Data Estimada de Término</th>
+                <th>Testador Responsável</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model)
+            {
+            <tr>
                 <td>
-                    <button data-projeto-id="@projeto.ProjetosId" class="btn-link js-excluir">Excluir</button>
+                    <b>@task.NomeTask</b><br />
+                    @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
+                    @Html.ActionLink("Detalhes", "Detalhes", "Tasks", new { id = task.TasksId }, null)
+                </td>
+                <td>@task.Projetos.NomeProjeto</td>
+                <td>@task.DataInicio</td>
+                <td>@task.DataEstimada</td>
+                <td>Testador Responsavel (Tabela Testers, Campo Nome)</td>
+                <td>
+                    <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
 }
-@section scripts
+    @section scripts
 {
-    <script>
-        $(document).ready(function () {
-            var tabela = $("#projetos").DataTable();
+        <script>
+            $(document).ready(function () {
+                var tabela = $("#tasks").DataTable();
 
-            $("#projetos .js-excluir").on("click", function () {
-                var button = $(this);
+                $("#tasks .js-excluir").on("click", function () {
+                    var button = $(this);
 
-                bootbox.confirm("Confirma a Exclusão do Projeto?", function (resultado) {
-                    if (resultado) {
-                        $.ajax({
-                            url: "/api/projetos/" + button.attr("data-projeto-id"),
-                            method: "DELETE",
-                            success: function () {
-                                tabela.row(button.parents("tr")).remove().draw();
-                            }
-                        });
-                    }
+                    bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
+                        if (resultado) {
+                            $.ajax({
+                                url: "/api/projetos/" + button.attr("data-task-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    tabela.row(button.parents("tr")).remove().draw();
+                                }
+                            });
+                        }
+                    });
                 });
             });
-        });
-    </script>
-}
+        </script>
+    }

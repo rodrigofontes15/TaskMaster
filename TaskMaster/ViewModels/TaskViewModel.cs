@@ -15,8 +15,7 @@ namespace TaskMaster.ViewModels
         public IEnumerable<Testers> Testers { get; set; }
         public string Nome { get; set; }
 
-        public int TasksId {get; set;}
-        public int? Id { get; set; }
+        public int? TasksId {get; set;}
 
         [Required]
         [StringLength(255)]
@@ -32,6 +31,7 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Data Estimada de Término do Teste")]
         public DateTime? DataEstimada { get; set; }
 
+        [Display(Name = "Assignar para o Testador:")]
         public int TestersId { get; set; }
 
         public DateTime? DataReal { get; set; }
@@ -40,18 +40,18 @@ namespace TaskMaster.ViewModels
         {
             get
             {
-                return Id != 0 ? "Editar Task" : "Nova Task";
+                return TasksId != 0 ? "Editar Task" : "Nova Task";
             }
         }
 
         public TaskViewModel()
         {
-            Id = 0;
+            TasksId = 0;
         }
 
         public TaskViewModel(Tasks task)
         {
-            Id = task.ProjetosId;
+            TasksId = task.TasksId;
             NomeTask = task.NomeTask;
             DataInicio = task.DataInicio;
             DataEstimada = task.DataEstimada;
