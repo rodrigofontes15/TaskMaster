@@ -40,7 +40,7 @@ else
             @foreach (var projeto in Model)
             {
             <tr>
-                <td>@Html.ActionLink(projeto.NomeProjeto, "Detalhes", "Projetos", new { id = projeto.Id }, null)</td>
+                <td>@Html.ActionLink(projeto.NomeProjeto, "Editar", "Projetos", new { id = projeto.Id }, null)</td>
                 <td>@projeto.GerenteProjs.Nome</td>
                 <td>@projeto.DataInicio</td>
                 <td>@projeto.DataEstimada</td>

@@ -27,28 +27,38 @@ namespace TaskMaster.Controllers
         public ViewResult NovoProjeto()
         {
             var gerenteProjetos = _context.GerenteProjs.ToList();
-            var viewModel = new NovoProjetoViewModel
+            var viewModel = new ProjetoViewModel
             {
                 GerenteProjs = gerenteProjetos
             };
 
-            return View(viewModel);
+            return View("FormProjeto", viewModel);
         }
 
         [HttpPost]
-        public ActionResult CriarProjeto(Projetos projetos)
+        [ValidateAntiForgeryToken]
+        public ActionResult Salvar(Projetos projetos)
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new NovoProjetoViewModel
+                var viewModel = new ProjetoViewModel(projetos)
                 {
-                    Projetos = projetos,
                     GerenteProjs = _context.GerenteProjs.ToList()
                 };
-                return View("NovoProjeto", viewModel);
+
+                return View("FormProjeto", viewModel);
             }
+
             if (projetos.Id == 0)
                 _context.Projetos.Add(projetos);
+            else
+            {
+                var projetoInDb = _context.Projetos.Single(p => p.Id == projetos.Id);
+                projetoInDb.NomeProjeto = projetos.NomeProjeto;
+                projetoInDb.GerenteProjsId = projetos.GerenteProjsId;
+                projetoInDb.DataInicio = projetos.DataInicio;
+                projetoInDb.DataEstimada = projetos.DataEstimada;
+            }
 
             _context.SaveChanges();
 
@@ -63,6 +73,21 @@ namespace TaskMaster.Controllers
             return View(projetos);
         }
 
+
+        public ActionResult Editar(int id)
+        {
+            var projeto = _context.Projetos.SingleOrDefault(c => c.Id == id);
+
+            if (projeto == null)
+                return HttpNotFound();
+
+            var viewModel = new ProjetoViewModel(projeto)
+            {
+                GerenteProjs = _context.GerenteProjs.ToList()
+            };
+
+            return View("FormProjeto", viewModel);
+        }
 
         public ActionResult Detalhes(int id)
         {
