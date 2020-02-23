@@ -56,7 +56,7 @@ namespace TaskMaster.Controllers
             else
             {
                 var taskInDb = _context.Tasks.Single(p => p.TasksId == task.TasksId);
-               taskInDb.NomeTask = task.NomeTask;
+                taskInDb.NomeTask = task.NomeTask;
                 taskInDb.DataInicio = task.DataInicio;
                 taskInDb.DataEstimada = task.DataEstimada;
                 taskInDb.TestersId = task.TestersId;
@@ -71,7 +71,10 @@ namespace TaskMaster.Controllers
 
         public ViewResult Index()
         {
-            var tasks = _context.Tasks.Include(g => g.Projetos).ToList();
+            var tasks = _context.Tasks
+                .Include(g => g.Projetos)
+                .Include(g => g.Testers)
+                .ToList();
 
             return View(tasks);
         }

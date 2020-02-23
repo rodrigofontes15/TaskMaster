@@ -207,6 +207,10 @@
     <Compile Include="Migrations\202002231346464_MudançaPKeFKTaskseProjetos.Designer.cs">
       <DependentUpon>202002231346464_MudançaPKeFKTaskseProjetos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002231913433_AdicionarGP.cs" />
+    <Compile Include="Migrations\202002231913433_AdicionarGP.Designer.cs">
+      <DependentUpon>202002231913433_AdicionarGP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\GerenteProjs.cs" />
@@ -490,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002231346464_MudançaPKeFKTaskseProjetos.resx">
       <DependentUpon>202002231346464_MudançaPKeFKTaskseProjetos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231913433_AdicionarGP.resx">
+      <DependentUpon>202002231913433_AdicionarGP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

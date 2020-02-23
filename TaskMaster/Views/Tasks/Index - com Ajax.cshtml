@@ -19,6 +19,7 @@
 <p>
     @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary" })
 </p>
+
 <table id="tasks" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -30,36 +31,49 @@
             <th>Excluir</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var task in Model)
-        {
-            <tr>
-                <td>
-                    <b>@task.NomeTask</b><br />
-                    @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
-                    @Html.ActionLink("Detalhes", "Detalhes", "Tasks", new { id = task.TasksId }, null)
-                </td>
-                <td>@task.Projetos.NomeProjeto</td>
-                <td>@task.DataInicio</td>
-                <td>@task.DataEstimada</td>
-                <td>@task.Testers.Nome</td>
-                <td>
-                    <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
-                </td>
-            </tr>
-        }
-    </tbody>
+    <tbody></tbody>
 </table>
-
-
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            var tabela = $("#tasks").DataTable();
+            var tabela = $("#tasks").DataTable({
+                ajax: {
+                    url: "/api/tasks/",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "NomeTask",
+                        render: function (data, type, task) {
+                            return "<a href='/Tasks/Editar/" + task.TasksId + "'>" + 'Editar' + "</a>";
+                        }
+                    },
+                    {
+                        data: "NomeTask"
+                    },
+                    {
+                        data: "DataInicio"
+                    },
+                    {
+                        data: "DataEstimada"
+                    },
+                    {
+                        data: "NomeTask"
+                    },
+                    {
+                        data: "TasksId",
+                        render: function (data) {
+                            return "<button class='btn-link js-excluir' data-task-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
             $("#tasks .js-excluir").on("click", function () {
                 var button = $(this);
+
                 bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
                     if (resultado) {
                         $.ajax({

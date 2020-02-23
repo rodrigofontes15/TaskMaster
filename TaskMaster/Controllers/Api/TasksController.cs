@@ -16,13 +16,13 @@ namespace TaskMaster.Controllers.Api
         {
             _context = new ApplicationDbContext();
         }
-        // GET /api/projetos
+        // GET /api/tasks
         public IEnumerable<Tasks> GetTasks()
         {
             return _context.Tasks.ToList();
         }
 
-        // GET /api/projetos/id
+        // GET /api/tasks/id
         public Tasks GetTask(int id)
         {
             var task = _context.Tasks.SingleOrDefault(c => c.TasksId == id);
@@ -33,7 +33,7 @@ namespace TaskMaster.Controllers.Api
             return task;
         }
 
-        // POST /api/projetos/
+        // POST /api/tasks/
         public Tasks PostTask(Tasks task)
         {
            if (!ModelState.IsValid)
@@ -45,7 +45,7 @@ namespace TaskMaster.Controllers.Api
             return task;
         }
 
-        // PUT /api/projetos/id
+        // PUT /api/tasks/id
         [HttpPut]
         public void UpdateTask(int id, Tasks tasks)
         {
