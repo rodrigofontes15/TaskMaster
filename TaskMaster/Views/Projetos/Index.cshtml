@@ -43,7 +43,7 @@ else
             <tr>
                 <td><b>@projeto.NomeProjeto</b><br />
                 @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)     
-                @Html.ActionLink("Detalhes", "Detalhes", "Projetos", new { id = projeto.ProjetosId }, null)</td>
+                @Html.ActionLink("Ver Tasks", "TasksProjeto", "Projetos", new { id = projeto.ProjetosId }, null)</td>
                 <td>@projeto.GerenteProjs.Nome</td>
                 <td>@projeto.DataInicio</td>
                 <td>@projeto.DataEstimada</td>
@@ -62,6 +62,7 @@ else
         $(document).ready(function () {
             var tabela = $("#projetos").DataTable({
                 "language": {
+                    "emptyTable": "Nenhum registro encontrado!",
                     "search": "Buscar:",
                     "info": "Mostrando página _PAGE_ de _PAGES_",
                     "lengthMenu": "Mostrando _MENU_ registros",

@@ -37,7 +37,7 @@
                 <td>
                     <b>@task.NomeTask</b><br />
                     @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
-                    @Html.ActionLink("Detalhes", "Detalhes", "Tasks", new { id = task.TasksId }, null)
+                    @Html.ActionLink("Ver Bugs", "Detalhes", "Tasks", new { id = task.TasksId }, null)
                 </td>
                 <td>@task.Projetos.NomeProjeto</td>
                 <td>@task.DataInicio</td>
@@ -59,6 +59,7 @@
         $(document).ready(function () {
             var tabela = $("#tasks").DataTable({
                 "language": {
+                    "emptyTable": "Nenhum registro encontrado!",
                     "search": "Buscar:",
                     "info": "Mostrando página _PAGE_ de _PAGES_",
                     "lengthMenu": "Mostrando _MENU_ registros",

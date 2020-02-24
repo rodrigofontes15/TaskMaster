@@ -89,14 +89,14 @@ namespace TaskMaster.Controllers
             return View("FormProjeto", viewModel);
         }
 
-        public ActionResult Detalhes(int id)
+        public ActionResult TasksProjeto(int id)
         {
-            var projeto = _context.Projetos.SingleOrDefault(c => c.ProjetosId == id);
-
-            if (projeto == null)
-                return HttpNotFound();
-
-            return View(projeto);
+            var tasksdoprojeto = _context.Tasks.Where(n => n.ProjetosId == id)
+                .Include(t => t.Testers)
+                .Include(p=>p.Projetos)
+                .ToList();
+            
+            return View("TasksProjeto", tasksdoprojeto);    
         }
     }
 

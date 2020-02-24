@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TaskMaster.Models.Tasks>
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "TasksProjeto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!Model.Any())
+{
+    <h2>Nenhuma Task Cadastrada para este Projeto!</h2>
+}
+else
+{
+    <h2>Tasks do Projeto </h2>
+    <table id="tasks" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nomo do Projeto</th>
+                <th>Nome da Task</th>
+                <th>Data de Início</th>
+                <th>Data Estimada de Término</th>
+                <th>Testador Responsável</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model)
+            {
+            <tr>
+                <td>@task.Projetos.NomeProjeto</td>
+                <td>@task.NomeTask</td>
+                <td>@task.DataInicio</td>
+                <td>@task.DataEstimada</td>
+                <td>@task.Testers.Nome</td>
+                <td>
+                    <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section scripts
+{
+<script>
+    $(document).ready(function () {
+        var tabela = $("#tasks").DataTable({
+            "language": {
+                "emptyTable":"Nenhum registro encontrado!",
+                "search": "Buscar:",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "lengthMenu": "Mostrando _MENU_ registros",
+                "paginate": {
+                    "first": "Primeira",
+                    "last": "Ultima",
+                    "next": "Próxima",
+                    "previous": "Anterior"
+                }
+            }
+        });
+        $("#tasks .js-excluir").on("click", function () {
+            var button = $(this);
+            bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
+                if (resultado) {
+                    $.ajax({
+                        url: "/api/tasks/" + button.attr("data-task-id"),
+                        method: "DELETE",
+                        success: function () {
+                            tabela.row(button.parents("tr")).remove().draw();
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+}
