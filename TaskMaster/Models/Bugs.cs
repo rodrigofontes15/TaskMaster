@@ -30,6 +30,10 @@ namespace TaskMaster.Models
 
         public int DevsId { get; set; }
 
+        public Boolean BugAceito { get; set; }
+
+        public string UrlRepoCodigo { get; set; }
+
         [ForeignKey("DevsId")]
         public Devs Devs { get; set; } //navigation class
     }

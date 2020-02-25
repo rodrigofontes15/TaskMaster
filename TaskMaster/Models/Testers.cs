@@ -15,6 +15,8 @@ namespace TaskMaster.Models
         [StringLength(255)]
         public string Nome { get; set; }
 
+        public string EmailTester { get; set; }
+
         public ICollection<Tasks> Tasks { get; set; }
     }
 }

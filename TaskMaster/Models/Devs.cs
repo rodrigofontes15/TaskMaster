@@ -14,6 +14,8 @@ namespace TaskMaster.Models
         [StringLength(255)]
         public string DevNome { get; set; }
 
+        public string EmailDev { get; set; }
+
         public ICollection<Bugs> Bugs { get; set; }
     }
 }

@@ -29,7 +29,10 @@ else
             @foreach (var task in Model)
             {
             <tr>
-                <td>@task.Projetos.NomeProjeto</td>
+                <td>@task.Projetos.NomeProjeto<br />
+                    @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
+                    @Html.ActionLink("Ver Bugs", "BugsTask", "Tasks", new { id = task.TasksId }, null)
+                </td>
                 <td>@task.NomeTask</td>
                 <td>@task.DataInicio</td>
                 <td>@task.DataEstimada</td>

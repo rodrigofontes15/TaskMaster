@@ -48,7 +48,7 @@ namespace TaskMaster.Controllers
                     Projetos = _context.Projetos.ToList()
                 };
 
-                return View("FormProjeto", viewModel);
+                return View("FormTask", viewModel);
             }
 
             if (task.TasksId == 0)
@@ -96,9 +96,23 @@ namespace TaskMaster.Controllers
             return View("FormTask", viewModel);
         }
 
+        public ActionResult BugsTask(int id)
+        {
+            var bugsdatask = _context.Bugs.Where(n => n.TasksId == id)
+                .Include(t => t.Tasks)
+                .Include(p => p.Devs)
+                .Include(p => p.Tasks.Projetos)
+                .ToList();
+
+            return View("BugsTask", bugsdatask);
+        }
+
         public ActionResult Detalhes(int id)
         {
-            var task = _context.Tasks.SingleOrDefault(c => c.TasksId == id);
+            var task = _context.Tasks.Where(c => c.TasksId == id)
+                .Include(g => g.Projetos)
+                .Include(g => g.Testers)
+                .ToList(); ;
 
             if (task == null)
                 return HttpNotFound();

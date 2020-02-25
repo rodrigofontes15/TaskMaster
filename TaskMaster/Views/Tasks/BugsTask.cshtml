@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TaskMaster.Models.Tasks>
+﻿@model IEnumerable<TaskMaster.Models.Bugs>
 @*
     NOTA DO PROFESSOR DO CURSO (MOSH): I've set the model for this view to IEnumerable.
     This is a simple interface implemented by the list class. Since
@@ -11,40 +11,45 @@
 *@
 
 @{
-    ViewBag.Title = "Tasks";
+    ViewBag.Title = "Bugs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Tasks</h2>
+<h2>Bugs reportados</h2>
 <p>
-    @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Reportar Bug", "NovoBug", "Bugs", null, new { @class = "btn btn-primary" })
 </p>
-<table id="tasks" class="table table-bordered table-hover">
+<table id="bugs" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Tasks</th>
             <th>Projeto Relacionado</th>
-            <th>Data de Início</th>
-            <th>Data Estimada de Término</th>
-            <th>Testador Responsável</th>
+            <th>Task Relacionada</th>
+            <th>Descrição do Bug</th>
+            <th>Data do Bug</th>
+            <th>Data Estimada para Resolução</th>
+            <th>DEV Responsável</th>
+            <th>URL do Repositório</th>
+            <th>Estado da Correção</th>
             <th>Excluir</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var task in Model)
+        @foreach (var bug in Model)
         {
             <tr>
+                <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
+                <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
                 <td>
-                    <b>@task.NomeTask</b><br />
-                    @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
-                    @Html.ActionLink("Ver Bugs", "BugsTask", "Tasks", new { id = task.TasksId }, null)
+                    @bug.DescBug<br />
+                    @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
                 </td>
-                <td>@task.Projetos.NomeProjeto</td>
-                <td>@task.DataInicio</td>
-                <td>@task.DataEstimada</td>
-                <td>@task.Testers.Nome</td>
+                <td>@bug.DataBug</td>
+                <td>@bug.DataEstimada</td>
+                <td>@bug.Devs.DevNome</td>
+                <td>@bug.UrlRepoCodigo</td>
+                <td>Estados: Aberto, Correção em Andamento, Fechado</td>
                 <td>
-                    <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
+                    <button data-bug-id="@bug.BugsId" class="btn-link js-excluir">Excluir</button>
                 </td>
             </tr>
         }
@@ -57,7 +62,7 @@
 {
     <script>
         $(document).ready(function () {
-            var tabela = $("#tasks").DataTable({
+            var tabela = $("#bugs").DataTable({
                 "language": {
                     "emptyTable": "Nenhum registro encontrado!",
                     "search": "Buscar:",
@@ -71,12 +76,12 @@
                     }
                 }
             });
-            $("#tasks .js-excluir").on("click", function () {
+            $("#bugs .js-excluir").on("click", function () {
                 var button = $(this);
                 bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
                     if (resultado) {
                         $.ajax({
-                            url: "/api/tasks/" + button.attr("data-task-id"),
+                            url: "/api/bugs/" + button.attr("data-bug-id"),
                             method: "DELETE",
                             success: function () {
                                 tabela.row(button.parents("tr")).remove().draw();

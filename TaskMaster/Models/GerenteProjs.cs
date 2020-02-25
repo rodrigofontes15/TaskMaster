@@ -14,6 +14,8 @@ namespace TaskMaster.Models
         [StringLength(255)]
         public string Nome { get; set; }
 
+        public string EmailGp { get; set; }
+
         public ICollection<Projetos> Projetos { get; set; }
     }
 }

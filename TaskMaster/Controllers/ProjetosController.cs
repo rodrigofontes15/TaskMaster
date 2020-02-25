@@ -98,6 +98,14 @@ namespace TaskMaster.Controllers
             
             return View("TasksProjeto", tasksdoprojeto);    
         }
+
+        public ActionResult Detalhes(int id)
+        {
+            var projeto = _context.Projetos.Where(n => n.ProjetosId == id)
+                .Include(g => g.GerenteProjs).ToList();
+
+            return View("Detalhes", projeto);
+        }
     }
 
 }
