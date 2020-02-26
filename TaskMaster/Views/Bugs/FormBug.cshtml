@@ -24,16 +24,15 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.NomeProjeto)
-        <br />
-        Denifir Drop down lists
-
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(m => m.TasksId)
         @Html.DropDownListFor(m => m.TasksId, new SelectList(Model.Tasks, "TasksId", "NomeTask"), "Selecione...", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.TasksId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.NomeProjeto)
+        @Html.TextBoxFor(m => m.NomeProjeto, new { @class = "form-control" , disabled = "disabled", @readonly = "readonly" })
+    
     </div>
 
     <div class="form-group">

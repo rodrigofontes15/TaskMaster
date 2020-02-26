@@ -34,7 +34,7 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Descrição do Bug Encontrado")]
         public string DescBug { get; set; }
 
-        [Display(Name = "Bug encontrado em:")]
+        [Display(Name = "Data do Bug")]
         public DateTime? DataBug { get; set; }
 
         [Display(Name = "Data Estimada para Resolução")]
@@ -61,7 +61,7 @@ namespace TaskMaster.ViewModels
 
         public BugsViewModel(Bugs bug)
         {
-            BugsId = bug.TasksId;
+            BugsId = bug.BugsId;
             DescBug = bug.DescBug;
             DataBug = bug.DataBug;
             DataEstimada = bug.DataEstimada;

@@ -23,7 +23,7 @@ namespace TaskMaster.Controllers.Api
         }
 
         // GET /api/tasks/id
-        public Tasks GetTask(int id)
+        public Tasks GetTasks(int id)
         {
             var task = _context.Tasks.SingleOrDefault(c => c.TasksId == id);
 
@@ -34,7 +34,7 @@ namespace TaskMaster.Controllers.Api
         }
 
         // POST /api/tasks/
-        public Tasks PostTask(Tasks task)
+        public Tasks PostTasks(Tasks task)
         {
            if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -47,7 +47,7 @@ namespace TaskMaster.Controllers.Api
 
         // PUT /api/tasks/id
         [HttpPut]
-        public void UpdateTask(int id, Tasks tasks)
+        public void UpdateTasks(int id, Tasks tasks)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -67,7 +67,7 @@ namespace TaskMaster.Controllers.Api
 
         // DELETE /api/tasks/
         [HttpDelete]
-        public void DeleteTask(int id)
+        public void DeleteTasks(int id)
         {
             
             var taskInDb = _context.Tasks.SingleOrDefault(c => c.TasksId == id);

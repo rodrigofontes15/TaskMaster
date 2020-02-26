@@ -79,8 +79,6 @@ namespace TaskMaster.Controllers
                 .Include(g => g.Devs)
                 .ToList();
 
-
-
             return View(bugs);
         }
 
