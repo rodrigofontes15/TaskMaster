@@ -38,7 +38,7 @@
         {
             <tr>
                 <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
-                <td>@bug.Tasks.NomeTask</td>
+                <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null)</td>
                 <td>
                     @bug.DescBug<br />
                     @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)

@@ -12,9 +12,18 @@ namespace TaskMaster.ViewModels
     {
         public IEnumerable<Devs> Devs { get; set; }
         public string DevNome { get; set; }
+        [Display(Name = "Dev Responsável")]
+        public int DevsId { get; set; }
 
         public IEnumerable<Tasks> Tasks { get; set; }
         public string Nome { get; set; }
+        [Display(Name = "Task Relacionada")]
+        public int? TasksId { get; set; }
+
+        public IEnumerable<Projetos> Projetos { get; set; }
+        [Display(Name = "Nome do Projeto")]
+        public string NomeProjeto { get; set; }
+        public int ProjetosId { get; set; }
 
         public int? TestersId { get; set; }
 
@@ -25,17 +34,11 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Descrição do Bug Encontrado")]
         public string DescBug { get; set; }
 
-        [Display(Name = "Task Relacionada")]
-        public int? TasksId { get; set; }
-
         [Display(Name = "Bug encontrado em:")]
         public DateTime? DataBug { get; set; }
 
         [Display(Name = "Data Estimada para Resolução")]
         public DateTime? DataEstimada { get; set; }
-
-        [Display(Name = "Dev Responsável")]
-        public int DevsId { get; set; }
 
         [Display(Name = "Assignar Bug para mim")]
         public Boolean BugAceito { get; set; }

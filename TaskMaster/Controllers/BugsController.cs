@@ -27,10 +27,12 @@ namespace TaskMaster.Controllers
         {
             var tasks = _context.Tasks.ToList();
             var devs = _context.Devs.ToList();
+            var projs = _context.Projetos.ToList();
             var viewModel = new BugsViewModel
             {
                 Tasks = tasks,
-                Devs = devs
+                Devs = devs,
+                Projetos = projs
             };
 
             return View("FormBug", viewModel);

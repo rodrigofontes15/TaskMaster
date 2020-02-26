@@ -33,5 +33,13 @@ namespace TaskMaster.Models
         public Testers Testers { get; set; } //navigation class
 
         public DateTime? DataReal { get; set; }
+
+        public string Titulo
+        {
+            get
+            {
+                return TasksId != 0 ? "Detalhes da Task" + NomeTask : "Nova Task";
+            }
+        }
     }
 }
