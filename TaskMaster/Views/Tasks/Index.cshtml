@@ -23,30 +23,33 @@
     <thead>
         <tr>
             <th>Tasks</th>
+            <th>Tipo de Teste</th>
             <th>Projeto Relacionado</th>
             <th>Data de Início</th>
             <th>Data Estimada de Término</th>
             <th>Testador Responsável</th>
-            <th>Excluir</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var task in Model)
         {
-            <tr>
-                <td>
-                    <b>@task.NomeTask</b><br />
-                    @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
-                    @Html.ActionLink("Ver Bugs", "BugsTask", "Tasks", new { id = task.TasksId }, null)
-                </td>
-                <td>@task.Projetos.NomeProjeto</td>
-                <td>@task.DataInicio</td>
-                <td>@task.DataEstimada</td>
-                <td>@task.Testers.Nome</td>
-                <td>
-                    <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <b>@task.NomeTask</b><br />
+                @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
+                @Html.ActionLink("Ver Bugs", "BugsTask", "Tasks", new { id = task.TasksId }, null)
+            </td>
+            <td>@task.TiposTestes.TipoTeste</td>
+            <td>@task.Projetos.NomeProjeto</td>
+            <td>@task.DataInicio</td>
+            <td>@task.DataEstimada</td>
+            <td>@task.Testers.Nome</td>
+            <td>
+                @Html.ActionLink("Reportar Bug", "NovoBug", "Bugs", null, new { @class = "btn btn-warning btn-sm" })<br />
+                <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

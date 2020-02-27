@@ -27,10 +27,12 @@ namespace TaskMaster.Controllers
         {
             var projetos = _context.Projetos.ToList();
             var testers = _context.Testers.ToList();
+            var tipostestes = _context.TiposTestes.ToList();
             var viewModel = new TaskViewModel
             {
                 Testers = testers,
-                Projetos = projetos
+                Projetos = projetos,
+                TiposTestes = tipostestes
             };
 
             return View("FormTask", viewModel);
@@ -45,7 +47,8 @@ namespace TaskMaster.Controllers
                 var viewModel = new TaskViewModel(task)
                 {
                     Testers = _context.Testers.ToList(),
-                    Projetos = _context.Projetos.ToList()
+                    Projetos = _context.Projetos.ToList(),
+                    TiposTestes = _context.TiposTestes.ToList()
                 };
 
                 return View("FormTask", viewModel);
@@ -61,6 +64,7 @@ namespace TaskMaster.Controllers
                 taskInDb.DataEstimada = task.DataEstimada;
                 taskInDb.TestersId = task.TestersId;
                 taskInDb.ProjetosId = task.ProjetosId;
+                taskInDb.TiposTestesId = task.TiposTestesId;
             }
 
             _context.SaveChanges();
@@ -74,6 +78,7 @@ namespace TaskMaster.Controllers
             var tasks = _context.Tasks
                 .Include(g => g.Projetos)
                 .Include(g => g.Testers)
+                .Include(t=>t.TiposTestes)
                 .ToList();
 
             return View(tasks);
@@ -90,7 +95,8 @@ namespace TaskMaster.Controllers
             var viewModel = new TaskViewModel(task)
             {
                 Projetos = _context.Projetos.ToList(),
-                Testers = _context.Testers.ToList()
+                Testers = _context.Testers.ToList(),
+                TiposTestes = _context.TiposTestes.ToList()
             };
 
             return View("FormTask", viewModel);
@@ -112,6 +118,7 @@ namespace TaskMaster.Controllers
             var task = _context.Tasks.Where(c => c.TasksId == id)
                 .Include(g => g.Projetos)
                 .Include(g => g.Testers)
+                .Include(t=>t.TiposTestes)
                 .ToList(); ;
 
             if (task == null)

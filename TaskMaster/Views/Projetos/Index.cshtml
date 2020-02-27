@@ -34,7 +34,7 @@ else
                 <th>Data de Início</th>
                 <th>Data Estimada de Término</th>
                 <th>Data Real de Término</th>
-                <th>Excluir</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +49,7 @@ else
                 <td>@projeto.DataEstimada</td>
                 <td>@projeto.DataReal</td>
                 <td>
+                    @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-warning btn-sm" })<br />
                     <button data-projeto-id="@projeto.ProjetosId" class="btn-link js-excluir">Excluir</button>
                 </td>
             </tr>

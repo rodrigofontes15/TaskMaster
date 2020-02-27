@@ -36,5 +36,9 @@ namespace TaskMaster.Models
 
         [ForeignKey("DevsId")]
         public Devs Devs { get; set; } //navigation class
+
+        public int TiposBugsId { get; set; }
+        [ForeignKey("TiposBugsId")]
+        public TiposBugs TiposBugs { get; set; } //navigation class
     }
 }

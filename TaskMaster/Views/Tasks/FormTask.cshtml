@@ -24,6 +24,12 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(m => m.TiposTestesId)
+        @Html.DropDownListFor(m => m.TiposTestesId, new SelectList(Model.TiposTestes, "TiposTestesId", "TipoTeste"), "Selecione...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TiposTestesId)
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(m => m.ProjetosId)
         @Html.DropDownListFor(m => m.ProjetosId, new SelectList(Model.Projetos, "ProjetosId", "NomeProjeto"), "Selecione...", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.ProjetosId)

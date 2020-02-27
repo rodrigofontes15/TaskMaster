@@ -28,11 +28,14 @@ namespace TaskMaster.Controllers
             var tasks = _context.Tasks.ToList();
             var devs = _context.Devs.ToList();
             var projs = _context.Projetos.ToList();
+            var tiposbugs = _context.TiposBugs.ToList();
             var viewModel = new BugsViewModel
             {
                 Tasks = tasks,
                 Devs = devs,
-                Projetos = projs
+                Projetos = projs,
+                TiposBugs = tiposbugs
+
             };
 
             return View("FormBug", viewModel);
@@ -47,7 +50,8 @@ namespace TaskMaster.Controllers
                 var viewModel = new BugsViewModel(bugs)
                 {
                     Tasks = _context.Tasks.ToList(),
-                    Devs = _context.Devs.ToList()
+                    Devs = _context.Devs.ToList(),
+                    TiposBugs=_context.TiposBugs.ToList()
                 };
 
                 return View("FormBug", viewModel);
@@ -62,6 +66,7 @@ namespace TaskMaster.Controllers
                 bugInDb.DataBug = bugs.DataBug;
                 bugInDb.DataEstimada = bugs.DataBug;
                 bugInDb.TasksId = bugs.TasksId;
+                bugInDb.TiposBugsId = bugs.TiposBugsId;
                 bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
             }
 
@@ -77,6 +82,7 @@ namespace TaskMaster.Controllers
                 .Include(p => p.Tasks.Projetos)
                 .Include(g => g.Tasks)
                 .Include(g => g.Devs)
+                .Include(b=>b.TiposBugs)
                 .ToList();
 
             return View(bugs);
@@ -93,7 +99,8 @@ namespace TaskMaster.Controllers
             var viewModel = new BugsViewModel(bug)
             {
                 Tasks = _context.Tasks.ToList(),
-                Devs= _context.Devs.ToList()
+                Devs= _context.Devs.ToList(),
+                TiposBugs=_context.TiposBugs.ToList()
             };
 
             return View("FormBug", viewModel);

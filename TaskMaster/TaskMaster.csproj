@@ -221,6 +221,26 @@
     <Compile Include="Migrations\202002251842441_CampoEmailModels.Designer.cs">
       <DependentUpon>202002251842441_CampoEmailModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002272011284_TiposTestesBugs.cs" />
+    <Compile Include="Migrations\202002272011284_TiposTestesBugs.Designer.cs">
+      <DependentUpon>202002272011284_TiposTestesBugs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002272025174_TiposTestesBugsTabelasTasksBugs.cs" />
+    <Compile Include="Migrations\202002272025174_TiposTestesBugsTabelasTasksBugs.Designer.cs">
+      <DependentUpon>202002272025174_TiposTestesBugsTabelasTasksBugs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002272038522_TiposTestesBugsTabelasTasksBugsRemoveKeys.cs" />
+    <Compile Include="Migrations\202002272038522_TiposTestesBugsTabelasTasksBugsRemoveKeys.Designer.cs">
+      <DependentUpon>202002272038522_TiposTestesBugsTabelasTasksBugsRemoveKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002272039264_populartiposbugstestes.cs" />
+    <Compile Include="Migrations\202002272039264_populartiposbugstestes.Designer.cs">
+      <DependentUpon>202002272039264_populartiposbugstestes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002272123478_FKTasksTiposTeste.cs" />
+    <Compile Include="Migrations\202002272123478_FKTasksTiposTeste.Designer.cs">
+      <DependentUpon>202002272123478_FKTasksTiposTeste.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -231,6 +251,8 @@
     <Compile Include="Models\Projetos.cs" />
     <Compile Include="Models\Tasks.cs" />
     <Compile Include="Models\Testers.cs" />
+    <Compile Include="Models\TiposBugs.cs" />
+    <Compile Include="Models\TiposTestes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BugsViewModel.cs" />
@@ -520,6 +542,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002251842441_CampoEmailModels.resx">
       <DependentUpon>202002251842441_CampoEmailModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002272011284_TiposTestesBugs.resx">
+      <DependentUpon>202002272011284_TiposTestesBugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002272025174_TiposTestesBugsTabelasTasksBugs.resx">
+      <DependentUpon>202002272025174_TiposTestesBugsTabelasTasksBugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002272038522_TiposTestesBugsTabelasTasksBugsRemoveKeys.resx">
+      <DependentUpon>202002272038522_TiposTestesBugsTabelasTasksBugsRemoveKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002272039264_populartiposbugstestes.resx">
+      <DependentUpon>202002272039264_populartiposbugstestes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002272123478_FKTasksTiposTeste.resx">
+      <DependentUpon>202002272123478_FKTasksTiposTeste.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

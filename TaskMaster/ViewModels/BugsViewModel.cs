@@ -25,6 +25,12 @@ namespace TaskMaster.ViewModels
         public string NomeProjeto { get; set; }
         public int ProjetosId { get; set; }
 
+        public IEnumerable<TiposBugs> TiposBugs { get; set; }
+        [Display(Name = "Tipo de Bug")]
+        public string TipoBug { get; set; }
+        [Display(Name = "Tipo de Bug")]
+        public int TiposBugsId { get; set; }
+
         public int? TestersId { get; set; }
 
         public int? BugsId { get; set; }
@@ -67,6 +73,7 @@ namespace TaskMaster.ViewModels
             DataEstimada = bug.DataEstimada;
             TasksId = bug.TasksId;
             DevsId = bug.DevsId;
+            TiposBugsId = bug.TiposBugsId;
             UrlRepoCodigo = bug.UrlRepoCodigo;
 
         }

@@ -26,6 +26,9 @@ namespace TaskMaster.Models
        public DbSet<Testers> Testers { get; set; }
        public DbSet<Bugs> Bugs { get; set; }
        public DbSet<Devs> Devs { get; set; }
+       public DbSet<TiposBugs> TiposBugs { get; set; }
+       public DbSet<TiposTestes> TiposTestes { get; set; }
+
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

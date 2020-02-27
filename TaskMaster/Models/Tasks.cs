@@ -18,7 +18,6 @@ namespace TaskMaster.Models
 
         [Display(Name = "Projeto Relacionado")]
         public int ProjetosId { get; set; }
-
         [ForeignKey("ProjetosId")]
         public Projetos Projetos { get; set; } //navigation class
 
@@ -33,6 +32,10 @@ namespace TaskMaster.Models
         public Testers Testers { get; set; } //navigation class
 
         public DateTime? DataReal { get; set; }
+
+        public int TiposTestesId { get; set; }
+        [ForeignKey("TiposTestesId")]
+        public TiposTestes TiposTestes { get; set; } //navigation class
 
         public string Titulo
         {
