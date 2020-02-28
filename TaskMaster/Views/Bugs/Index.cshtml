@@ -33,7 +33,7 @@
             <th>Estado da Correção</th>
             <th>Ações</th>
         </tr>
-    </thead>
+    </>
     <tbody>
         @foreach (var bug in Model)
         {
@@ -41,7 +41,6 @@
             <td>
                 @bug.DescBug<br />
                 @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
-                @Html.ActionLink("Detalhes", "Detalhes", "Bugs", new { id = bug.BugsId }, null)
             </td>
             <td>@bug.TiposBugs.TipoBug</td>
             <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
@@ -50,10 +49,9 @@
             <td>@bug.DataEstimada</td>
             <td>@bug.Devs.DevNome</td>
             <td>@bug.UrlRepoCodigo</td>
-            <td>Estados: Aberto, Correção em Andamento, Fechado</td>
-            <td>
-                <button data-bug-id="@bug.BugsId" class="btn-link js-excluir">Excluir</button>
-            </td>
+            <td>@bug.EstadosBug.NomeEstado</td>
+            <td>@Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, null)
+            <button data-bug-id="@bug.BugsId" class="btn-danger btn-sm js-excluir">Excluir</button></td>
 
 
         </tr>

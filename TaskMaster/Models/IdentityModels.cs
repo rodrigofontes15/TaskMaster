@@ -28,6 +28,7 @@ namespace TaskMaster.Models
        public DbSet<Devs> Devs { get; set; }
        public DbSet<TiposBugs> TiposBugs { get; set; }
        public DbSet<TiposTestes> TiposTestes { get; set; }
+       public DbSet<EstadosBug> EstadosBugs { get; set; }
 
 
         public ApplicationDbContext()

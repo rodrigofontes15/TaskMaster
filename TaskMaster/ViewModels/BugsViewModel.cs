@@ -31,6 +31,13 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Tipo de Bug")]
         public int TiposBugsId { get; set; }
 
+        public IEnumerable<EstadosBug> EstadosBugs { get; set; }
+        [Display(Name = "Estado da Correção do Bug")]
+        public int EstadosBugId { get; set; }
+        [Display(Name = "Estado da Correção do Bug")]
+        public int NomeEstado { get; set; }
+
+
         public int? TestersId { get; set; }
 
         public int? BugsId { get; set; }
@@ -74,6 +81,7 @@ namespace TaskMaster.ViewModels
             TasksId = bug.TasksId;
             DevsId = bug.DevsId;
             TiposBugsId = bug.TiposBugsId;
+            EstadosBugId = bug.EstadosBugId;
             UrlRepoCodigo = bug.UrlRepoCodigo;
 
         }

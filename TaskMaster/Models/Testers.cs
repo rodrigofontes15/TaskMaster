@@ -17,6 +17,10 @@ namespace TaskMaster.Models
 
         public string EmailTester { get; set; }
 
+        public string TelTester { get; set; }
+
+        public string UrlPhotoTester { get; set; }
+
         public ICollection<Tasks> Tasks { get; set; }
     }
 }

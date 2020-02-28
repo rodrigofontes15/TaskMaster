@@ -40,5 +40,13 @@ namespace TaskMaster.Models
         public int TiposBugsId { get; set; }
         [ForeignKey("TiposBugsId")]
         public TiposBugs TiposBugs { get; set; } //navigation class
+
+        public int EstadosBugId { get; set; }
+        [ForeignKey("EstadosBugId")]
+        public EstadosBug EstadosBug { get; set; }
+
+        public int? NotasTrabalhoBugsId { get; set; }
+        [ForeignKey("NotasTrabalhoBugsId")]
+        public NotasTrabalhoBugs NotasTrabalhoBugs { get; set; }
     }
 }

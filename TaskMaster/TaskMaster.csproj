@@ -241,13 +241,31 @@
     <Compile Include="Migrations\202002272123478_FKTasksTiposTeste.Designer.cs">
       <DependentUpon>202002272123478_FKTasksTiposTeste.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002281854006_EstadosBugs.cs" />
+    <Compile Include="Migrations\202002281854006_EstadosBugs.Designer.cs">
+      <DependentUpon>202002281854006_EstadosBugs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002281913207_TipoModificadoEstadosBugs.cs" />
+    <Compile Include="Migrations\202002281913207_TipoModificadoEstadosBugs.Designer.cs">
+      <DependentUpon>202002281913207_TipoModificadoEstadosBugs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002282027053_NotasTrabalhoBugs.cs" />
+    <Compile Include="Migrations\202002282027053_NotasTrabalhoBugs.Designer.cs">
+      <DependentUpon>202002282027053_NotasTrabalhoBugs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002282039102_NotasTrabalhoBugsNull.cs" />
+    <Compile Include="Migrations\202002282039102_NotasTrabalhoBugsNull.Designer.cs">
+      <DependentUpon>202002282039102_NotasTrabalhoBugsNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
     <Compile Include="Models\Devs.cs" />
+    <Compile Include="Models\EstadosBug.cs" />
     <Compile Include="Models\GerenteProjs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NotasTrabalhoBugs.cs" />
     <Compile Include="Models\Projetos.cs" />
     <Compile Include="Models\Tasks.cs" />
     <Compile Include="Models\Testers.cs" />
@@ -467,8 +485,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -501,6 +517,7 @@
     <Content Include="Views\Bugs\Index.cshtml" />
     <Content Include="Views\Bugs\FormBug.cshtml" />
     <Content Include="Views\Tasks\BugsTask.cshtml" />
+    <Content Include="Views\Bugs\DetalhesBug.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -557,6 +574,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002272123478_FKTasksTiposTeste.resx">
       <DependentUpon>202002272123478_FKTasksTiposTeste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002281854006_EstadosBugs.resx">
+      <DependentUpon>202002281854006_EstadosBugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002281913207_TipoModificadoEstadosBugs.resx">
+      <DependentUpon>202002281913207_TipoModificadoEstadosBugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002282027053_NotasTrabalhoBugs.resx">
+      <DependentUpon>202002282027053_NotasTrabalhoBugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002282039102_NotasTrabalhoBugsNull.resx">
+      <DependentUpon>202002282039102_NotasTrabalhoBugsNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

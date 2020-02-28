@@ -29,12 +29,14 @@ namespace TaskMaster.Controllers
             var devs = _context.Devs.ToList();
             var projs = _context.Projetos.ToList();
             var tiposbugs = _context.TiposBugs.ToList();
+            var estadosbugs = _context.EstadosBugs.ToList();
             var viewModel = new BugsViewModel
             {
                 Tasks = tasks,
                 Devs = devs,
                 Projetos = projs,
-                TiposBugs = tiposbugs
+                TiposBugs = tiposbugs,
+                EstadosBugs = estadosbugs
 
             };
 
@@ -51,7 +53,8 @@ namespace TaskMaster.Controllers
                 {
                     Tasks = _context.Tasks.ToList(),
                     Devs = _context.Devs.ToList(),
-                    TiposBugs=_context.TiposBugs.ToList()
+                    TiposBugs=_context.TiposBugs.ToList(),
+                    EstadosBugs =_context.EstadosBugs.ToList()
                 };
 
                 return View("FormBug", viewModel);
@@ -67,6 +70,7 @@ namespace TaskMaster.Controllers
                 bugInDb.DataEstimada = bugs.DataBug;
                 bugInDb.TasksId = bugs.TasksId;
                 bugInDb.TiposBugsId = bugs.TiposBugsId;
+                bugInDb.EstadosBugId = bugs.EstadosBugId;
                 bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
             }
 
@@ -83,6 +87,7 @@ namespace TaskMaster.Controllers
                 .Include(g => g.Tasks)
                 .Include(g => g.Devs)
                 .Include(b=>b.TiposBugs)
+                .Include(e=>e.EstadosBug)
                 .ToList();
 
             return View(bugs);
@@ -100,20 +105,29 @@ namespace TaskMaster.Controllers
             {
                 Tasks = _context.Tasks.ToList(),
                 Devs= _context.Devs.ToList(),
-                TiposBugs=_context.TiposBugs.ToList()
+                TiposBugs=_context.TiposBugs.ToList(),
+                EstadosBugs=_context.EstadosBugs.ToList()
             };
 
             return View("FormBug", viewModel);
         }
 
-        public ActionResult Detalhes(int id)
+        public ActionResult DetalhesBug(int id)
         {
             var bug = _context.Bugs.SingleOrDefault(c => c.BugsId == id);
 
             if (bug == null)
                 return HttpNotFound();
 
-            return View(bug);
+            var viewModel = new BugsViewModel(bug)
+            {
+                Tasks = _context.Tasks.ToList(),
+                Devs = _context.Devs.ToList(),
+                TiposBugs = _context.TiposBugs.ToList(),
+                EstadosBugs = _context.EstadosBugs.ToList()
+            };
+
+            return View("DetalhesBug", viewModel);
         }
     }
 }

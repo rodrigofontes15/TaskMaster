@@ -49,8 +49,8 @@ else
                 <td>@projeto.DataEstimada</td>
                 <td>@projeto.DataReal</td>
                 <td>
-                    @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-warning btn-sm" })<br />
-                    <button data-projeto-id="@projeto.ProjetosId" class="btn-link js-excluir">Excluir</button>
+                    @Html.ActionLink("Cadastrar task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />
+                    <button data-projeto-id="@projeto.ProjetosId" class="btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
                 </td>
             </tr>
             }

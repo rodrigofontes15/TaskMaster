@@ -16,6 +16,10 @@ namespace TaskMaster.Models
 
         public string EmailGp { get; set; }
 
+        public string TelGp { get; set; }
+
+        public string UrlPhotoGp { get; set; }
+
         public ICollection<Projetos> Projetos { get; set; }
     }
 }
