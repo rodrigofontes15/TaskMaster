@@ -102,15 +102,15 @@ namespace TaskMaster.Controllers
             return View("FormTask", viewModel);
         }
 
-        public ActionResult BugsTask(int id)
-        {
-            var bugsdatask = _context.Bugs.Where(n => n.TasksId == id)
-                .Include(t => t.Tasks)
-                .Include(p => p.Devs)
-                .Include(p => p.Tasks.Projetos)
-                .ToList();
 
-            return View("BugsTask", bugsdatask);
+          public ActionResult TasksProjeto(int id)
+        {
+            var tasksdoprojeto = _context.Tasks.Where(n => n.ProjetosId == id)
+                .Include(t => t.Testers)
+                .Include(p=>p.Projetos)
+                .ToList();
+            
+            return View("TasksProjeto", tasksdoprojeto);    
         }
 
         public ActionResult Detalhes(int id)

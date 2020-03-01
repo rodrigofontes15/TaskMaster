@@ -15,17 +15,8 @@
 }
 else
 {
-    foreach (var task in Model)
-    {
-        <h2>Tasks do Projeto <p><b>@task.Projetos.NomeProjeto</b></p></h2>
-    }
-}
-    @if (!Model.Any())
-    {
+        <h2>Tasks do Projeto</h2>
 
-    }
-    else
-    {
         <table id="tasks" class="table table-bordered table-hover">
             <thead>
                 <tr>

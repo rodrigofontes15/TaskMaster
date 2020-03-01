@@ -112,6 +112,18 @@ namespace TaskMaster.Controllers
             return View("FormBug", viewModel);
         }
 
+
+        public ActionResult BugsTask(int id)
+        {
+            var bugsdatask = _context.Bugs.Where(n => n.TasksId == id)
+                .Include(t => t.Tasks)
+                .Include(p => p.Devs)
+                .Include(p => p.Tasks.Projetos)
+                .ToList();
+
+            return View("BugsTask", bugsdatask);
+        }
+
         public ActionResult DetalhesBug(int id)
         {
             var bug = _context.Bugs.SingleOrDefault(c => c.BugsId == id);
@@ -129,5 +141,6 @@ namespace TaskMaster.Controllers
 
             return View("DetalhesBug", viewModel);
         }
+
     }
 }

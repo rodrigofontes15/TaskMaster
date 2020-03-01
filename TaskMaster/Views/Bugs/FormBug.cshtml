@@ -31,7 +31,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.TasksId)
-        @Html.DropDownListFor(m => m.TasksId, new SelectList(Model.Tasks, "TasksId", "NomeTask"), "Selecione...", new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.TasksId, new SelectList(Model.Tasks, "TasksId", "NomeTask"), "Selecione...", new { @class = "form-control", id = "TaskId", onchange = "ProjetoTask()" })
         @Html.ValidationMessageFor(m => m.TasksId)
     </div>
 
@@ -78,4 +78,5 @@
 }
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
+
 }

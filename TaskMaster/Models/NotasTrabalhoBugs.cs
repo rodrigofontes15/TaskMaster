@@ -11,6 +11,8 @@ namespace TaskMaster.Models
 
         public string NotasTrabalho { get; set; }
 
+        public DateTime DataNotaTrabalho { get; set; }
+
         public ICollection<Bugs> Bugs { get; set; }
     }
 }

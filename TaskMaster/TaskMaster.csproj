@@ -257,6 +257,10 @@
     <Compile Include="Migrations\202002282039102_NotasTrabalhoBugsNull.Designer.cs">
       <DependentUpon>202002282039102_NotasTrabalhoBugsNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003012021525_DataNotaTrabalho.cs" />
+    <Compile Include="Migrations\202003012021525_DataNotaTrabalho.Designer.cs">
+      <DependentUpon>202003012021525_DataNotaTrabalho.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -513,10 +517,10 @@
     <Content Include="Views\Tasks\FormTask.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Tasks\Detalhes.cshtml" />
-    <Content Include="Views\Projetos\TasksProjeto.cshtml" />
+    <Content Include="Views\Tasks\TasksProjeto.cshtml" />
     <Content Include="Views\Bugs\Index.cshtml" />
     <Content Include="Views\Bugs\FormBug.cshtml" />
-    <Content Include="Views\Tasks\BugsTask.cshtml" />
+    <Content Include="Views\Bugs\BugsTask.cshtml" />
     <Content Include="Views\Bugs\DetalhesBug.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -586,6 +590,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002282039102_NotasTrabalhoBugsNull.resx">
       <DependentUpon>202002282039102_NotasTrabalhoBugsNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003012021525_DataNotaTrabalho.resx">
+      <DependentUpon>202003012021525_DataNotaTrabalho.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

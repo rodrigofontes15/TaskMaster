@@ -38,7 +38,7 @@
             <td>
                 <b>@task.NomeTask</b><br />
                 @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
-                @Html.ActionLink("Ver Bugs", "BugsTask", "Tasks", new { id = task.TasksId }, null)
+                @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
             </td>
             <td>@task.TiposTestes.TipoTeste</td>
             <td>@task.Projetos.NomeProjeto</td>
