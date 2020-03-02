@@ -16,7 +16,7 @@ namespace TaskMaster.ViewModels
         public int DevsId { get; set; }
 
         public IEnumerable<Tasks> Tasks { get; set; }
-        public string Nome { get; set; }
+        public string NomeTask { get; set; }
         [Display(Name = "Task Relacionada")]
         public int? TasksId { get; set; }
 

@@ -522,6 +522,7 @@
     <Content Include="Views\Bugs\FormBug.cshtml" />
     <Content Include="Views\Bugs\BugsTask.cshtml" />
     <Content Include="Views\Bugs\DetalhesBug.cshtml" />
+    <Content Include="Views\Home\ListarBugEstado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

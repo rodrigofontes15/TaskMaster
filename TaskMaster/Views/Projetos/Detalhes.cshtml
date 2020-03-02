@@ -44,7 +44,7 @@ else
                     <td>
                         <b>@projeto.NomeProjeto</b><br />
                         @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)
-                        @Html.ActionLink("Ver Tasks", "TasksProjeto", "Projetos", new { id = projeto.ProjetosId }, null)
+                        @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)
                     </td>
                     <td>@projeto.GerenteProjs.Nome</td>
                     <td>@projeto.DataInicio</td>

@@ -11,16 +11,16 @@
 *@
 
 @{
-    ViewBag.Title = "Bugs";
+    ViewBag.Title = "ListBugsEstado";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @if (!Model.Any())
 {
-    <h2>Nenhum Bug Encontrado!</h2>
+<h2>Nenhum Bug @ViewData["EstadoBug"]!</h2>
 }
 else
 {
-    <h2>Bugs da Task <b>@ViewData["NomeTask"]</b></h2>
+    <h2>Bugs com Estado <b>@ViewData["EstadoBug"]</b></h2>
     <p>
         @Html.ActionLink("Reportar Bug", "NovoBug", "Bugs", null, new { @class = "btn btn-primary" })
     </p>

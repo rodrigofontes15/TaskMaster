@@ -15,12 +15,13 @@
 }
 else
 {
-        <h2>Tasks do Projeto</h2>
+<h2>Tasks do Projeto <b>@ViewData["NomeProjeto"]</b></h2>
 
         <table id="tasks" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Nomo do Projeto</th>
+                    <th>Tipo de Teste</th>
                     <th>Nome da Task</th>
                     <th>Data de Início</th>
                     <th>Data Estimada de Término</th>
@@ -31,20 +32,21 @@ else
             <tbody>
                 @foreach (var task in Model)
                 {
-                    <tr>
-                        <td>
-                            @task.Projetos.NomeProjeto<br />
-                            @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
-                            @Html.ActionLink("Ver Bugs", "BugsTask", "Tasks", new { id = task.TasksId }, null)
-                        </td>
-                        <td>@task.NomeTask</td>
-                        <td>@task.DataInicio</td>
-                        <td>@task.DataEstimada</td>
-                        <td>@task.Testers.Nome</td>
-                        <td>
-                            <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @task.Projetos.NomeProjeto<br />
+                        @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
+                        @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
+                    </td>
+                    <td>@task.TiposTestes.TipoTeste</td>
+                    <td>@task.NomeTask</td>
+                    <td>@task.DataInicio</td>
+                    <td>@task.DataEstimada</td>
+                    <td>@task.Testers.Nome</td>
+                    <td>
+                        <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

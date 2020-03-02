@@ -1,6 +1,10 @@
-﻿@model IEnumerable<TaskMaster.Models.Projetos>
+﻿@model IEnumerable<TaskMaster.Models.Bugs>
 @{
     ViewBag.Title = "Home Page";
+
+    string abertos = ViewData["QtdBugsAbertos"].ToString();
+    string emTrat = ViewData["QtdBugsEmTrat"].ToString();
+    string Corrig = ViewData["QtdBugsCorrigido"].ToString();
 }
 
 <div class="jumbotron">
@@ -13,36 +17,32 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Bugs Abertos</h2>
+        <h2>Bugs Encontrados</h2>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Projetos</th>
-                    <th>Data Estimada de Término</th>
-                    <th>Data Real de Término</th>
+                    <th>Quantidade de Bugs</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var projetos in Model)
-                {
-                    <tr>
-                        <td>@projetos.NomeProjeto</td>
-                        <td>@projetos.DataEstimada</td>
-                        <td>@projetos.DataReal</td>
-                    </tr>
-                }
+                <tr>
+                    <td>@abertos</td>
+                    <td>@Html.ActionLink("Abertos", "ListarBugEstado", "Home", new { estado= "Aberto" }, null)</td></tr>
+                    <td>@emTrat</td>
+                    <td>@Html.ActionLink("Em Tratamento", "ListarBugEstado", "Home", new { estado= "Em Tratamento" }, null)</td></tr>
+                    <td>@Corrig</td>
+                    <td>@Html.ActionLink("Corrigidos", "ListarBugEstado", "Home", new { estado = "Corrigidos" }, null)</td>
+                </tr>
             </tbody>
         </table>
-        <p><a class="btn btn-default">Ver Detalhes &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Bugs Em Tratamento</h2>
-        <p>tabela tera nome do projeto, bug e dev</p>
-        <p><a class="btn btn-default">Ver Detalhes &raquo;</a></p>
+        <h2>Bugs por Tipo</h2>
+        <p>Quantidade de Bugs por tipo</p>
     </div>
     <div class="col-md-4">
-        <h2>Bugs Corrigidos</h2>
-        <p>tabela tera nome do projeto, bug e dev</p>
-        <p><a class="btn btn-default">Ver Detalhes &raquo;</a></p>
+        <h2>Bugs por Desenvolvedor</h2>
+        <p>Quantidade de Bugs por Dev</p>
     </div>
 </div>

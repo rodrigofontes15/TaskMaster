@@ -107,9 +107,16 @@ namespace TaskMaster.Controllers
         {
             var tasksdoprojeto = _context.Tasks.Where(n => n.ProjetosId == id)
                 .Include(t => t.Testers)
-                .Include(p=>p.Projetos)
+                .Include(p => p.Projetos)
+                .Include(t => t.TiposTestes)
                 .ToList();
-            
+
+            var nomeProjeto = _context.Tasks
+                .Where(n => n.ProjetosId == id)
+                .Select(n => n.Projetos.NomeProjeto)
+                .FirstOrDefault();
+            ViewData["NomeProjeto"] = nomeProjeto;
+
             return View("TasksProjeto", tasksdoprojeto);    
         }
 

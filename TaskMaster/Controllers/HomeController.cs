@@ -26,14 +26,44 @@ namespace TaskMaster.Controllers
 
         public ViewResult Index()
         {
-            var projetos = _context.Projetos.Include(g => g.GerenteProjs).ToList();
 
-            return View(projetos);
+            var qtdbugsAberto = _context.Bugs.Where(i=>i.EstadosBug.NomeEstado=="Aberto").Count().ToString();
+            ViewData["QtdBugsAbertos"] = qtdbugsAberto;
+
+            var qtdbugsEmTrat = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Em Tratamento").Count().ToString();
+            ViewData["QtdBugsEmTrat"] = qtdbugsEmTrat;
+
+            var qtdbugsCorrigido = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Corrigido").Count().ToString();
+            ViewData["QtdBugsCorrigido"] = qtdbugsCorrigido;
+
+            var bugs = _context.Bugs
+               .Include(p => p.Tasks.Projetos)
+               .Include(g => g.Tasks)
+               .Include(g => g.Devs)
+               .Include(b => b.TiposBugs)
+               .Include(e => e.EstadosBug)
+               .ToList();
+
+            return View(bugs);
         }
 
-        public ActionResult About()
+        public ActionResult ListarBugEstado(string estado)
         {
-            ViewBag.Message = "Your application description page.";
+            var bugestado = _context.Bugs.Where(n => n.EstadosBug.NomeEstado == estado)
+                .Include(t => t.Tasks)
+                .Include(p => p.Devs)
+                .Include(p => p.Tasks.Projetos)
+                .Include(e => e.EstadosBug)
+                .Include(t => t.TiposBugs)
+                .ToList();
+
+            var bugEstado = _context.Bugs
+               .Where(n => n.EstadosBug.NomeEstado == estado)
+               .Select(n => n.EstadosBug.NomeEstado)
+               .FirstOrDefault();
+            ViewData["EstadoBug"] = bugEstado;
+
+            return View("ListarBugEstado", bugestado);
 
             return View();
         }

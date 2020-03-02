@@ -119,7 +119,15 @@ namespace TaskMaster.Controllers
                 .Include(t => t.Tasks)
                 .Include(p => p.Devs)
                 .Include(p => p.Tasks.Projetos)
+                .Include(e=>e.EstadosBug)
+                .Include(t=>t.TiposBugs)
                 .ToList();
+
+            var nomeTask = _context.Bugs
+                .Where(n => n.Tasks.TasksId == id)
+                .Select(n => n.Tasks.NomeTask)
+                .FirstOrDefault();
+            ViewData["NomeTask"] = nomeTask;
 
             return View("BugsTask", bugsdatask);
         }
