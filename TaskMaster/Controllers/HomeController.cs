@@ -64,8 +64,6 @@ namespace TaskMaster.Controllers
             ViewData["EstadoBug"] = bugEstado;
 
             return View("ListarBugEstado", bugestado);
-
-            return View();
         }
 
         public ActionResult Contact()

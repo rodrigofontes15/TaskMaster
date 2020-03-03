@@ -31,52 +31,52 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.TasksId)
-        @Html.DropDownListFor(m => m.TasksId, new SelectList(Model.Tasks, "TasksId", "NomeTask"), "Selecione...", new { @class = "form-control", id = "TaskId", onchange = "ProjetoTask()" })
+        @Html.DropDownListFor(m => m.TasksId, new SelectList(Model.Tasks, "TasksId", "NomeTask"), "Selecione...", new { @class = "form-control", id = "TaskId", onchange = "TaskProjeto();" })
         @Html.ValidationMessageFor(m => m.TasksId)
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.NomeProjeto)
-        @Html.TextBoxFor(m => m.NomeProjeto, new { @class = "form-control", disabled = "disabled", @readonly = "readonly" })
+/*
+<div class="form-group">
+    @Html.LabelFor(m => m.NomeProjeto)
+    @Html.TextBoxFor(m => m.NomeProjeto, new { @class = "form-control", disabled = "disabled", @readonly = "readonly", id = "TaskProjeto" })
 
-    </div>
+</div>
+*/
+        <div class="form-group">
+            @Html.LabelFor(m => m.DataBug)
+            @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DataBug)
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.DataBug)
-        @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.DataBug)
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.DataEstimada)
+            @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DataEstimada)
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.DataEstimada)
-        @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.DataEstimada)
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.EstadosBugId)
+            @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.EstadosBugId)
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.EstadosBugId)
-        @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.EstadosBugId)
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.DevsId)
+            @Html.DropDownListFor(m => m.DevsId, new SelectList(Model.Devs, "DevsId", "DevNome"), "Selecione...", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DevsId)
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.DevsId)
-        @Html.DropDownListFor(m => m.DevsId, new SelectList(Model.Devs, "DevsId", "DevNome"), "Selecione...", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.DevsId)
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UrlRepoCodigo)
+            @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UrlRepoCodigo)
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.UrlRepoCodigo)
-        @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.UrlRepoCodigo)
-    </div>
+        @Html.HiddenFor(c => c.BugsId)
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary">Salvar</button>
 
-    @Html.HiddenFor(c => c.BugsId)
-    @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Salvar</button>
-
-}
-@section scripts{
-    @Scripts.Render("~/bundles/jqueryval")
-
-}
+    }
+    @section scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+    }
