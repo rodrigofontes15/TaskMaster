@@ -23,7 +23,7 @@ namespace TaskMaster.Controllers
             _context.Dispose();
         }
 
-        public ViewResult NovoBug()
+        public ViewResult FormBug()
         {
             var tasks = _context.Tasks.ToList();
             var devs = _context.Devs.ToList();
