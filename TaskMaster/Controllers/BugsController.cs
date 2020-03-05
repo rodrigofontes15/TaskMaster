@@ -23,8 +23,12 @@ namespace TaskMaster.Controllers
             _context.Dispose();
         }
 
-        public ViewResult FormBug()
+        public ActionResult FormBug()
         {
+
+            List<Projetos> ListaProjetos = _context.Projetos.ToList();
+            ViewBag.ListaProjetos = new SelectList(ListaProjetos, "ProjetosId", "NomeProjeto");
+
             var tasks = _context.Tasks.ToList();
             var devs = _context.Devs.ToList();
             var projs = _context.Projetos.ToList();
@@ -43,6 +47,13 @@ namespace TaskMaster.Controllers
             return View("FormBug", viewModel);
         }
 
+        public JsonResult ListarTasksProjeto(int ProjetosId)
+        {
+            
+            List<Tasks> ListaTasks = _context.Tasks.Where(p => p.ProjetosId == ProjetosId).ToList();
+            return Json(ListaTasks, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Salvar(Bugs bugs)
@@ -51,6 +62,7 @@ namespace TaskMaster.Controllers
             {
                 var viewModel = new BugsViewModel(bugs)
                 {
+                    Projetos = _context.Projetos.ToList(),
                     Tasks = _context.Tasks.ToList(),
                     Devs = _context.Devs.ToList(),
                     TiposBugs=_context.TiposBugs.ToList(),
@@ -68,7 +80,9 @@ namespace TaskMaster.Controllers
                 bugInDb.DescBug = bugs.DescBug;
                 bugInDb.DataBug = bugs.DataBug;
                 bugInDb.DataEstimada = bugs.DataBug;
+              //  bugInDb.ProjetosId = bugs.ProjetosId;
                 bugInDb.TasksId = bugs.TasksId;
+                bugInDb.DevsId = bugs.DevsId;
                 bugInDb.TiposBugsId = bugs.TiposBugsId;
                 bugInDb.EstadosBugId = bugs.EstadosBugId;
                 bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
@@ -104,6 +118,7 @@ namespace TaskMaster.Controllers
             var viewModel = new BugsViewModel(bug)
             {
                 Tasks = _context.Tasks.ToList(),
+                Projetos=_context.Projetos.ToList(),
                 Devs= _context.Devs.ToList(),
                 TiposBugs=_context.TiposBugs.ToList(),
                 EstadosBugs=_context.EstadosBugs.ToList()
@@ -149,6 +164,5 @@ namespace TaskMaster.Controllers
 
             return View("DetalhesBug", viewModel);
         }
-
     }
 }

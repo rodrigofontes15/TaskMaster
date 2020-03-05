@@ -18,11 +18,12 @@ namespace TaskMaster.ViewModels
         public IEnumerable<Tasks> Tasks { get; set; }
         public string NomeTask { get; set; }
         [Display(Name = "Task Relacionada")]
-        public int? TasksId { get; set; }
+        public int TasksId { get; set; }
 
         public IEnumerable<Projetos> Projetos { get; set; }
         [Display(Name = "Nome do Projeto")]
         public string NomeProjeto { get; set; }
+        [Display(Name = "Nome do Projeto")]
         public int ProjetosId { get; set; }
 
         public IEnumerable<TiposBugs> TiposBugs { get; set; }
@@ -78,6 +79,7 @@ namespace TaskMaster.ViewModels
             DescBug = bug.DescBug;
             DataBug = bug.DataBug;
             DataEstimada = bug.DataEstimada;
+          //  ProjetosId = bug.ProjetosId;
             TasksId = bug.TasksId;
             DevsId = bug.DevsId;
             TiposBugsId = bug.TiposBugsId;

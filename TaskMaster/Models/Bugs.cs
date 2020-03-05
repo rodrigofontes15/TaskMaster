@@ -18,9 +18,13 @@ namespace TaskMaster.Models
 
         [Display(Name = "Task Relacionada")]
         public int TasksId { get; set; }
-
         [ForeignKey("TasksId")]
         public Tasks Tasks { get; set; } //navigation class
+
+        //  [Display(Name = "Projeto Relacionado")]
+        //   public int ProjetosId { get; set; }
+        //[ForeignKey("ProjetosId")]
+        //public Projetos Projetos { get; set; } //navigation class
 
         [Display(Name = "Bug en contrado em:")]
         public DateTime? DataBug { get; set; }
@@ -29,13 +33,12 @@ namespace TaskMaster.Models
         public DateTime? DataEstimada { get; set; }
 
         public int DevsId { get; set; }
+        [ForeignKey("DevsId")]
+        public Devs Devs { get; set; } //navigation class
 
         public Boolean BugAceito { get; set; }
 
         public string UrlRepoCodigo { get; set; }
-
-        [ForeignKey("DevsId")]
-        public Devs Devs { get; set; } //navigation class
 
         public int TiposBugsId { get; set; }
         [ForeignKey("TiposBugsId")]

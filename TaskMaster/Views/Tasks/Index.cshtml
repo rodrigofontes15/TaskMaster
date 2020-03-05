@@ -22,9 +22,8 @@
 <table id="tasks" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Tasks</th>
+            <th>Nome da Task</th>
             <th>Tipo de Teste</th>
-            <th>Projeto Relacionado</th>
             <th>Data de Início</th>
             <th>Data Estimada de Término</th>
             <th>Testador Responsável</th>
@@ -41,12 +40,11 @@
                 @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
             </td>
             <td>@task.TiposTestes.TipoTeste</td>
-            <td>@task.Projetos.NomeProjeto</td>
             <td>@task.DataInicio</td>
             <td>@task.DataEstimada</td>
             <td>@task.Testers.Nome</td>
             <td>
-                @Html.ActionLink("Reportar Bug", "NovoBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })<br />
+                @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })<br />
                 <button data-task-id="@task.TasksId" class="btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
             </td>
         </tr>

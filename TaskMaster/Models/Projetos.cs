@@ -9,6 +9,7 @@ namespace TaskMaster.Models
 {
     public class Projetos
     {
+        [Display(Name = "Nome do Projeto")]
         public int ProjetosId { get; set; }
 
         [Required]
@@ -18,7 +19,6 @@ namespace TaskMaster.Models
 
         [Display(Name = "Gerente de Projeto")]
         public int GerenteProjsId { get; set; }
-
         [ForeignKey("GerenteProjsId")]
         public GerenteProjs GerenteProjs { get; set; } //navigation class
 
@@ -30,5 +30,6 @@ namespace TaskMaster.Models
 
         public DateTime? DataReal { get; set; }
 
+     //   public ICollection<Bugs> Bugs { get; set; }
     }
 }

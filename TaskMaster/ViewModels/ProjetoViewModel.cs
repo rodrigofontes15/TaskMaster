@@ -49,7 +49,7 @@ namespace TaskMaster.ViewModels
         {
             ProjetosId = projeto.ProjetosId;
             NomeProjeto = projeto.NomeProjeto;
-            GerenteProjsId = projeto.GerenteProjsId;
+           // GerenteProjsId = projeto.GerenteProjsId;
             DataInicio = projeto.DataInicio;
             DataEstimada = projeto.DataEstimada;
         }

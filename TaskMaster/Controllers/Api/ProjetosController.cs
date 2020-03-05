@@ -57,7 +57,7 @@ namespace TaskMaster.Controllers.Api
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             projetoInDb.NomeProjeto = projetos.NomeProjeto;
-            projetoInDb.GerenteProjsId = projetos.GerenteProjsId;
+            
             projetoInDb.DataInicio = projetos.DataInicio;
             projetoInDb.DataEstimada = projetos.DataEstimada;
 

@@ -261,6 +261,38 @@
     <Compile Include="Migrations\202003012021525_DataNotaTrabalho.Designer.cs">
       <DependentUpon>202003012021525_DataNotaTrabalho.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003052132454_ProjetoIdTabelaBugs.cs" />
+    <Compile Include="Migrations\202003052132454_ProjetoIdTabelaBugs.Designer.cs">
+      <DependentUpon>202003052132454_ProjetoIdTabelaBugs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052218516_ProjetoIdTabelaBugsDeletar.cs" />
+    <Compile Include="Migrations\202003052218516_ProjetoIdTabelaBugsDeletar.Designer.cs">
+      <DependentUpon>202003052218516_ProjetoIdTabelaBugsDeletar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052220335_ProjetoIdTabelaBugsNovo.cs" />
+    <Compile Include="Migrations\202003052220335_ProjetoIdTabelaBugsNovo.Designer.cs">
+      <DependentUpon>202003052220335_ProjetoIdTabelaBugsNovo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052237531_ProjetoGerenteProjetoFK.cs" />
+    <Compile Include="Migrations\202003052237531_ProjetoGerenteProjetoFK.Designer.cs">
+      <DependentUpon>202003052237531_ProjetoGerenteProjetoFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052238528_BugsProjetos.cs" />
+    <Compile Include="Migrations\202003052238528_BugsProjetos.Designer.cs">
+      <DependentUpon>202003052238528_BugsProjetos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052308541_RemoverGPProjetos.cs" />
+    <Compile Include="Migrations\202003052308541_RemoverGPProjetos.Designer.cs">
+      <DependentUpon>202003052308541_RemoverGPProjetos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052310026_AddGPProjetos.cs" />
+    <Compile Include="Migrations\202003052310026_AddGPProjetos.Designer.cs">
+      <DependentUpon>202003052310026_AddGPProjetos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052330320_AddGPProjetos1.cs" />
+    <Compile Include="Migrations\202003052330320_AddGPProjetos1.Designer.cs">
+      <DependentUpon>202003052330320_AddGPProjetos1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -594,6 +626,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003012021525_DataNotaTrabalho.resx">
       <DependentUpon>202003012021525_DataNotaTrabalho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052132454_ProjetoIdTabelaBugs.resx">
+      <DependentUpon>202003052132454_ProjetoIdTabelaBugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052218516_ProjetoIdTabelaBugsDeletar.resx">
+      <DependentUpon>202003052218516_ProjetoIdTabelaBugsDeletar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052220335_ProjetoIdTabelaBugsNovo.resx">
+      <DependentUpon>202003052220335_ProjetoIdTabelaBugsNovo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052237531_ProjetoGerenteProjetoFK.resx">
+      <DependentUpon>202003052237531_ProjetoGerenteProjetoFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052238528_BugsProjetos.resx">
+      <DependentUpon>202003052238528_BugsProjetos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052308541_RemoverGPProjetos.resx">
+      <DependentUpon>202003052308541_RemoverGPProjetos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052310026_AddGPProjetos.resx">
+      <DependentUpon>202003052310026_AddGPProjetos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052330320_AddGPProjetos1.resx">
+      <DependentUpon>202003052330320_AddGPProjetos1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
