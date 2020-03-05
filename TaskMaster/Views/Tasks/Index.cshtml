@@ -23,6 +23,7 @@
     <thead>
         <tr>
             <th>Nome da Task</th>
+            <th>Projeto</th>
             <th>Tipo de Teste</th>
             <th>Data de Início</th>
             <th>Data Estimada de Término</th>
@@ -39,6 +40,7 @@
                 @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
                 @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
             </td>
+            <td>@task.Projetos.NomeProjeto</td>
             <td>@task.TiposTestes.TipoTeste</td>
             <td>@task.DataInicio</td>
             <td>@task.DataEstimada</td>
