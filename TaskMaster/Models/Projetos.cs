@@ -23,6 +23,7 @@ namespace TaskMaster.Models
         public GerenteProjs GerenteProjs { get; set; } //navigation class
 
         [Display(Name = "Data de Início")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataInicio { get; set; }
 
         [Display(Name = "Data Estimada de Término")]

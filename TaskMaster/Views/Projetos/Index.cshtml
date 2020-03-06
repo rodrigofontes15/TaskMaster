@@ -29,12 +29,12 @@ else
     <table id="projetos" class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Nome do Projeto</th>
-                <th>Gerente de Projeto</th>
-                <th>Data de Início</th>
-                <th>Data Estimada de Término</th>
-                <th>Data Real de Término</th>
-                <th>Ações</th>
+                <th class="active">Nome do Projeto</th>
+                <th class="active">Gerente de Projeto</th>
+                <th class="active">Data de Início</th>
+                <th class="active">Data de Entrega</th>
+                <th class="active">Data Real</th>
+                <th class="active">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -45,12 +45,12 @@ else
                 @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)     
                 @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)</td>
                 <td>@projeto.GerenteProjs.Nome</td>
-                <td>@projeto.DataInicio</td>
-                <td>@projeto.DataEstimada</td>
+                <td>@projeto.DataInicio.Value.ToString("dd/MM/yyyy")</td>
+                <td>@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
                 <td>@projeto.DataReal</td>
                 <td>
-                    @Html.ActionLink("Cadastrar task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />
-                    <button data-projeto-id="@projeto.ProjetosId" class="btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                    @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />
+                   <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
                 </td>
             </tr>
             }

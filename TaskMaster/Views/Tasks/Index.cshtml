@@ -22,13 +22,13 @@
 <table id="tasks" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Nome da Task</th>
-            <th>Projeto</th>
-            <th>Tipo de Teste</th>
-            <th>Data de Início</th>
-            <th>Data Estimada de Término</th>
-            <th>Testador Responsável</th>
-            <th>Ações</th>
+            <th class="active">Nome da Task</th>
+            <th class="active">Projeto</th>
+            <th class="active">Tipo de Teste</th>
+            <th class="active">Data de Início</th>
+            <th class="active">Data de Término</th>
+            <th class="active">Testador</th>
+            <th class="active">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -42,8 +42,8 @@
             </td>
             <td>@task.Projetos.NomeProjeto</td>
             <td>@task.TiposTestes.TipoTeste</td>
-            <td>@task.DataInicio</td>
-            <td>@task.DataEstimada</td>
+            <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
+            <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
             <td>@task.Testers.Nome</td>
             <td>
                 @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })<br />

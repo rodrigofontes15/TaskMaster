@@ -47,8 +47,8 @@ else
                         @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)
                     </td>
                     <td>@projeto.GerenteProjs.Nome</td>
-                    <td>@projeto.DataInicio</td>
-                    <td>@projeto.DataEstimada</td>
+                    <td>@projeto.DataInicio.Value.ToString("dd/MM/yyyy")</td>
+                    <td>@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
                     <td>@projeto.DataReal</td>
                     <td>
                         <button data-projeto-id="@projeto.ProjetosId" class="btn-link js-excluir">Excluir</button>

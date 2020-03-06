@@ -24,6 +24,7 @@ namespace TaskMaster.ViewModels
 
         [Required]
         [Display(Name = "Data de Início")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataInicio { get; set; }
 
         [Required]

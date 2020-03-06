@@ -22,14 +22,14 @@
 <table id="bugs" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Tipo de Bug</th>
-            <th>Projeto Relacionado</th>
-            <th>Task Relacionada</th>
-            <th>Data do Bug</th>
-            <th>Data Estimada para Resolução</th>
-            <th>DEV Responsável</th>
-            <th>Estado da Correção</th>
-            <th>Ações</th>
+            <th class="active">Tipo de Bug</th>
+            <th class="active">Projeto</th>
+            <th class="active">Task</th>
+            <th class="active">Data do Bug</th>
+            <th class="active">Estimativa de Solução</th>
+            <th class="active">DEV</th>
+            <th class="active">Estado da Correção</th>
+            <th class="active">Ações</th>
         </tr>
     </>
     <tbody>
@@ -42,12 +42,12 @@
             </td>
             <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
             <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null)</td>
-            <td>@bug.DataBug</td>
-            <td>@bug.DataEstimada</td>
+            <td>@bug.DataBug.Value.ToString("dd/MM/yyyy")</td>
+            <td>@bug.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
             <td>@bug.Devs.DevNome</td>
             <td>@bug.EstadosBug.NomeEstado</td>
-            <td>@Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, null)
-            <button data-bug-id="@bug.BugsId" class="btn-danger btn-sm js-excluir">Excluir</button></td>
+            <td>@Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />
+            <button data-bug-id="@bug.BugsId" class="btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button></td>
 
 
         </tr>
