@@ -17,9 +17,14 @@
 @if (!Model.Any())
 {
     <h2>Nenhum Bug Encontrado!</h2>
+
+    <p>
+        @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary" })
+    </p>
 }
 else
 {
+
     <h2>Bugs da Task <b>@ViewData["NomeTask"]</b></h2>
     <p>
         @Html.ActionLink("Reportar Bug", "NovoBug", "Bugs", null, new { @class = "btn btn-primary" })
@@ -40,21 +45,21 @@ else
         <tbody>
             @foreach (var bug in Model)
             {
-            <tr>
-                <td>
-                    @bug.TiposBugs.TipoBug<br />
-                    @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
-                </td>
-                <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
-                <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
-                <td>@bug.DataBug</td>
-                <td>@bug.DataEstimada</td>
-                <td>@bug.Devs.DevNome</td>
-                <td>@bug.EstadosBug.NomeEstado</td>
-                <td>
-                    <button data-bug-id="@bug.BugsId" class="btn-link js-excluir">Excluir</button>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @bug.TiposBugs.TipoBug<br />
+                        @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
+                    </td>
+                    <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
+                    <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
+                    <td>@bug.DataBug</td>
+                    <td>@bug.DataEstimada</td>
+                    <td>@bug.Devs.DevNome</td>
+                    <td>@bug.EstadosBug.NomeEstado</td>
+                    <td>
+                        <button data-bug-id="@bug.BugsId" class="btn-link js-excluir">Excluir</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

@@ -1,37 +1,43 @@
 ﻿@model IEnumerable<TaskMaster.Models.Tasks>
 @{
-                /**/
+    /**/
 
-                /**/
+    /**/
 
-                /**/
+    /**/
 
-                ViewBag.Title = "TasksProjeto";
-                Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "TasksProjeto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 @if (!Model.Any())
 {
     <h2>Nenhum Task Criada!</h2>
+    <p>
+        @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary" })
+    </p>
 }
 else
 {
-<h2>Tasks do Projeto <b>@ViewData["NomeProjeto"]</b></h2>
 
-        <table id="tasks" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Nomo do Projeto</th>
-                    <th>Tipo de Teste</th>
-                    <th>Nome da Task</th>
-                    <th>Data de Início</th>
-                    <th>Data Estimada de Término</th>
-                    <th>Testador Responsável</th>
-                    <th>Excluir</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var task in Model)
-                {
+    <h2>Tasks do Projeto <b>@ViewData["NomeProjeto"]</b></h2>
+
+    <table id="tasks" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nomo do Projeto</th>
+                <th>Tipo de Teste</th>
+                <th>Nome da Task</th>
+                <th>Data de Início</th>
+                <th>Data Estimada de Término</th>
+                <th>Testador Responsável</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model)
+            {
                 <tr>
                     <td>
                         @task.Projetos.NomeProjeto<br />
@@ -47,42 +53,42 @@ else
                         <button data-task-id="@task.TasksId" class="btn-link js-excluir">Excluir</button>
                     </td>
                 </tr>
-                }
-            </tbody>
-        </table>
-    }
-    @section scripts
+            }
+        </tbody>
+    </table>
+}
+@section scripts
 {
-        <script>
-            $(document).ready(function () {
-                var tabela = $("#tasks").DataTable({
-                    "language": {
-                        "emptyTable": "Nenhum registro encontrado!",
-                        "search": "Buscar:",
-                        "info": "Mostrando página _PAGE_ de _PAGES_",
-                        "lengthMenu": "Mostrando _MENU_ registros",
-                        "paginate": {
-                            "first": "Primeira",
-                            "last": "Ultima",
-                            "next": "Próxima",
-                            "previous": "Anterior"
-                        }
+    <script>
+        $(document).ready(function () {
+            var tabela = $("#tasks").DataTable({
+                "language": {
+                    "emptyTable": "Nenhum registro encontrado!",
+                    "search": "Buscar:",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "lengthMenu": "Mostrando _MENU_ registros",
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Ultima",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+            $("#tasks .js-excluir").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
+                    if (resultado) {
+                        $.ajax({
+                            url: "/api/tasks/" + button.attr("data-task-id"),
+                            method: "DELETE",
+                            success: function () {
+                                tabela.row(button.parents("tr")).remove().draw();
+                            }
+                        });
                     }
                 });
-                $("#tasks .js-excluir").on("click", function () {
-                    var button = $(this);
-                    bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
-                        if (resultado) {
-                            $.ajax({
-                                url: "/api/tasks/" + button.attr("data-task-id"),
-                                method: "DELETE",
-                                success: function () {
-                                    tabela.row(button.parents("tr")).remove().draw();
-                                }
-                            });
-                        }
-                    });
-                });
             });
-        </script>
-    }
+        });
+    </script>
+}
