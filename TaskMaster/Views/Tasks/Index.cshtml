@@ -40,7 +40,7 @@
                 @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
                 @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
             </td>
-            <td>@task.Projetos.NomeProjeto</td>
+            <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
             <td>@task.TiposTestes.TipoTeste</td>
             <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
             <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>

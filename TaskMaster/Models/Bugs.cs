@@ -26,9 +26,11 @@ namespace TaskMaster.Models
         //[ForeignKey("ProjetosId")]
         //public Projetos Projetos { get; set; } //navigation class
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Bug en contrado em:")]
         public DateTime? DataBug { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data Estimada para Resolução")]
         public DateTime? DataEstimada { get; set; }
 
@@ -48,8 +50,5 @@ namespace TaskMaster.Models
         [ForeignKey("EstadosBugId")]
         public EstadosBug EstadosBug { get; set; }
 
-        public int? NotasTrabalhoBugsId { get; set; }
-        [ForeignKey("NotasTrabalhoBugsId")]
-        public NotasTrabalhoBugs NotasTrabalhoBugs { get; set; }
     }
 }

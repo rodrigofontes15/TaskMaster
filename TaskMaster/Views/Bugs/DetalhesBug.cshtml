@@ -1,29 +1,139 @@
-﻿
+﻿@model TaskMaster.ViewModels.BugsViewModel
 @{
+    /**/
+
+    /**/
+
+    /**/
+
+    /**/
+
     ViewBag.Title = "DetalhesBug";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
-<h2>Detalhes do Bug</h2>
-<div class="row">
-    <div class="col-md-4">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th class="active">Id da task</th>
-                    <th class="active">Nome da Task</th>
-                    <th class="active">Tipode De Bug</th>
-                    <th class="active">Notas de trabalho</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Id da task</td>
-                    <td>Nome da Task</td>
-                    <td>tipo de bug</td>
-                    <td>TextBox</td>
-                </tr>
-            </tbody>
-        </table>
+<h3>Área de Trabalho</h3>
+
+@using (Html.BeginForm("Salvar", "Bugs"))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.DescBug)
+                @Html.TextAreaFor(m => m.DescBug, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ProjetosId)
+                @Html.TextBox("NomeProjeto", ViewData["NomeProjeto"], new { @class = "form-control", @readonly = "readonly" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.TasksId)
+                @Html.TextBox("NomeTask", ViewData["NomeTask"], new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="form-group" align="justify">
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.TiposBugsId)
+                @Html.DropDownListFor(m => m.TiposBugsId, new SelectList(Model.TiposBugs, "TiposBugsId", "TipoBug"), "Selecione...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.TiposBugsId)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.DataBug)
+                @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(m => m.DataBug)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.DataEstimada)
+                @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.DataEstimada)
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.EstadosBugId)
+                @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EstadosBugId)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.DevsId)
+                @Html.TextBox("NomeDev", ViewData["NomeDev"], new { @class = "form-control", @readonly = "readonly" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.UrlRepoCodigo)
+                @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UrlRepoCodigo)
+            </div>
+        </div>
     </div>
-</div>
+    @Html.HiddenFor(c => c.BugsId)
+    @Html.HiddenFor(m => m.TasksId)
+    @Html.HiddenFor(m => m.DevsId)
+    @Html.AntiForgeryToken()
+
+}
+@using (Html.BeginForm("AddNotasBug", "Bugs"))
+{
+    <hr />
+    <h4><b>Notas de Trabalho</b></h4>
+    <div class="jumbotron">
+        <div class="container">
+            @Html.TextAreaFor(m => m.NotasTrabalho, new { @class = "form-control", style = "width: 100%; max-width: 100%;", @cols = "100", @rows = "6" })
+        </div>
+    </div>
+    <div class="form-group" align="justify">
+        <button type="submit" class="btn btn-primary" id="c => c.BugsId">Adcionar Nota</button>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="form-inline">
+
+        </div>
+    </div>
+    @Html.HiddenFor(c => c.BugsId)
+    @Html.AntiForgeryToken()
+}
+<hr />
+<table id="notasbugs" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th class="active">Data da Nota</th>
+            <th class="active">Nota</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var tabela = $("#notasbugs").DataTable({
+                ajax: {
+                    url: "/api/NotasTrabalhoBug/",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "DataNotaTrabalho"
+                    },
+                    {
+                        data: "NotasTrabalho"
+                    },
+                ]
+            });
+        });
+    </script>
+}

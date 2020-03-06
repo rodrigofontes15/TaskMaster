@@ -179,6 +179,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\BugsController.cs" />
+    <Compile Include="Controllers\Api\NotasTrabalhoBugController.cs" />
     <Compile Include="Controllers\Api\TasksController.cs" />
     <Compile Include="Controllers\Api\ProjetosController.cs" />
     <Compile Include="Controllers\BugsController.cs" />
@@ -293,6 +294,26 @@
     <Compile Include="Migrations\202003052330320_AddGPProjetos1.Designer.cs">
       <DependentUpon>202003052330320_AddGPProjetos1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003061653492_NotasBUgsBugsRelacionamento.cs" />
+    <Compile Include="Migrations\202003061653492_NotasBUgsBugsRelacionamento.Designer.cs">
+      <DependentUpon>202003061653492_NotasBUgsBugsRelacionamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003061659374_NotasBugsNonNull.cs" />
+    <Compile Include="Migrations\202003061659374_NotasBugsNonNull.Designer.cs">
+      <DependentUpon>202003061659374_NotasBugsNonNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003061702199_NotasBugsNondropFK.cs" />
+    <Compile Include="Migrations\202003061702199_NotasBugsNondropFK.Designer.cs">
+      <DependentUpon>202003061702199_NotasBugsNondropFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003061706302_NotasBugs.cs" />
+    <Compile Include="Migrations\202003061706302_NotasBugs.Designer.cs">
+      <DependentUpon>202003061706302_NotasBugs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003061709541_NotasBugsBugFK.cs" />
+    <Compile Include="Migrations\202003061709541_NotasBugsBugFK.Designer.cs">
+      <DependentUpon>202003061709541_NotasBugsBugFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -301,7 +322,7 @@
     <Compile Include="Models\GerenteProjs.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NotasTrabalhoBugs.cs" />
+    <Compile Include="Models\NotasTrabalhoBug.cs" />
     <Compile Include="Models\Projetos.cs" />
     <Compile Include="Models\Tasks.cs" />
     <Compile Include="Models\Testers.cs" />
@@ -650,6 +671,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003052330320_AddGPProjetos1.resx">
       <DependentUpon>202003052330320_AddGPProjetos1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003061653492_NotasBUgsBugsRelacionamento.resx">
+      <DependentUpon>202003061653492_NotasBUgsBugsRelacionamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003061659374_NotasBugsNonNull.resx">
+      <DependentUpon>202003061659374_NotasBugsNonNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003061702199_NotasBugsNondropFK.resx">
+      <DependentUpon>202003061702199_NotasBugsNondropFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003061706302_NotasBugs.resx">
+      <DependentUpon>202003061706302_NotasBugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003061709541_NotasBugsBugFK.resx">
+      <DependentUpon>202003061709541_NotasBugsBugFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

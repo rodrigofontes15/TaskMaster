@@ -38,7 +38,6 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Estado da Correção do Bug")]
         public int NomeEstado { get; set; }
 
-
         public int? TestersId { get; set; }
 
         public int? BugsId { get; set; }
@@ -48,9 +47,11 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Descrição do Bug Encontrado")]
         public string DescBug { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data do Bug")]
         public DateTime? DataBug { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data Estimada para Resolução")]
         public DateTime? DataEstimada { get; set; }
 
@@ -59,6 +60,11 @@ namespace TaskMaster.ViewModels
 
         [Display(Name = "Repositório (URL GitHub)")]
         public string UrlRepoCodigo { get; set; }
+
+        public IEnumerable<NotasTrabalhoBug> NotasTrabalhoBugs { get; set; }
+        public int? NotasTrabalhoBugsId { get; set; }
+        public string NotasTrabalho { get; set; }
+        public DateTime DataNotaTrabalho { get; set; }
 
         public string Titulo
         {
@@ -87,5 +93,14 @@ namespace TaskMaster.ViewModels
             UrlRepoCodigo = bug.UrlRepoCodigo;
 
         }
+
+        public BugsViewModel(NotasTrabalhoBug notasTrabalhoBugs)
+        {
+            BugsId = notasTrabalhoBugs.BugsId;
+            NotasTrabalhoBugsId = notasTrabalhoBugs.NotasTrabalhoBugId;
+            NotasTrabalho = notasTrabalhoBugs.NotasTrabalho;
+            DataNotaTrabalho=notasTrabalhoBugs.DataNotaTrabalho;
+        }
+
     }
 }

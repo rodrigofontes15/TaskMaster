@@ -26,8 +26,8 @@ namespace TaskMaster.Controllers
         public ActionResult FormBug()
         {
 
-            List<Projetos> ListaProjetos = _context.Projetos.ToList();
-            ViewBag.ListaProjetos = new SelectList(ListaProjetos, "ProjetosId", "NomeProjeto");
+            //  List<Projetos> ListaProjetos = _context.Projetos.ToList();
+            //ViewBag.ListaProjetos = new SelectList(ListaProjetos, "ProjetosId", "NomeProjeto");
 
             var tasks = _context.Tasks.ToList();
             var devs = _context.Devs.ToList();
@@ -49,7 +49,7 @@ namespace TaskMaster.Controllers
 
         public JsonResult ListarTasksProjeto(int ProjetosId)
         {
-            
+
             List<Tasks> ListaTasks = _context.Tasks.Where(p => p.ProjetosId == ProjetosId).ToList();
             return Json(ListaTasks, JsonRequestBehavior.AllowGet);
         }
@@ -65,8 +65,8 @@ namespace TaskMaster.Controllers
                     Projetos = _context.Projetos.ToList(),
                     Tasks = _context.Tasks.ToList(),
                     Devs = _context.Devs.ToList(),
-                    TiposBugs=_context.TiposBugs.ToList(),
-                    EstadosBugs =_context.EstadosBugs.ToList()
+                    TiposBugs = _context.TiposBugs.ToList(),
+                    EstadosBugs = _context.EstadosBugs.ToList()
                 };
 
                 return View("FormBug", viewModel);
@@ -80,7 +80,7 @@ namespace TaskMaster.Controllers
                 bugInDb.DescBug = bugs.DescBug;
                 bugInDb.DataBug = bugs.DataBug;
                 bugInDb.DataEstimada = bugs.DataBug;
-              //  bugInDb.ProjetosId = bugs.ProjetosId;
+                //  bugInDb.ProjetosId = bugs.ProjetosId;
                 bugInDb.TasksId = bugs.TasksId;
                 bugInDb.DevsId = bugs.DevsId;
                 bugInDb.TiposBugsId = bugs.TiposBugsId;
@@ -100,13 +100,12 @@ namespace TaskMaster.Controllers
                 .Include(p => p.Tasks.Projetos)
                 .Include(g => g.Tasks)
                 .Include(g => g.Devs)
-                .Include(b=>b.TiposBugs)
-                .Include(e=>e.EstadosBug)
+                .Include(b => b.TiposBugs)
+                .Include(e => e.EstadosBug)
                 .ToList();
 
             return View(bugs);
         }
-
 
         public ActionResult Editar(int id)
         {
@@ -118,15 +117,14 @@ namespace TaskMaster.Controllers
             var viewModel = new BugsViewModel(bug)
             {
                 Tasks = _context.Tasks.ToList(),
-                Projetos=_context.Projetos.ToList(),
-                Devs= _context.Devs.ToList(),
-                TiposBugs=_context.TiposBugs.ToList(),
-                EstadosBugs=_context.EstadosBugs.ToList()
+                Projetos = _context.Projetos.ToList(),
+                Devs = _context.Devs.ToList(),
+                TiposBugs = _context.TiposBugs.ToList(),
+                EstadosBugs = _context.EstadosBugs.ToList()
             };
 
             return View("FormBug", viewModel);
         }
-
 
         public ActionResult BugsTask(int id)
         {
@@ -134,8 +132,8 @@ namespace TaskMaster.Controllers
                 .Include(t => t.Tasks)
                 .Include(p => p.Devs)
                 .Include(p => p.Tasks.Projetos)
-                .Include(e=>e.EstadosBug)
-                .Include(t=>t.TiposBugs)
+                .Include(e => e.EstadosBug)
+                .Include(t => t.TiposBugs)
                 .ToList();
 
             var nomeTask = _context.Bugs
@@ -150,6 +148,10 @@ namespace TaskMaster.Controllers
         public ActionResult DetalhesBug(int id)
         {
             var bug = _context.Bugs.SingleOrDefault(c => c.BugsId == id);
+            var taskIdBug = _context.Bugs.Where(t => t.BugsId == id).Select(t => t.TasksId).FirstOrDefault();
+            var projetoIdtask = _context.Tasks.Where(t => t.TasksId == taskIdBug).Select(p => p.ProjetosId).FirstOrDefault();
+            var devIdBug = _context.Bugs.Where(t => t.BugsId == id).Select(p => p.DevsId).FirstOrDefault();
+
 
             if (bug == null)
                 return HttpNotFound();
@@ -157,12 +159,63 @@ namespace TaskMaster.Controllers
             var viewModel = new BugsViewModel(bug)
             {
                 Tasks = _context.Tasks.ToList(),
+                Projetos = _context.Projetos.ToList(),
                 Devs = _context.Devs.ToList(),
                 TiposBugs = _context.TiposBugs.ToList(),
-                EstadosBugs = _context.EstadosBugs.ToList()
+                EstadosBugs = _context.EstadosBugs.ToList()               
             };
+
+            var nomeTask = _context.Bugs
+               .Where(n => n.TasksId == taskIdBug)
+             .Select(n => n.Tasks.NomeTask)
+           .FirstOrDefault();
+            ViewData["NomeTask"] = nomeTask;
+
+            var nomeProjeto = _context.Tasks
+              .Where(n => n.ProjetosId == projetoIdtask)
+            .Select(n => n.Projetos.NomeProjeto)
+          .FirstOrDefault();
+            ViewData["NomeProjeto"] = nomeProjeto;
+
+            var nomeDev = _context.Bugs
+              .Where(n => n.DevsId == devIdBug)
+            .Select(n => n.Devs.DevNome)
+          .FirstOrDefault();
+            ViewData["NomeDev"] = nomeDev;
 
             return View("DetalhesBug", viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddNotasBug(NotasTrabalhoBug notasTrabalhoBugs)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new BugsViewModel(notasTrabalhoBugs)
+                {
+                    NotasTrabalhoBugs = _context.NotasTrabalhoBug.ToList()
+                };
+
+                return View("Index", viewModel);
+            }
+
+            if (notasTrabalhoBugs.NotasTrabalhoBugId == 0)
+            { 
+                notasTrabalhoBugs.DataNotaTrabalho = DateTime.Now;
+                _context.NotasTrabalhoBug.Add(notasTrabalhoBugs);
+            }
+            else
+            {
+                var notasInDb = _context.NotasTrabalhoBug.Single(p => p.NotasTrabalhoBugId == notasTrabalhoBugs.NotasTrabalhoBugId);
+                notasInDb.NotasTrabalhoBugId = notasTrabalhoBugs.NotasTrabalhoBugId;
+                notasInDb.DataNotaTrabalho = notasTrabalhoBugs.DataNotaTrabalho;
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Bugs");
+        }
     }
+
 }
+
