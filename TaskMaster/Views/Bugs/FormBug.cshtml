@@ -14,7 +14,6 @@
 
 <h2>@Model.Titulo</h2>
 
-
 @using (Html.BeginForm("Salvar", "Bugs"))
 {
     <div class="form-group">
@@ -95,9 +94,7 @@
     @Html.HiddenFor(c => c.BugsId)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Salvar</button>
-
 }
-
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery-3.3.1.js"></script>

@@ -215,6 +215,7 @@ namespace TaskMaster.Controllers
 
             return RedirectToAction("Index", "Bugs");
         }
+
     }
 
 }
