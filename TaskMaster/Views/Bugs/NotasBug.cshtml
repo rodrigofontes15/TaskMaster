@@ -1,0 +1,81 @@
+﻿@model IEnumerable<TaskMaster.Models.NotasTrabalhoBug>
+@*
+    NOTA DO PROFESSOR DO CURSO (MOSH): I've set the model for this view to IEnumerable.
+    This is a simple interface implemented by the list class. Since
+    in this view we only want to iterate over this list, and we don't
+    need any of the operations in the List class (eg Add, Remove, etc),
+    it's better to use the IEnumerable interface, which allows use to
+    iterate over the list. If in the future, we replace the List with a
+    different data structure, as long as it is enumerable, our view code
+    will remain unchanged.
+*@
+
+@{
+    ViewBag.Title = "NotasBug";
+}
+
+<h4>Notas do Bug</h4>
+
+<table id="notas" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th class="active">Data e Hora da Nota</th>
+            <th class="active">Nota</th>
+            <th class="active">Ação</th>
+        </tr>
+        </>
+    <tbody>
+        @foreach (var notas in Model)
+        {
+            <tr>
+                <td>@notas.DataNotaTrabalho
+                <td>@notas.NotasTrabalho</td>
+                <td>
+                    <div class="list-inline" align="justify">
+                        <button data-nota-id="@notas.NotasTrabalhoBugId" class="btn btn-danger btn-sm js-excluir">Excluir Nota</button>
+                    </div>
+            </td>
+
+
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var tabela = $("#notas").DataTable({
+                "language": {
+                    "emptyTable": "Nenhum registro encontrado!",
+                    "search": "Buscar:",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "lengthMenu": "Mostrando _MENU_ registros",
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Ultima",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+            $("#notas .js-excluir").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Confirma a Exclusão da Nota?", function (resultado) {
+                    if (resultado) {
+                        $.ajax({
+                            url: "/api/NotasTrabalhoBug/" + button.attr("data-nota-id"),
+                            method: "DELETE",
+                            success: function () {
+                                tabela.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

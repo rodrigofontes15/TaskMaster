@@ -162,7 +162,9 @@ namespace TaskMaster.Controllers
                 Projetos = _context.Projetos.ToList(),
                 Devs = _context.Devs.ToList(),
                 TiposBugs = _context.TiposBugs.ToList(),
-                EstadosBugs = _context.EstadosBugs.ToList()               
+                EstadosBugs = _context.EstadosBugs.ToList(),
+                NotasTrabalhoBugs=_context.NotasTrabalhoBug.Where(c=>c.BugsId==id).ToList()
+                
             };
 
             var nomeTask = _context.Bugs
@@ -214,6 +216,26 @@ namespace TaskMaster.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Bugs");
+        }
+
+        public ActionResult NotasBug(int id)
+        {
+            var notasbug = _context.NotasTrabalhoBug.Where(n => n.BugsId == id)
+                .ToList();
+
+            var nomeTask = _context.Bugs
+                .Where(n => n.BugsId == id)
+                .Select(n => n.Tasks.NomeTask)
+                .FirstOrDefault();
+            ViewData["NomeTask"] = nomeTask;
+
+            var tipoBug = _context.Bugs
+                .Where(n => n.BugsId == id)
+                .Select(n => n.TiposBugs.TipoBug)
+                .FirstOrDefault();
+            ViewData["TipoBug"] = tipoBug;
+
+            return View("NotasBug", notasbug);
         }
 
     }

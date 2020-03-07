@@ -93,7 +93,8 @@
         </div>
     </div>
     <div class="form-group" align="justify">
-        <button type="submit" class="btn btn-primary" id="c => c.BugsId">Adcionar Nota</button>
+        <button type="submit" class="btn btn-primary btn-sm" id="c => c.BugsId">Adcionar Nota</button>        
+            @Html.ActionLink("Ver Notas", "NotasBug", "Bugs", new { id = Model.BugsId }, new { @class = "btn btn-default btn-sm" })
     </div>
     <hr />
     <div class="row">
@@ -104,34 +105,5 @@
     @Html.HiddenFor(c => c.BugsId)
     @Html.AntiForgeryToken()
 }
-<table id="notasbugs" class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th class="active">Data da Nota</th>
-            <th class="active">Nota</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+@Html.Partial("NotasBug", Model.NotasTrabalhoBugs)
 
-@section scripts
-{
-    <script>
-        $(document).ready(function () {
-            var tabela = $("#notasbugs").DataTable({
-                ajax: {
-                    url: "/api/NotasTrabalhoBug/",
-                    dataSrc: ""
-                },
-                columns: [
-                    {
-                        data: "DataNotaTrabalho"
-                    },
-                    {
-                        data: "NotasTrabalho"
-                    },
-                ]
-            });
-        });
-    </script>
-}
