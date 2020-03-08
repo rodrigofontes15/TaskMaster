@@ -18,6 +18,9 @@
 
 @using (Html.BeginForm("Salvar", "Bugs"))
 {
+    <div class="form-group" align="justify">
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -33,9 +36,6 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.TasksId)
                 @Html.TextBox("NomeTask", ViewData["NomeTask"], new { @class = "form-control", @readonly = "readonly" })
-            </div>
-            <div class="form-group" align="justify">
-                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
             </div>
         </div>
         <div class="col-md-4">
@@ -93,8 +93,7 @@
         </div>
     </div>
     <div class="form-group" align="justify">
-        <button type="submit" class="btn btn-primary btn-sm" id="c => c.BugsId">Adcionar Nota</button>        
-            @Html.ActionLink("Ver Notas", "NotasBug", "Bugs", new { id = Model.BugsId }, new { @class = "btn btn-default btn-sm" })
+        <button type="submit" class="btn btn-primary btn-sm" id="c => c.BugsId">Adcionar Nota</button>
     </div>
     <hr />
     <div class="row">
@@ -106,4 +105,38 @@
     @Html.AntiForgeryToken()
 }
 @Html.Partial("NotasBug", Model.NotasTrabalhoBugs)
-
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var tabela = $("#notas").DataTable({
+                "language": {
+                    "emptyTable": "Nenhum registro encontrado!",
+                    "search": "Buscar:",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "lengthMenu": "Mostrando _MENU_ registros",
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Ultima",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+            $("#notas .js-excluir").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Confirma a Exclusão da Nota?", function (resultado) {
+                    if (resultado) {
+                        $.ajax({
+                            url: "/api/NotasTrabalhoBug/" + button.attr("data-nota-id"),
+                            method: "DELETE",
+                            success: function () {
+                                tabela.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

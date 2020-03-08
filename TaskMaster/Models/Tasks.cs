@@ -21,6 +21,7 @@ namespace TaskMaster.Models
         [ForeignKey("ProjetosId")]
         public Projetos Projetos { get; set; } //navigation class
 
+        [Required]
         [Display(Name = "Data de Início do Teste")]
         public DateTime? DataInicio { get; set; }
 

@@ -42,8 +42,8 @@
             </td>
             <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
             <td>@task.TiposTestes.TipoTeste</td>
-            <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
-            <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+            <td>@task.DataInicio.Value.ToShortDateString()</td>
+            <td>@task.DataEstimada</td>
             <td>@task.Testers.Nome</td>
             <td>
                 @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })<br />

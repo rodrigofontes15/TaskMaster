@@ -45,8 +45,8 @@ else
                 @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)     
                 @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)</td>
                 <td>@projeto.GerenteProjs.Nome</td>
-                <td>@projeto.DataInicio.Value.ToString("dd/MM/yyyy")</td>
-                <td>@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+                <td>@projeto.DataInicio.Value.ToShortDateString()</td>
+                <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
                 <td>@projeto.DataReal</td>
                 <td>
                     @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />

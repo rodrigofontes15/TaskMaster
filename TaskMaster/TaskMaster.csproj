@@ -314,6 +314,10 @@
     <Compile Include="Migrations\202003061709541_NotasBugsBugFK.Designer.cs">
       <DependentUpon>202003061709541_NotasBugsBugFK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003081143380_mudancacamposrequeridosdatainicio.cs" />
+    <Compile Include="Migrations\202003081143380_mudancacamposrequeridosdatainicio.Designer.cs">
+      <DependentUpon>202003081143380_mudancacamposrequeridosdatainicio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -328,6 +332,7 @@
     <Compile Include="Models\Testers.cs" />
     <Compile Include="Models\TiposBugs.cs" />
     <Compile Include="Models\TiposTestes.cs" />
+    <Compile Include="Models\Validation\DateMustBeEqualOrGreaterThanCurrentDateValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BugsViewModel.cs" />
@@ -687,6 +692,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003061709541_NotasBugsBugFK.resx">
       <DependentUpon>202003061709541_NotasBugsBugFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003081143380_mudancacamposrequeridosdatainicio.resx">
+      <DependentUpon>202003081143380_mudancacamposrequeridosdatainicio.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -22,10 +22,12 @@ namespace TaskMaster.Models
         [ForeignKey("GerenteProjsId")]
         public GerenteProjs GerenteProjs { get; set; } //navigation class
 
+        [Required]
         [Display(Name = "Data de Início")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataInicio { get; set; }
 
+        [Required]
         [Display(Name = "Data Estimada de Término")]
         public DateTime? DataEstimada { get; set; }
 

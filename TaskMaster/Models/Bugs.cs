@@ -26,6 +26,7 @@ namespace TaskMaster.Models
         //[ForeignKey("ProjetosId")]
         //public Projetos Projetos { get; set; } //navigation class
 
+        [Required]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Bug en contrado em:")]
         public DateTime? DataBug { get; set; }

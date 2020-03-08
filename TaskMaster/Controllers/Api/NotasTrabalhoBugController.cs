@@ -16,10 +16,24 @@ namespace TaskMaster.Controllers.Api
         {
             _context = new ApplicationDbContext();
         }
-        // GET /api/bugs
+        // GET /api/NotasTrabalhoBug/
         public IEnumerable<NotasTrabalhoBug> GetNotasTrabalhoBug()
         {
             return _context.NotasTrabalhoBug.ToList();
+        }
+
+
+        // DELETE /api/NotasTrabalhoBug/
+        [HttpDelete]
+        public void DeleteNotasTrabalhoBug(int id)
+        {
+
+            var notaInDb = _context.NotasTrabalhoBug.SingleOrDefault(c => c.NotasTrabalhoBugId == id);
+            if (notaInDb == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            _context.NotasTrabalhoBug.Remove(notaInDb);
+            _context.SaveChanges();
         }
     }
 }
