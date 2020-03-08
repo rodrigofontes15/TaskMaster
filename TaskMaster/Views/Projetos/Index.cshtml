@@ -40,19 +40,21 @@ else
         <tbody>
             @foreach (var projeto in Model)
             {
-            <tr>
-                <td><b>@projeto.NomeProjeto</b><br />
-                @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)     
-                @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)</td>
-                <td>@projeto.GerenteProjs.Nome</td>
-                <td>@projeto.DataInicio.Value.ToShortDateString()</td>
-                <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
-                <td>colocar aqui a data real, com base na data estiamda para o ultimo bug aberto. formatar celular em vermelho si Real > Estimada</td>
-                <td>
-                    @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />
-                   <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <b>@projeto.NomeProjeto</b><br />
+                        @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)
+                        @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)
+                    </td>
+                    <td>@projeto.GerenteProjs.Nome</td>
+                    <td>@projeto.DataInicio.Value.ToShortDateString()</td>
+                    <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
+                    <td>colocar aqui a data real, com base na data estiamda para o ultimo bug aberto. formatar celular em vermelho si Real > Estimada</td>
+                    <td>
+                        @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />
+                        <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -89,7 +91,7 @@ else
                         });
                     }
                 });
-            });        
+            });
         });
     </script>
-    }
+}
