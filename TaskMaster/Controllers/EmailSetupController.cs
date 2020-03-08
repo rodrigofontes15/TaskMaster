@@ -31,7 +31,7 @@ namespace TaskMaster.Controllers
             smtp.Port = 587;
             smtp.EnableSsl = true;
 
-            NetworkCredential nc = new NetworkCredential("rodrigofontes1985@gmail.com", "sts25wka");
+            NetworkCredential nc = new NetworkCredential("rodrigofontes1985@gmail.com", "password");
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = nc;
             smtp.Send(mm);
