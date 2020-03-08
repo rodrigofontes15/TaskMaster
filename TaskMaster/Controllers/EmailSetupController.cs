@@ -9,6 +9,7 @@ using TaskMaster.Models;
 
 namespace TaskMaster.Controllers
 {
+
     [AllowAnonymous]
     public class EmailSetupController : Controller
     {
