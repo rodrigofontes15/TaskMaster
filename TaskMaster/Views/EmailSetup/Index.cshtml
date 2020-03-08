@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Index", "EmailSetup", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Solicite uma conta</h4>
+    <h4>Solicite uma conta de acordo com seu Role</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">

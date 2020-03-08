@@ -10,6 +10,7 @@ using TaskMaster.ViewModels;
 
 namespace TaskMaster.Controllers
 {
+    [Authorize]
     public class ProjetosController : Controller
     {
         private ApplicationDbContext _context;
@@ -24,6 +25,25 @@ namespace TaskMaster.Controllers
             _context.Dispose();
         }
 
+        public ViewResult Index()
+        {
+            var projetos = _context.Projetos.Include(g => g.GerenteProjs).ToList();
+            if (User.IsInRole("gp"))
+            {
+                return View("Index", projetos);
+            }
+            else
+            {
+                if (User.IsInRole("admin"))
+                {
+                    return View("Index", projetos);
+                }
+                else
+                    return View("Index_SomenteLeitura", projetos);
+            }
+        }
+
+        [Authorize(Roles = NomeRoles.gp + "," + NomeRoles.admin)]
         public ViewResult NovoProjeto()
         {
             var gerenteProjetos = _context.GerenteProjs.ToList();
@@ -35,6 +55,7 @@ namespace TaskMaster.Controllers
             return View("FormProjeto", viewModel);
         }
 
+        [Authorize(Roles = NomeRoles.gp + "," + NomeRoles.admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Salvar(Projetos projetos)
@@ -65,15 +86,7 @@ namespace TaskMaster.Controllers
             return RedirectToAction("Index", "Projetos");
         }
 
-
-        public ViewResult Index()
-        {
-            var projetos = _context.Projetos.Include(g => g.GerenteProjs).ToList();
-
-            return View(projetos);
-        }
-
-
+        [Authorize(Roles = NomeRoles.gp + "," + NomeRoles.admin)]
         public ActionResult Editar(int id)
         {
             var projeto = _context.Projetos.SingleOrDefault(c => c.ProjetosId == id);

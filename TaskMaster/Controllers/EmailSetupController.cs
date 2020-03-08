@@ -9,6 +9,7 @@ using TaskMaster.Models;
 
 namespace TaskMaster.Controllers
 {
+    [AllowAnonymous]
     public class EmailSetupController : Controller
     {
         public ActionResult Index()
@@ -18,9 +19,8 @@ namespace TaskMaster.Controllers
 
         [HttpPost]
         public ActionResult Index(TaskMaster.Models.gmail model)
-        {
-            model.To = "rodrigofontes1985@gmail.com";
-            MailMessage mm = new MailMessage("rodrigofontes1985@gmail.com", model.To);           
+        {            
+            MailMessage mm = new MailMessage("rodrigofontes1985@gmail.com", "rodrigofontes1985@gmail.com");           
             mm.Subject = model.Subject;
             mm.Body = model.Body;
             mm.IsBodyHtml = false;

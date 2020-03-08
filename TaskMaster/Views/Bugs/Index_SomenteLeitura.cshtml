@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TaskMaster.Models.Tasks>
+﻿@model IEnumerable<TaskMaster.Models.Bugs>
 @*
     NOTA DO PROFESSOR DO CURSO (MOSH): I've set the model for this view to IEnumerable.
     This is a simple interface implemented by the list class. Since
@@ -11,37 +11,39 @@
 *@
 
 @{
-    ViewBag.Title = "Tasks";
+    ViewBag.Title = "Bugs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@foreach (var task in Model)
-{
-    <h2>Detalhes da Task <b>@task.NomeTask</b></h2>
-}
-<table id="tasks" class="table table-bordered table-hover">
+<h2>Bugs reportados</h2>
+<table id="bugs" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th class="active">Tasks</th>
-            <th class="active">Projeto Relacionado</th>
-            <th class="active">Data de Início</th>
-            <th class="active">Data Estimada de Término</th>
-            <th class="active">Testador</th>
+            <th class="active">Tipo de Bug</th>
+            <th class="active">Projeto</th>
+            <th class="active">Task</th>
+            <th class="active">Data do Bug</th>
+            <th class="active">Estimativa de Solução</th>
+            <th class="active">DEV</th>
+            <th class="active">Estado da Correção</th>
+            <th class="active">Ação</th>
         </tr>
-    </thead>
+    </>
     <tbody>
-        @foreach (var task in Model)
+        @foreach (var bug in Model)
         {
-            <tr>
-                <td>
-                    <b>@task.NomeTask</b><br />
-                    @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
-                </td>
-                <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
-                <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
-                <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
-                <td>@task.Testers.Nome</td>
-            </tr>
+        <tr>
+            <td>
+            @bug.TiposBugs.TipoBug
+            </td>
+            <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
+            <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null)</td>
+            <td>@bug.DataBug.Value.ToShortDateString()</td>
+            <td>@bug.DataEstimada</td>
+            <td>@bug.Devs.DevNome</td>
+            <td>@bug.EstadosBug.NomeEstado</td>
+            <td>@Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />
+        </tr>
         }
     </tbody>
 </table>
@@ -52,7 +54,7 @@
 {
     <script>
         $(document).ready(function () {
-            var tabela = $("#tasks").DataTable({
+            var tabela = $("#bugs").DataTable({
                 "language": {
                     "emptyTable": "Nenhum registro encontrado!",
                     "search": "Buscar:",

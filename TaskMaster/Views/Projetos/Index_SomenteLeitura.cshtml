@@ -26,27 +26,24 @@ else
     <table id="projetos" class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th class="active">Projetos</th>
+                <th class="active">Nome do Projeto</th>
                 <th class="active">Gerente de Projeto</th>
                 <th class="active">Data de Início</th>
-                <th class="active">Data Estimada de Término</th>
-                <th class="active">Data Real de Término</th>
+                <th class="active">Data de Entrega</th>
+                <th class="active">Data Real</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var projeto in Model)
             {
-                <tr>
-                    <td>
-                        <b>@projeto.NomeProjeto</b><br />
-                        @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)
-                        @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)
-                    </td>
-                    <td>@projeto.GerenteProjs.Nome</td>
-                    <td>@projeto.DataInicio.Value.ToString("dd/MM/yyyy")</td>
-                    <td>@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
-                    <td>@projeto.DataReal</td>
-                </tr>
+            <tr>
+                <td><b>@projeto.NomeProjeto</b><br />
+                @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)</td>
+                <td>@projeto.GerenteProjs.Nome</td>
+                <td>@projeto.DataInicio.Value.ToShortDateString()</td>
+                <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
+                <td>@projeto.DataReal</td>
+            </tr>
             }
         </tbody>
     </table>
@@ -69,6 +66,7 @@ else
                     }
                 }
             });
+         
         });
     </script>
-}
+    }

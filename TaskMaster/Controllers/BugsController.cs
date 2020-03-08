@@ -9,6 +9,7 @@ using TaskMaster.ViewModels;
 
 namespace TaskMaster.Controllers
 {
+    [Authorize]
     public class BugsController : Controller
     {
         private ApplicationDbContext _context;
@@ -23,9 +24,33 @@ namespace TaskMaster.Controllers
             _context.Dispose();
         }
 
+        public ViewResult Index()
+        {
+            var bugs = _context.Bugs
+                .Include(p => p.Tasks.Projetos)
+                .Include(g => g.Tasks)
+                .Include(g => g.Devs)
+                .Include(b => b.TiposBugs)
+                .Include(e => e.EstadosBug)
+                .ToList();
+            if (User.IsInRole("dev"))
+            {
+                return View("Index", bugs);
+            }
+            else
+            {
+                if (User.IsInRole("admin"))
+                {
+                    return View("Index", bugs);
+                }
+                else
+                    return View("Index_SomenteLeitura", bugs);
+            }
+        }
+
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         public ActionResult FormBug()
         {
-
             //  List<Projetos> ListaProjetos = _context.Projetos.ToList();
             //ViewBag.ListaProjetos = new SelectList(ListaProjetos, "ProjetosId", "NomeProjeto");
 
@@ -54,6 +79,7 @@ namespace TaskMaster.Controllers
             return Json(ListaTasks, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin + "," + NomeRoles.tester)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Salvar(Bugs bugs)
@@ -93,20 +119,7 @@ namespace TaskMaster.Controllers
             return RedirectToAction("Index", "Bugs");
         }
 
-
-        public ViewResult Index()
-        {
-            var bugs = _context.Bugs
-                .Include(p => p.Tasks.Projetos)
-                .Include(g => g.Tasks)
-                .Include(g => g.Devs)
-                .Include(b => b.TiposBugs)
-                .Include(e => e.EstadosBug)
-                .ToList();
-
-            return View(bugs);
-        }
-
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         public ActionResult Editar(int id)
         {
             var bug = _context.Bugs.SingleOrDefault(c => c.BugsId == id);
@@ -185,9 +198,23 @@ namespace TaskMaster.Controllers
           .FirstOrDefault();
             ViewData["NomeDev"] = nomeDev;
 
-            return View("DetalhesBug", viewModel);
+            if (User.IsInRole("dev"))
+            {
+                return View("DetalhesBug", viewModel);
+            }
+            else
+            {
+                if (User.IsInRole("admin"))
+                {
+                    return View("DetalhesBug", viewModel);
+                }
+                else
+                    return View("DetalhesBug_SomenteLeitura", viewModel);
+            }
+            
         }
 
+        [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddNotasBug(NotasTrabalhoBug notasTrabalhoBugs)
@@ -235,7 +262,19 @@ namespace TaskMaster.Controllers
                 .FirstOrDefault();
             ViewData["TipoBug"] = tipoBug;
 
-            return View("NotasBug", notasbug);
+            if (User.IsInRole("dev"))
+            {
+                  return View("NotasBug", notasbug);
+            }
+            else
+            {
+                if (User.IsInRole("admin"))
+                {
+                    return View("NotasBug", notasbug);
+                }
+                else
+                    return View("NotasBug_SomenteLeitura", notasbug);
+            }
         }
 
     }

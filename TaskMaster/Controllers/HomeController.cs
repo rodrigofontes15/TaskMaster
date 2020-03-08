@@ -10,6 +10,7 @@ using TaskMaster.ViewModels;
 
 namespace TaskMaster.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ApplicationDbContext _context;
@@ -24,6 +25,7 @@ namespace TaskMaster.Controllers
             _context.Dispose();
         }
 
+        [AllowAnonymous]
         public ViewResult Index()
         {
 

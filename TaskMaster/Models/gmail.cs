@@ -12,9 +12,11 @@ namespace TaskMaster.Models
 
         public string From { get; set; }
 
+        [Required]
         [Display(Name = "Assunto")]
         public string Subject { get; set; }
 
+        [Required]
         [Display(Name = "Detalhe sua Requisição")]
         public string Body { get; set; }
     }

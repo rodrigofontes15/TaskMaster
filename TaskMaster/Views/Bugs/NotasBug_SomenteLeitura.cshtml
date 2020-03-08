@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TaskMaster.Models.Tasks>
+﻿@model IEnumerable<TaskMaster.Models.NotasTrabalhoBug>
 @*
     NOTA DO PROFESSOR DO CURSO (MOSH): I've set the model for this view to IEnumerable.
     This is a simple interface implemented by the list class. Since
@@ -11,38 +11,30 @@
 *@
 
 @{
-    ViewBag.Title = "Tasks";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "NotasBug_SomenteLeitura";
 }
 
-@foreach (var task in Model)
-{
-    <h2>Detalhes da Task <b>@task.NomeTask</b></h2>
-}
-<table id="tasks" class="table table-bordered table-hover">
+<h4>Notas do Bug</h4>
+
+<table id="notas" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th class="active">Tasks</th>
-            <th class="active">Projeto Relacionado</th>
-            <th class="active">Data de Início</th>
-            <th class="active">Data Estimada de Término</th>
-            <th class="active">Testador</th>
+            <th class="active"><center>Data e Hora da Nota</center></th>
+            <th class="active"><center>Nota</center></th>
         </tr>
-    </thead>
+        </>
     <tbody>
-        @foreach (var task in Model)
+        @foreach (var notas in Model)
         {
             <tr>
+                <td>@notas.DataNotaTrabalho
+                <td>@notas.NotasTrabalho</td>
                 <td>
-                    <b>@task.NomeTask</b><br />
-                    @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
-                </td>
-                <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
-                <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
-                <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
-                <td>@task.Testers.Nome</td>
-            </tr>
-        }
+            </td>
+
+
+        </tr>
+    }
     </tbody>
 </table>
 
@@ -52,7 +44,7 @@
 {
     <script>
         $(document).ready(function () {
-            var tabela = $("#tasks").DataTable({
+            var tabela = $("#notas").DataTable({
                 "language": {
                     "emptyTable": "Nenhum registro encontrado!",
                     "search": "Buscar:",

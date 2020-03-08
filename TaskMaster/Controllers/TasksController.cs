@@ -9,6 +9,7 @@ using TaskMaster.ViewModels;
 
 namespace TaskMaster.Controllers
 {
+    [Authorize]
     public class TasksController : Controller
     {
         private ApplicationDbContext _context;
@@ -23,6 +24,29 @@ namespace TaskMaster.Controllers
             _context.Dispose();
         }
 
+        public ViewResult Index()
+        {
+            var tasks = _context.Tasks
+                .Include(g => g.Projetos)
+                .Include(g => g.Testers)
+                .Include(t => t.TiposTestes)
+                .ToList();
+            if (User.IsInRole("tester"))
+            {
+                return View("Index", tasks);
+            }
+            else
+            {
+                if (User.IsInRole("admin"))
+                {
+                    return View("Index", tasks);
+                }
+                else
+                    return View("Index_SomenteLeitura", tasks);
+            }
+        }
+
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         public ViewResult NovaTask()
         {
             var projetos = _context.Projetos.ToList();
@@ -38,6 +62,7 @@ namespace TaskMaster.Controllers
             return View("FormTask", viewModel);
         }
 
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Salvar(Tasks task)
@@ -72,19 +97,7 @@ namespace TaskMaster.Controllers
             return RedirectToAction("Index", "Tasks");
         }
 
-
-        public ViewResult Index()
-        {
-            var tasks = _context.Tasks
-                .Include(g => g.Projetos)
-                .Include(g => g.Testers)
-                .Include(t=>t.TiposTestes)
-                .ToList();
-
-            return View(tasks);
-        }
-
-
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         public ActionResult Editar(int id)
         {
             var task = _context.Tasks.SingleOrDefault(c => c.TasksId == id);

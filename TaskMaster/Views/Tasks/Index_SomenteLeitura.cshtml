@@ -15,33 +15,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@foreach (var task in Model)
-{
-    <h2>Detalhes da Task <b>@task.NomeTask</b></h2>
-}
+<h2>Tasks</h2>
 <table id="tasks" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th class="active">Tasks</th>
-            <th class="active">Projeto Relacionado</th>
+            <th class="active">Nome da Task</th>
+            <th class="active">Projeto</th>
+            <th class="active">Tipo de Teste</th>
             <th class="active">Data de Início</th>
-            <th class="active">Data Estimada de Término</th>
+            <th class="active">Data de Término</th>
             <th class="active">Testador</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var task in Model)
         {
-            <tr>
-                <td>
-                    <b>@task.NomeTask</b><br />
-                    @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
-                </td>
-                <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
-                <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
-                <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
-                <td>@task.Testers.Nome</td>
-            </tr>
+        <tr>
+            <td>
+                <b>@task.NomeTask</b>
+            </td>
+            <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
+            <td>@task.TiposTestes.TipoTeste</td>
+            <td>@task.DataInicio.Value.ToShortDateString()</td>
+            <td>@task.DataEstimada</td>
+            <td>@task.Testers.Nome</td>
+        </tr>
         }
     </tbody>
 </table>

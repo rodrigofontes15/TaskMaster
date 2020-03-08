@@ -18,9 +18,6 @@
 
 @using (Html.BeginForm("Salvar", "Bugs"))
 {
-    <div class="form-group" align="justify">
-        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -41,7 +38,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(m => m.TiposBugsId)
-                @Html.DropDownListFor(m => m.TiposBugsId, new SelectList(Model.TiposBugs, "TiposBugsId", "TipoBug"), "Selecione...", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.TiposBugsId, new SelectList(Model.TiposBugs, "TiposBugsId", "TipoBug"), "Selecione...", new { @class = "form-control", @readonly = "readonly" })
                 @Html.ValidationMessageFor(m => m.TiposBugsId)
             </div>
 
@@ -53,7 +50,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.DataEstimada)
-                @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control", @readonly = "readonly" })
                 @Html.ValidationMessageFor(m => m.DataEstimada)
             </div>
         </div>
@@ -61,7 +58,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(m => m.EstadosBugId)
-                @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control", @readonly = "readonly" })
                 @Html.ValidationMessageFor(m => m.EstadosBugId)
             </div>
 
@@ -72,7 +69,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.UrlRepoCodigo)
-                @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control", @readonly = "readonly" })
                 @Html.ValidationMessageFor(m => m.UrlRepoCodigo)
             </div>
         </div>
@@ -83,41 +80,8 @@
     @Html.AntiForgeryToken()
 
 }
-@using (Html.BeginForm("AddNotasBug", "Bugs"))
-{
     <hr />
-    <h4><b>Notas de Trabalho</b></h4>
-    <div class="jumbotron">
-        <div class="container">
-            @Html.TextAreaFor(m => m.NotasTrabalho, new { @class = "form-control", style = "width: 100%; max-width: 100%;", @cols = "100", @rows = "6" })
-        </div>
-    </div>
-    <div class="form-group" align="justify">
-        <button type="submit" class="btn btn-primary btn-sm" id="c => c.BugsId">Adcionar Nota</button>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="form-inline">
-
-        </div>
-    </div>
-    @Html.HiddenFor(c => c.BugsId)
-    @Html.AntiForgeryToken()
-}
-@{ if (User.IsInRole("dev"))
-    {@Html.Partial("NotasBug", Model.NotasTrabalhoBugs)
-    }
-    else
-    {
-        if (User.IsInRole("admin"))
-        {
-            @Html.Partial("NotasBug", Model.NotasTrabalhoBugs)
-        }
-        else { 
-        @Html.Partial("NotasBug_SomenteLeitura", Model.NotasTrabalhoBugs)
-        }
-    }
-}
+@Html.Partial("NotasBug_SomenteLeitura", Model.NotasTrabalhoBugs)
 @section scripts
 {
     <script>
@@ -135,20 +99,6 @@
                         "previous": "Anterior"
                     }
                 }
-            });
-            $("#notas .js-excluir").on("click", function () {
-                var button = $(this);
-                bootbox.confirm("Confirma a Exclusão da Nota?", function (resultado) {
-                    if (resultado) {
-                        $.ajax({
-                            url: "/api/NotasTrabalhoBug/" + button.attr("data-nota-id"),
-                            method: "DELETE",
-                            success: function () {
-                                tabela.row(button.parents("tr")).remove().draw();
-                            }
-                        });
-                    }
-                });
             });
         });
     </script>

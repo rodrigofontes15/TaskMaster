@@ -328,6 +328,7 @@
     <Compile Include="Models\gmail.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NomeRoles.cs" />
     <Compile Include="Models\NotasTrabalhoBug.cs" />
     <Compile Include="Models\Projetos.cs" />
     <Compile Include="Models\Tasks.cs" />
@@ -539,6 +540,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Bugs\NotasBug.cshtml" />
+    <Content Include="Views\Projetos\Detalhes.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -571,7 +573,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Projetos\Detalhes.cshtml" />
     <Content Include="Views\Projetos\Index.cshtml" />
     <Content Include="Views\Projetos\FormProjeto.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
@@ -585,6 +586,11 @@
     <Content Include="Views\Bugs\DetalhesBug.cshtml" />
     <Content Include="Views\Home\ListarBugEstado.cshtml" />
     <Content Include="Views\EmailSetup\Index.cshtml" />
+    <Content Include="Views\Projetos\Index_SomenteLeitura.cshtml" />
+    <Content Include="Views\Tasks\Index_SomenteLeitura.cshtml" />
+    <Content Include="Views\Bugs\Index_SomenteLeitura.cshtml" />
+    <Content Include="Views\Bugs\DetalhesBug_SomenteLeitura.cshtml" />
+    <Content Include="Views\Bugs\NotasBug_SomenteLeitura.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
