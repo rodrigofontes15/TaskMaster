@@ -8,6 +8,7 @@ using TaskMaster.Models;
 
 namespace TaskMaster.Controllers.Api
 {
+    [Authorize]
     public class TasksController : ApiController
     {
         private ApplicationDbContext _context;
@@ -33,6 +34,7 @@ namespace TaskMaster.Controllers.Api
             return task;
         }
 
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         // POST /api/tasks/
         public Tasks PostTasks(Tasks task)
         {
@@ -45,6 +47,7 @@ namespace TaskMaster.Controllers.Api
             return task;
         }
 
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         // PUT /api/tasks/id
         [HttpPut]
         public void UpdateTasks(int id, Tasks tasks)
@@ -65,6 +68,7 @@ namespace TaskMaster.Controllers.Api
             _context.SaveChanges();
         }
 
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         // DELETE /api/tasks/
         [HttpDelete]
         public void DeleteTasks(int id)

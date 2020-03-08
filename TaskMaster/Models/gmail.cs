@@ -13,7 +13,7 @@ namespace TaskMaster.Models
         public string From { get; set; }
 
         [Required]
-        [Display(Name = "Assunto")]
+        [Display(Name = "Tipo de Role")]
         public string Subject { get; set; }
 
         [Required]

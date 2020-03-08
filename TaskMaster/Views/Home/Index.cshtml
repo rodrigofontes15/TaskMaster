@@ -18,21 +18,21 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Bugs Encontrados</h2>
-        <table class="table table-bordered table-hover">
+        <table class="table table-condensed table-hover">
             <thead>
                 <tr>
-                    <th class="active">Quantidade de Bugs</th>
-                    <th class="active">Estado</th>
+                    <th class="active" align="center"><center>Quantidade de Bugs</center></th>
+                    <th class="active" align="center"><center>Estado</center></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>@abertos</td>
-                    <td>@Html.ActionLink("Abertos", "ListarBugEstado", "Home", new { estado= "Aberto" }, null)</td></tr>
-                    <td>@emTrat</td>
-                    <td>@Html.ActionLink("Em Tratamento", "ListarBugEstado", "Home", new { estado= "Em Tratamento" }, null)</td></tr>
-                    <td>@Corrig</td>
-                    <td>@Html.ActionLink("Corrigidos", "ListarBugEstado", "Home", new { estado = "Corrigidos" }, null)</td>
+                    <td align="center">@abertos</td>
+                    <td align="center" class="alert-danger">@Html.ActionLink("Abertos", "ListarBugEstado", "Home", new { estado= "Aberto"}, new { Style = "color:White" })</td></tr>
+                    <td align="center">@emTrat</td>
+                    <td align="center" class="alert-warning">@Html.ActionLink("Em Tratamento", "ListarBugEstado", "Home", new { estado= "Em Tratamento" }, new { Style = "color:White" })</td></tr>
+                    <td align="center">@Corrig</td>
+                    <td align="center" class="alert-success">@Html.ActionLink("Corrigidos", "ListarBugEstado", "Home", new { estado = "Corrigidos" }, new { Style = "color:White" })</td>
                 </tr>
             </tbody>
         </table>
@@ -44,5 +44,38 @@
     <div class="col-md-4">
         <h2>Bugs por Desenvolvedor</h2>
         <p>Quantidade de Bugs por Dev</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Meta de Bugs por Projeto</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="active">Projeto</th>
+                    <th class="active">Quantidade de Bugs</th>
+                    <th class="active">Meta</th>
+                    <th class="active">Real</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                </tr>
+            <td></td>
+            </tr>
+            <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h2>Grafico</h2>
+        <p>espaço para o grafico</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Estado de Projetos</h2>
+        <p>Em atraso, no prazo, adiantado</p>
     </div>
 </div>

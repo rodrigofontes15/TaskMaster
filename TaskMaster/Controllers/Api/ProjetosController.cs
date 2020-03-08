@@ -8,6 +8,7 @@ using TaskMaster.Models;
 
 namespace TaskMaster.Controllers.Api
 {
+    [Authorize]
     public class ProjetosController : ApiController
     {
         private ApplicationDbContext _context;
@@ -33,6 +34,7 @@ namespace TaskMaster.Controllers.Api
             return projeto;
         }
 
+        [Authorize(Roles = NomeRoles.gp + "," + NomeRoles.admin)]
         // POST /api/projetos/
         public Projetos PostProjeto(Projetos projeto)
         {
@@ -45,6 +47,7 @@ namespace TaskMaster.Controllers.Api
             return projeto;
         }
 
+        [Authorize(Roles = NomeRoles.gp + "," + NomeRoles.admin)]
         // PUT /api/projetos/id
         [HttpPut]
         public void UpdateProjeto(int id, Projetos projetos)
@@ -64,6 +67,7 @@ namespace TaskMaster.Controllers.Api
             _context.SaveChanges();
         }
 
+        [Authorize(Roles = NomeRoles.gp + "," + NomeRoles.admin)]
         // DELETE /api/projetos/
         [HttpDelete]
         public void DeleteProjeto(int id)

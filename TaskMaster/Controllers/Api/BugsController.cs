@@ -8,6 +8,7 @@ using TaskMaster.Models;
 
 namespace TaskMaster.Controllers.Api
 {
+    [Authorize]
     public class BugsController : ApiController
     {
         private ApplicationDbContext _context;
@@ -33,6 +34,7 @@ namespace TaskMaster.Controllers.Api
             return bug;
         }
 
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         // POST /api/bugs/
         public Bugs PostBugs(Bugs bug)
         {
@@ -45,6 +47,7 @@ namespace TaskMaster.Controllers.Api
             return bug;
         }
 
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin + "," + NomeRoles.dev)]
         // PUT /api/bugs/id
         [HttpPut]
         public void UpdateBugs(int id, Bugs bugs)
@@ -65,7 +68,8 @@ namespace TaskMaster.Controllers.Api
             _context.SaveChanges();
         }
 
-        // DELETE /api/tasks/
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
+        // DELETE /api/bugs/
         [HttpDelete]
         public void DeleteBug(int id)
         {
