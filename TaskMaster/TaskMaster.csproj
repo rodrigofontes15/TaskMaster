@@ -183,6 +183,7 @@
     <Compile Include="Controllers\Api\TasksController.cs" />
     <Compile Include="Controllers\Api\ProjetosController.cs" />
     <Compile Include="Controllers\BugsController.cs" />
+    <Compile Include="Controllers\EmailSetupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjetosController.cs" />
@@ -324,6 +325,7 @@
     <Compile Include="Models\Devs.cs" />
     <Compile Include="Models\EstadosBug.cs" />
     <Compile Include="Models\GerenteProjs.cs" />
+    <Compile Include="Models\gmail.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NotasTrabalhoBug.cs" />
@@ -582,6 +584,7 @@
     <Content Include="Views\Bugs\BugsTask.cshtml" />
     <Content Include="Views\Bugs\DetalhesBug.cshtml" />
     <Content Include="Views\Home\ListarBugEstado.cshtml" />
+    <Content Include="Views\EmailSetup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
