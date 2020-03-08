@@ -21,7 +21,7 @@ namespace TaskMaster.Controllers
         [HttpPost]
         public ActionResult Index(TaskMaster.Models.gmail model)
         {            
-            MailMessage mm = new MailMessage("rodrigofontes1985@gmail.com", "rodrigofontes1985@gmail.com");           
+            MailMessage mm = new MailMessage("taskmasterbugs@gmail.com", "taskmasterbugs@gmail.com");           
             mm.Subject = model.Subject;
             mm.Body = model.Body;
             mm.IsBodyHtml = false;
@@ -31,7 +31,7 @@ namespace TaskMaster.Controllers
             smtp.Port = 587;
             smtp.EnableSsl = true;
 
-            NetworkCredential nc = new NetworkCredential("rodrigofontes1985@gmail.com", "password");
+            NetworkCredential nc = new NetworkCredential("taskmasterbugs@gmail.com", "sts25wka");
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = nc;
             smtp.Send(mm);

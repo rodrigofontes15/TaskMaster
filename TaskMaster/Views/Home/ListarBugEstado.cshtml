@@ -34,25 +34,56 @@ else
                 <th class="active">Estimativa de Solução</th>
                 <th class="active">DEV</th>
                 <th class="active">Estado da Correção</th>
-                <th class="active">Excluir</th>
+                @{ if (User.IsInRole("tester"))
+                    {
+                        <th class="active">Excluir</th>
+                    }
+                    else
+                    {
+                        if (User.IsInRole("admin"))
+                        {
+                            <th class="active">Excluir</th>
+                        }
+                        else
+                        {
+                            <th class="active">Ação</th>
+                        }
+                    }
+                }
             </tr>
         </thead>
         <tbody>
             @foreach (var bug in Model)
             {
             <tr>
-                <td>@bug.TiposBugs.TipoBug<br />
-                     @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)</td>
-                <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
-                <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
-                <td>@bug.DataBug.Value.ToString("dd/MM/yyyy")</td>
-                <td>@bug.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
-                <td>@bug.Devs.DevNome</td>
-                <td>@bug.EstadosBug.NomeEstado</td>
                 <td>
-                    @Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />
-                    <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
-                </td>
+                    @bug.TiposBugs.TipoBug<br />
+                @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
+            </td>
+            <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
+            <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
+            <td>@bug.DataBug.Value.ToString("dd/MM/yyyy")</td>
+            <td>@bug.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+            <td>@bug.Devs.DevNome</td>
+            <td>@bug.EstadosBug.NomeEstado</td>
+            <td>
+                @Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />
+            @{ if (User.IsInRole("tester"))
+                {
+                <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+            }
+            else
+            {
+                if (User.IsInRole("admin"))
+                {
+                <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                }
+                else
+                {
+                }
+            }
+            }
+            </td>
             </tr>
             }
         </tbody>
