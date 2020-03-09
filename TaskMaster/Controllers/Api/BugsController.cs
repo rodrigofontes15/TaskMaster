@@ -61,7 +61,7 @@ namespace TaskMaster.Controllers.Api
 
             bugInDb.DescBug = bugs.DescBug;
             bugInDb.DataBug = bugs.DataBug;
-            bugInDb.DataEstimada = bugs.DataBug;
+            bugInDb.DataEstimadaBug = bugs.DataEstimadaBug;
             bugInDb.TasksId = bugs.TasksId;
             bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
 

@@ -49,7 +49,7 @@ else
                     <td>@projeto.GerenteProjs.Nome</td>
                     <td>@projeto.DataInicio.Value.ToShortDateString()</td>
                     <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
-                    <td>colocar aqui a data real, com base na data estiamda para o ultimo bug aberto. formatar celular em vermelho si Real > Estimada</td>
+                    <td>Data Real. Pior Data estimada para o Bug referente a Task do projeto. Se data bug menor que estiamda, data estimada</td>
                     <td>
                         @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />
                         <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>

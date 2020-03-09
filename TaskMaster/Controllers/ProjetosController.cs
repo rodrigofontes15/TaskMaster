@@ -27,7 +27,18 @@ namespace TaskMaster.Controllers
 
         public ViewResult Index()
         {
+            // List<Bugs> bug = _context.Bugs.Include(t=>t.Tasks).ToList();
+            //  var taskidnobug = _context.Bugs.Select(t => t.TasksId).Include(b => b.CompareTo();
+            //List<Tasks> task = _context.Tasks.ToList();
+            //List<Projetos> projeto = _context.Projetos.ToList();
+
+            //            var queryDataMaiorBug = bug.Where(t=>t.Tasks.TasksId== taskidnobug).Select(d=>d.DataEstimadaBug).Max();
+
+
+            //ViewData["query"] = queryDataMaiorBug;
+
             var projetos = _context.Projetos.Include(g => g.GerenteProjs).ToList();
+
             if (User.IsInRole("gp"))
             {
                 return View("Index", projetos);

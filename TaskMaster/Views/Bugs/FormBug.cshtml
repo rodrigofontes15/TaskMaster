@@ -24,9 +24,9 @@
 
 
     <div class="form-group">
-            @Html.LabelFor(m => m.ProjetosId)
-            @Html.DropDownListFor(m => m.ProjetosId, new SelectList(Model.Projetos, "ProjetosId", "NomeProjeto"), "Selecione...", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.ProjetosId)
+        @Html.LabelFor(m => m.ProjetosId)
+        @Html.DropDownListFor(m => m.ProjetosId, new SelectList(Model.Projetos, "ProjetosId", "NomeProjeto"), "Selecione...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProjetosId)
     </div>
 
     /*
@@ -41,44 +41,47 @@
    </div>
      */
 
-   <div class="form-group">
-       @Html.LabelFor(m => m.TasksId)
-       @Html.DropDownListFor(m => m.TasksId, new SelectList(Model.Tasks, "TasksId", "NomeTask"), "Selecione...", new { @class = "form-control" })
-       @Html.ValidationMessageFor(m => m.TasksId)
-   </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.TasksId)
+        @Html.DropDownListFor(m => m.TasksId, new SelectList(Model.Tasks, "TasksId", "NomeTask"), "Selecione...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TasksId)
+    </div>
 
-   <div class="form-group">
-       @Html.LabelFor(m => m.TiposBugsId)
-       @Html.DropDownListFor(m => m.TiposBugsId, new SelectList(Model.TiposBugs, "TiposBugsId", "TipoBug"), "Selecione...", new { @class = "form-control" })
-       @Html.ValidationMessageFor(m => m.TiposBugsId)
-   </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.TiposBugsId)
+        @Html.DropDownListFor(m => m.TiposBugsId, new SelectList(Model.TiposBugs, "TiposBugsId", "TipoBug"), "Selecione...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TiposBugsId)
+    </div>
 
-   /*
-    *
-   <div class="form-group">
-       @Html.LabelFor(m => m.NomeProjeto)
-       @Html.TextBoxFor(m => m.NomeProjeto, new { @class = "form-control", disabled = "disabled", @readonly = "readonly", id = "TaskProjeto" })
+    /*
+     *
+    <div class="form-group">
+        @Html.LabelFor(m => m.NomeProjeto)
+        @Html.TextBoxFor(m => m.NomeProjeto, new { @class = "form-control", disabled = "disabled", @readonly = "readonly", id = "TaskProjeto" })
 
-   </div>
-   */
+    </div>
+    */
     <div class="form-group">
         @Html.LabelFor(m => m.DataBug)
         @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.DataBug)
     </div>
 
+    /*
     <div class="form-group">
-        @Html.LabelFor(m => m.DataEstimada)
-        @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.DataEstimada)
+        @Html.LabelFor(m => m.DataEstimadaBug)
+        @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DataEstimadaBug)
     </div>
+     */
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.EstadosBugId)
-        @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.EstadosBugId)
-    </div>
-
+    /*
+<div class="form-group">
+    @Html.LabelFor(m => m.EstadosBugId)
+    @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.EstadosBugId)
+</div>
+  */
     <div class="form-group">
         @Html.LabelFor(m => m.DevsId)
         @Html.DropDownListFor(m => m.DevsId, new SelectList(Model.Devs, "DevsId", "DevNome"), "Selecione...", new { @class = "form-control" })
@@ -92,10 +95,11 @@
     </div>
 
     @Html.HiddenFor(c => c.BugsId)
+    @Html.HiddenFor(c => c.EstadosBugId)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Salvar</button>
-}
-@section scripts{
+    }
+    @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script>
@@ -110,4 +114,4 @@
             })
         });
     </script>
-}
+    }

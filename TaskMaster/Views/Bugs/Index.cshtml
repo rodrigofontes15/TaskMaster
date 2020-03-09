@@ -43,7 +43,7 @@
             <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
             <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null)</td>
             <td>@bug.DataBug.Value.ToShortDateString()</td>
-            <td>@bug.DataEstimada</td>
+            <td>@bug.DataEstimadaBug</td>
             <td>@bug.Devs.DevNome</td>
             <td>@bug.EstadosBug.NomeEstado</td>
             <td>@Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />

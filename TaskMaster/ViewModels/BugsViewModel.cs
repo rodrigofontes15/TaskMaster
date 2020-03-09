@@ -53,7 +53,7 @@ namespace TaskMaster.ViewModels
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data Estimada para Resolução")]
-        public DateTime? DataEstimada { get; set; }
+        public DateTime? DataEstimadaBug { get; set; }
 
         [Display(Name = "Assignar Bug para mim")]
         public Boolean BugAceito { get; set; }
@@ -77,6 +77,8 @@ namespace TaskMaster.ViewModels
         public BugsViewModel()
         {
             BugsId = 0;
+            EstadosBugId = 2;
+            
         }
 
         public BugsViewModel(Bugs bug)
@@ -84,7 +86,7 @@ namespace TaskMaster.ViewModels
             BugsId = bug.BugsId;
             DescBug = bug.DescBug;
             DataBug = bug.DataBug;
-            DataEstimada = bug.DataEstimada;
+            DataEstimadaBug = bug.DataEstimadaBug;
           //  ProjetosId = bug.ProjetosId;
             TasksId = bug.TasksId;
             DevsId = bug.DevsId;

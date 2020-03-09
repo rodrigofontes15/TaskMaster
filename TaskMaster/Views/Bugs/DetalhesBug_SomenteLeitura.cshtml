@@ -39,19 +39,16 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.TiposBugsId)
                 @Html.DropDownListFor(m => m.TiposBugsId, new SelectList(Model.TiposBugs, "TiposBugsId", "TipoBug"), "Selecione...", new { @class = "form-control", @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.TiposBugsId)
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.DataBug)
                 @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control", @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.DataBug)
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.DataEstimada)
-                @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control", @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.DataEstimada)
+                @Html.LabelFor(m => m.DataEstimadaBug)
+                @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control", @readonly = "readonly" })
             </div>
         </div>
 
@@ -59,7 +56,6 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.EstadosBugId)
                 @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control", @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.EstadosBugId)
             </div>
 
             <div class="form-group">
@@ -70,7 +66,6 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.UrlRepoCodigo)
                 @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control", @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.UrlRepoCodigo)
             </div>
         </div>
     </div>

@@ -33,7 +33,7 @@ namespace TaskMaster.Models
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data Estimada para Resolução")]
-        public DateTime? DataEstimada { get; set; }
+        public DateTime? DataEstimadaBug { get; set; }
 
         public int DevsId { get; set; }
         [ForeignKey("DevsId")]

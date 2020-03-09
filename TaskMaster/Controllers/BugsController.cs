@@ -105,7 +105,7 @@ namespace TaskMaster.Controllers
                 var bugInDb = _context.Bugs.Single(p => p.BugsId == bugs.BugsId);
                 bugInDb.DescBug = bugs.DescBug;
                 bugInDb.DataBug = bugs.DataBug;
-                bugInDb.DataEstimada = bugs.DataBug;
+                bugInDb.DataEstimadaBug = bugs.DataBug;
                 //  bugInDb.ProjetosId = bugs.ProjetosId;
                 bugInDb.TasksId = bugs.TasksId;
                 bugInDb.DevsId = bugs.DevsId;
@@ -236,7 +236,8 @@ namespace TaskMaster.Controllers
             }
             else
             {
-                var notasInDb = _context.NotasTrabalhoBug.Single(p => p.NotasTrabalhoBugId == notasTrabalhoBugs.NotasTrabalhoBugId);
+                var notasInDb = _context.NotasTrabalhoBug
+                    .Single(p => p.NotasTrabalhoBugId == notasTrabalhoBugs.NotasTrabalhoBugId);
                 notasInDb.NotasTrabalhoBugId = notasTrabalhoBugs.NotasTrabalhoBugId;
                 notasInDb.DataNotaTrabalho = notasTrabalhoBugs.DataNotaTrabalho;
             }
