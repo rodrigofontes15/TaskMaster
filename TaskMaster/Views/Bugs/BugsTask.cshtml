@@ -13,6 +13,7 @@
 @{
     ViewBag.Title = "Bugs";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 @if (!Model.Any())
 {
@@ -66,7 +67,15 @@ else
                 <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
                 <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
                 <td>@bug.DataBug.Value.ToString("dd/MM/yyyy")</td>
-                <td>@bug.DataEstimadaBug.Value.ToString("dd/MM/yyyy")</td>
+                @{if (bug.DataEstimadaBug == null)
+                    {
+                <td>@bug.DataEstimadaBug</td>
+                    }
+                    else
+                    {
+                <td>@bug.DataEstimadaBug.Value.ToString("dd/MM/yyyy")</td> 
+                    }
+                    }
                 <td>@bug.Devs.DevNome</td>
                 <td>@bug.EstadosBug.NomeEstado</td>
 

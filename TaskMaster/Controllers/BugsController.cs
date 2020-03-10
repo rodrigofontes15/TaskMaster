@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -105,7 +106,7 @@ namespace TaskMaster.Controllers
                 var bugInDb = _context.Bugs.Single(p => p.BugsId == bugs.BugsId);
                 bugInDb.DescBug = bugs.DescBug;
                 bugInDb.DataBug = bugs.DataBug;
-                bugInDb.DataEstimadaBug = bugs.DataBug;
+                bugInDb.DataEstimadaBug = bugs.DataEstimadaBug;
                 //  bugInDb.ProjetosId = bugs.ProjetosId;
                 bugInDb.TasksId = bugs.TasksId;
                 bugInDb.DevsId = bugs.DevsId;
@@ -115,6 +116,20 @@ namespace TaskMaster.Controllers
             }
 
             _context.SaveChanges();
+
+            var taskdobug = _context.Bugs.Where(p => p.BugsId == bugs.BugsId).Select(t => t.TasksId).SingleOrDefault();
+            var datasbugnatask = _context.Bugs.Where(i => i.TasksId == taskdobug).Select(d => d.DataEstimadaBug).ToList().Max();
+
+            if (datasbugnatask == null)
+            {
+                datasbugnatask = bugs.DataEstimadaBug;
+            }
+                var sql = @"Update [Tasks] SET DataReal = @DataReal WHERE TasksId = @TasksId";
+
+            _context.Database.ExecuteSqlCommand(
+                sql,
+                new SqlParameter("@DataReal", datasbugnatask),
+                new SqlParameter("@TasksId", taskdobug));
 
             return RedirectToAction("Index", "Bugs");
         }
@@ -177,7 +192,6 @@ namespace TaskMaster.Controllers
                 TiposBugs = _context.TiposBugs.ToList(),
                 EstadosBugs = _context.EstadosBugs.ToList(),
                 NotasTrabalhoBugs=_context.NotasTrabalhoBug.Where(c=>c.BugsId==id).ToList()
-                
             };
 
             var nomeTask = _context.Bugs
@@ -243,7 +257,7 @@ namespace TaskMaster.Controllers
             }
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Bugs");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public ActionResult NotasBug(int id)
