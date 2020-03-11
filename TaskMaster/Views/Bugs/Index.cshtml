@@ -77,7 +77,7 @@
             });
             $("#bugs .js-excluir").on("click", function () {
                 var button = $(this);
-                bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
+                bootbox.confirm("Confirma a Exclusão do Bug?", function (resultado) {
                     if (resultado) {
                         $.ajax({
                             url: "/api/bugs/" + button.attr("data-bug-id"),

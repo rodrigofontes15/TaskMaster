@@ -13,6 +13,7 @@
 @{
     ViewBag.Title = "Projetos";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <h2>Projetos</h2>
@@ -55,7 +56,13 @@ else
                     }
                     else
                     {
-                        <td>@projeto.DataReal.Value.ToString("dd/MM/yyyy")</td>
+                        if (projeto.DataEstimada <= projeto.DataReal)
+                        {
+                            <td style="background-color:lightsalmon">@projeto.DataReal.Value.ToString("dd/MM/yyyy")</td>
+                        }
+                        else { 
+                        <td style="background-color:lightgreen">@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+                        }
                     }
                 }
                 <td>
