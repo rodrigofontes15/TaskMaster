@@ -24,48 +24,48 @@
         <tr>
             <th class="active">Tasks</th>
             <th class="active">Projeto Relacionado</th>
-            <th class="active">Data de Início</th>
-            <th class="active">Data Estimada de Término</th>
+            @*<th class="active">Data de Início</th>
+        <th class="active">Data Estimada de Término</th>*@
             <th class="active">Testador</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var task in Model)
         {
-            <tr>
-                <td>
-                    <b>@task.NomeTask</b><br />
-                    @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
-                </td>
-                <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
-                <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
-                <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
-                <td>@task.Testers.Nome</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-
-@section scripts
-{
-    <script>
-        $(document).ready(function () {
-            var tabela = $("#tasks").DataTable({
-                "language": {
-                    "emptyTable": "Nenhum registro encontrado!",
-                    "search": "Buscar:",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "lengthMenu": "Mostrando _MENU_ registros",
-                    "paginate": {
-                        "first": "Primeira",
-                        "last": "Ultima",
-                        "next": "Próxima",
-                        "previous": "Anterior"
-                    }
+        <tr>
+            <td>
+                <b>@task.NomeTask</b><br />
+                @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
+            </td>
+            <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
+            @* <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
+        <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>*@
+            <td>@task.Testers.Nome</td>
+        </tr>
                 }
-            });
-        });
-    </script>
-}
+            </tbody>
+        </table>
+
+
+
+        @section scripts
+        {
+            <script>
+                $(document).ready(function () {
+                    var tabela = $("#tasks").DataTable({
+                        "language": {
+                            "emptyTable": "Nenhum registro encontrado!",
+                            "search": "Buscar:",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "lengthMenu": "Mostrando _MENU_ registros",
+                            "paginate": {
+                                "first": "Primeira",
+                                "last": "Ultima",
+                                "next": "Próxima",
+                                "previous": "Anterior"
+                            }
+                        }
+                    });
+                });
+            </script>
+        }

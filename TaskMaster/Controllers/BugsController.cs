@@ -122,16 +122,31 @@ namespace TaskMaster.Controllers
 
             if (datasbugnatask == null)
             {
-                datasbugnatask = bugs.DataEstimadaBug;
+                datasbugnatask = bugs.DataBug;
             }
-                var sql = @"Update [Tasks] SET DataReal = @DataReal WHERE TasksId = @TasksId";
+                var sqlDataRealTask = @"Update [Tasks] SET DataReal = @DataReal WHERE TasksId = @TasksId";
 
             _context.Database.ExecuteSqlCommand(
-                sql,
+                sqlDataRealTask,
                 new SqlParameter("@DataReal", datasbugnatask),
                 new SqlParameter("@TasksId", taskdobug));
 
+            var projetidnatask = _context.Tasks.Where(t=>t.TasksId==taskdobug).Select(p => p.ProjetosId).SingleOrDefault();
+            var datarealnatask = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.DataReal).ToList().Max();
+
+            if (datarealnatask == null)
+            {
+                datarealnatask = bugs.DataEstimadaBug;
+            }
+            var sqlDataRealProjeto = @"Update [Projetos] SET DataReal = @DataReal WHERE ProjetosId = @ProjetosId";
+
+            _context.Database.ExecuteSqlCommand(
+                sqlDataRealProjeto,
+                new SqlParameter("@DataReal", datarealnatask),
+                new SqlParameter("@ProjetosId", projetidnatask));
+
             return RedirectToAction("Index", "Bugs");
+
         }
 
         [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]

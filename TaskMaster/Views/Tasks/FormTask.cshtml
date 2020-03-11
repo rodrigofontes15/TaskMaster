@@ -35,29 +35,29 @@
         @Html.ValidationMessageFor(m => m.ProjetosId)
     </div>
 
-    <div class="form-group">
+    /*<div class="form-group">
         @Html.LabelFor(m => m.DataInicio)
         @Html.TextBoxFor(m => m.DataInicio, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.DataInicio)
-    </div>
+    </div>*/
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.DataEstimada)
-        @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.DataEstimada)
-    </div>
+    /* <div class="form-group">
+         @Html.LabelFor(m => m.DataEstimada)
+         @Html.TextBoxFor(m => m.DataEstimada, new { @class = "form-control" })
+         @Html.ValidationMessageFor(m => m.DataEstimada)
+     </div>*/
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.TestersId)
-        @Html.DropDownListFor(m => m.TestersId, new SelectList(Model.Testers, "TestersId", "Nome"), "Selecione...", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.TestersId)
-    </div>
+     <div class="form-group">
+         @Html.LabelFor(m => m.TestersId)
+         @Html.DropDownListFor(m => m.TestersId, new SelectList(Model.Testers, "TestersId", "Nome"), "Selecione...", new { @class = "form-control" })
+         @Html.ValidationMessageFor(m => m.TestersId)
+     </div>
 
-    @Html.HiddenFor(c => c.TasksId)
-    @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Salvar</button>
+     @Html.HiddenFor(c => c.TasksId)
+     @Html.AntiForgeryToken()
+     <button type="submit" class="btn btn-primary">Salvar</button>
 
-}
-@section scripts{
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    }
+    @section scripts{
+     @Scripts.Render("~/bundles/jqueryval")
+    }

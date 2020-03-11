@@ -323,6 +323,10 @@
     <Compile Include="Migrations\202003091948013_updatedataEstimadaBug.Designer.cs">
       <DependentUpon>202003091948013_updatedataEstimadaBug.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003110835536_CampoDatasTaskOpcional.cs" />
+    <Compile Include="Migrations\202003110835536_CampoDatasTaskOpcional.Designer.cs">
+      <DependentUpon>202003110835536_CampoDatasTaskOpcional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -712,6 +716,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003091948013_updatedataEstimadaBug.resx">
       <DependentUpon>202003091948013_updatedataEstimadaBug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003110835536_CampoDatasTaskOpcional.resx">
+      <DependentUpon>202003110835536_CampoDatasTaskOpcional.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

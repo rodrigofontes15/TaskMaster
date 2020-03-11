@@ -22,8 +22,8 @@
             <th class="active">Nome da Task</th>
             <th class="active">Projeto</th>
             <th class="active">Tipo de Teste</th>
-            <th class="active">Data de Início</th>
-            <th class="active">Data de Término</th>
+          @*<th class="active">Data de Início</th>
+            <th class="active">Data de Término</th>*@
             <th class="active">Testador</th>
         </tr>
     </thead>
@@ -36,34 +36,34 @@
             </td>
             <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
             <td>@task.TiposTestes.TipoTeste</td>
-            <td>@task.DataInicio.Value.ToShortDateString()</td>
-            <td>@task.DataEstimada</td>
+            @* <td>@task.DataInicio.Value.ToShortDateString()</td>
+            <td>@task.DataEstimada</td>*@
             <td>@task.Testers.Nome</td>
         </tr>
-        }
-    </tbody>
-</table>
-
-
-
-@section scripts
-{
-    <script>
-        $(document).ready(function () {
-            var tabela = $("#tasks").DataTable({
-                "language": {
-                    "emptyTable": "Nenhum registro encontrado!",
-                    "search": "Buscar:",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "lengthMenu": "Mostrando _MENU_ registros",
-                    "paginate": {
-                        "first": "Primeira",
-                        "last": "Ultima",
-                        "next": "Próxima",
-                        "previous": "Anterior"
-                    }
                 }
-            });
-        });
-    </script>
-}
+            </tbody>
+        </table>
+
+
+
+        @section scripts
+        {
+            <script>
+                $(document).ready(function () {
+                    var tabela = $("#tasks").DataTable({
+                        "language": {
+                            "emptyTable": "Nenhum registro encontrado!",
+                            "search": "Buscar:",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "lengthMenu": "Mostrando _MENU_ registros",
+                            "paginate": {
+                                "first": "Primeira",
+                                "last": "Ultima",
+                                "next": "Próxima",
+                                "previous": "Anterior"
+                            }
+                        }
+                    });
+                });
+            </script>
+        }

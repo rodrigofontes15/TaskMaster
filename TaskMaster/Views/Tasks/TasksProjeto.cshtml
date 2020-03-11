@@ -29,8 +29,8 @@ else
                 <th class="active">Nomo do Projeto</th>
                 <th class="active">Tipo de Teste</th>
                 <th class="active">Nome da Task</th>
-                <th class="active">Data de Início</th>
-                <th class="active">Data Estimada de Término</th>
+                @*<th class="active">Data de Início</th>
+                 <th class="active">Data Estimada de Término</th>*@
                 <th class="active">Testador Responsável</th>
                 @{ if (User.IsInRole("tester"))
                     {
@@ -60,8 +60,8 @@ else
                 </td>
                 <td>@task.TiposTestes.TipoTeste</td>
                 <td>@task.NomeTask</td>
-                <td>@task.DataInicio</td>
-                <td>@task.DataEstimada</td>
+               @* <td>@task.DataInicio</td>
+                <td>@task.DataEstimada</td>*@
                 <td>@task.Testers.Nome</td>
                 @{ if (User.IsInRole("tester"))
                     {

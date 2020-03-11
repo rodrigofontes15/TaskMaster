@@ -40,21 +40,29 @@ else
         <tbody>
             @foreach (var projeto in Model)
             {
-                <tr>
-                    <td>
-                        <b>@projeto.NomeProjeto</b><br />
-                        @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)
-                        @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)
-                    </td>
-                    <td>@projeto.GerenteProjs.Nome</td>
-                    <td>@projeto.DataInicio.Value.ToShortDateString()</td>
-                    <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
-                    <td>Data Real. Pior Data estimada para o Bug referente a Task do projeto. Se data bug menor que estiamda, data estimada</td>
-                    <td>
-                        @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />
-                        <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <b>@projeto.NomeProjeto</b><br />
+                    @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)
+                    @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)
+                </td>
+                <td>@projeto.GerenteProjs.Nome</td>
+                <td>@projeto.DataInicio.Value.ToShortDateString()</td>
+                <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
+                @{if (projeto.DataReal == null)
+                    {
+                        <td>@projeto.DataReal</td>
+                    }
+                    else
+                    {
+                        <td>@projeto.DataReal.Value.ToString("dd/MM/yyyy")</td>
+                    }
+                }
+                <td>
+                    @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })<br />
+                    <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

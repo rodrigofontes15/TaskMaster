@@ -21,7 +21,6 @@ namespace TaskMaster.Models
         [ForeignKey("ProjetosId")]
         public Projetos Projetos { get; set; } //navigation class
 
-        [Required]
         [Display(Name = "Data de Início do Teste")]
         public DateTime? DataInicio { get; set; }
 
@@ -32,7 +31,7 @@ namespace TaskMaster.Models
         [ForeignKey("TestersId")]
         public Testers Testers { get; set; } //navigation class
 
-        public DateTime? DataReal { get; set; }
+        public DateTime? DataReal { get; set; } //propriedade usada para trasportar o maior DataEstimadaBug dentre todos os bugs da task até a DataReal do Projetos
 
         public int TiposTestesId { get; set; }
         [ForeignKey("TiposTestesId")]

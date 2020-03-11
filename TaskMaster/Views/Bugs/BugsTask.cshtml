@@ -47,7 +47,7 @@ else
                     {
                         if (User.IsInRole("admin"))
                         {
-                <th class="active">Excluir</th>
+                <th class="active">Açoes</th>
                             }
                             else
                             {
@@ -69,16 +69,15 @@ else
                 <td>@bug.DataBug.Value.ToString("dd/MM/yyyy")</td>
                 @{if (bug.DataEstimadaBug == null)
                     {
-                <td>@bug.DataEstimadaBug</td>
+                        <td>@bug.DataEstimadaBug</td>
                     }
                     else
                     {
-                <td>@bug.DataEstimadaBug.Value.ToString("dd/MM/yyyy")</td> 
+                        <td>@bug.DataEstimadaBug.Value.ToString("dd/MM/yyyy")</td>
                     }
-                    }
+                }
                 <td>@bug.Devs.DevNome</td>
                 <td>@bug.EstadosBug.NomeEstado</td>
-
                 @{ if (User.IsInRole("tester"))
                     {
                         <td><button data-bug-id="@bug.BugsId" class="btn-danger btn-sm js-excluir">Excluir</button></td>
@@ -87,15 +86,16 @@ else
                     {
                         if (User.IsInRole("admin"))
                         {
-                            <td><button data-bug-id="@bug.BugsId" class="btn-danger btn-sm js-excluir">Excluir</button></td>
-                        }
-                        else
-                        {
-                         
-                        }
-                    }
-                }
-            </tr>
+                            <td>@Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />
+                            <button data-bug-id="@bug.BugsId" class="btn-danger btn-sm js-excluir">Excluir</button></td>
+                            }
+                            else
+                            {
+
+                            }
+                            }
+                            }
+                        </tr>
             }
         </tbody>
     </table>
