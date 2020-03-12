@@ -42,22 +42,19 @@ namespace TaskMaster.ViewModels
 
         public int? BugsId { get; set; }
 
+        public IEnumerable<Bugs> Bugs { get; set; }
         [Required]
         [StringLength(255)]
         [Display(Name = "Descrição do Bug Encontrado")]
         public string DescBug { get; set; }
-
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data do Bug")]
         public DateTime? DataBug { get; set; }
-
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data Estimada para Resolução")]
         public DateTime? DataEstimadaBug { get; set; }
-
         [Display(Name = "Assignar Bug para mim")]
         public Boolean BugAceito { get; set; }
-
         [Display(Name = "Repositório (URL GitHub)")]
         public string UrlRepoCodigo { get; set; }
 
@@ -65,6 +62,7 @@ namespace TaskMaster.ViewModels
         public int? NotasTrabalhoBugsId { get; set; }
         public string NotasTrabalho { get; set; }
         public DateTime DataNotaTrabalho { get; set; }
+
 
         public string Titulo
         {

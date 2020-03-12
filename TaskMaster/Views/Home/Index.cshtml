@@ -1,10 +1,16 @@
-﻿@model IEnumerable<TaskMaster.Models.Bugs>
+﻿@model TaskMaster.ViewModels.BugsViewModel
 @{
     ViewBag.Title = "Home Page";
 
-    string abertos = ViewData["QtdBugsAbertos"].ToString();
+    string abertos =ViewData["QtdBugsAbertos"].ToString();
     string emTrat = ViewData["QtdBugsEmTrat"].ToString();
     string Corrig = ViewData["QtdBugsCorrigido"].ToString();
+
+    string bugtipo500 = ViewData["bugtipo500"].ToString();
+    string bugtipo404 = ViewData["bugtipo404"].ToString();
+    string bugtipoInterface = ViewData["bugtipoInterface"].ToString();
+    string bugtipoFluxo = ViewData["bugtipoFluxo"].ToString();
+    string bugtipoCalc = ViewData["bugtipoCalc"].ToString();
 }
 
 <div class="jumbotron container-fluid">
@@ -15,37 +21,71 @@
     </h3>
 </div>
 <hr />
-
 <div class="row">
     <div class="col-md-4">
-        <h2>Bugs Encontrados</h2>
+        <h3><b>Bugs Encontrados</b></h3>
         <table class="table table-condensed table-hover">
             <thead>
                 <tr>
-                    <th class="active" align="center"><center>Quantidade de Bugs</center></th>
                     <th class="active" align="center"><center>Estado</center></th>
+                    <th class="active" align="center"><center>Quantidade de Bugs</center></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td align="center" style="background-color:lightcoral">@Html.ActionLink("Abertos", "ListarBugEstado", "Home", new { estado = "Aberto" }, new { Style = "color:White" })</td>
                     <td align="center">@abertos</td>
-                    <td align="center" class="alert-danger">@Html.ActionLink("Abertos", "ListarBugEstado", "Home", new { estado = "Aberto" }, new { Style = "color:White" })</td>
                 </tr>
-            <td align="center">@emTrat</td>
-            <td align="center" class="alert-warning">@Html.ActionLink("Em Tratamento", "ListarBugEstado", "Home", new { estado = "Em Tratamento" }, new { Style = "color:White" })</td></tr>
-            <td align="center">@Corrig</td>
-            <td align="center" class="alert-success">@Html.ActionLink("Corrigidos", "ListarBugEstado", "Home", new { estado = "Corrigidos" }, new { Style = "color:White" })</td>
-            </tr>
+                <tr>
+                    <td align="center" style="background-color:lightsalmon">@Html.ActionLink("Em Tratamento", "ListarBugEstado", "Home", new { estado = "Em Tratamento" }, new { Style = "color:White" })</td>
+                    <td align="center">@emTrat</td>
+                </tr>
+                <tr>
+                    <td align="center" style="background-color:lightgreen">@Html.ActionLink("Corrigidos", "ListarBugEstado", "Home", new { estado = "Corrigidos" }, new { Style = "color:White" })</td>
+                    <td align="center">@Corrig</td>
+                </tr>
             </tbody>
         </table>
     </div>
+
     <div class="col-md-4">
-        <h2>Bugs por Tipo</h2>
-        <p>Quantidade de Bugs por tipo</p>
+        <h3><b>Bugs por Tipo</b></h3>
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th class="active" align="center"><center>Tipo de Bug</center></th>
+                    <th class="active" align="center"><center>Quantidade</center></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center">@Html.ActionLink("Erro 500", "ListarBugTipo", "Home", new { tipobug = "Erro 500" },null)</td>
+                    <td align="center">@bugtipo500</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Erro 404", "ListarBugTipo", "Home", new { tipobug = "Erro 404" }, null)</td>
+                    <td align="center">@bugtipo404</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Interface", "ListarBugTipo", "Home", new { tipobug = "Interface" }, null)</td>
+                    <td align="center">@bugtipoInterface</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Fluxo", "ListarBugTipo", "Home", new { tipobug = "Fluxo" }, null)</td>
+                    <td align="center">@bugtipoFluxo</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Calculo", "ListarBugTipo", "Home", new { tipobug = "Calculo" }, null)</td>
+                    <td align="center">@bugtipoCalc</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
     <div class="col-md-4">
-        <h2>Bugs por Desenvolvedor</h2>
-        <p>Quantidade de Bugs por Dev</p>
+        <h2>Tempo médio de resolução de Bugs</h2>
+        <p>Média em dias, com base na media do time span entre abertura e data estimada de resolucao</p>
+        tera um KPI para isso tambem = 95% dos bugs resolvidos em X dias
     </div>
 </div>
 <hr />
@@ -63,12 +103,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
+                    <td>projeto</td>
+                    <td> bugs</td>
+                    <td> KPI meta de bugs</td>
+                    <td> qtd real de bugs %%</td>
                 </tr>
-            <td></td>
-            </tr>
-            <td></td>
-            </tr>
             </tbody>
         </table>
     </div>

@@ -29,23 +29,36 @@ namespace TaskMaster.Controllers
         {
 
             var qtdbugsAberto = _context.Bugs.Where(i=>i.EstadosBug.NomeEstado=="Aberto").Count().ToString();
-            ViewData["QtdBugsAbertos"] = qtdbugsAberto;
-
             var qtdbugsEmTrat = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Em Tratamento").Count().ToString();
-            ViewData["QtdBugsEmTrat"] = qtdbugsEmTrat;
-
             var qtdbugsCorrigido = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Corrigido").Count().ToString();
+
+            var bugtipo500 = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Erro 500").Count().ToString();
+            var bugtipo404 = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Erro 404").Count().ToString();
+            var bugtipoInterface = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Interface").Count().ToString();
+            var bugtipoFluxo = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Fluxo").Count().ToString();
+            var bugtipoCalc =  _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Calculo").Count().ToString();
+
+            ViewData["QtdBugsAbertos"] = qtdbugsAberto;
+            ViewData["QtdBugsEmTrat"] = qtdbugsEmTrat;
             ViewData["QtdBugsCorrigido"] = qtdbugsCorrigido;
 
-            var bugs = _context.Bugs
-               .Include(p => p.Tasks.Projetos)
-               .Include(g => g.Tasks)
-               .Include(g => g.Devs)
-               .Include(b => b.TiposBugs)
-               .Include(e => e.EstadosBug)
-               .ToList();
+            ViewData["bugtipo500"] = bugtipo500;
+            ViewData["bugtipo404"] = bugtipo404;
+            ViewData["bugtipoInterface"] = bugtipoInterface;
+            ViewData["bugtipoFluxo"] = bugtipoFluxo;
+            ViewData["bugtipoCalc"] = bugtipoCalc;
 
-            return View(bugs);
+            var viewModel = new BugsViewModel
+            {
+                Tasks = _context.Tasks.ToList(),
+                Projetos = _context.Projetos.ToList(),
+                Devs = _context.Devs.ToList(),
+                TiposBugs = _context.TiposBugs.ToList(),
+                EstadosBugs = _context.EstadosBugs.ToList(),
+                Bugs = _context.Bugs.Include(e=>e.EstadosBug).ToList()
+              
+            };
+            return View(viewModel);
         }
 
         public ActionResult ListarBugEstado(string estado)
@@ -67,11 +80,24 @@ namespace TaskMaster.Controllers
             return View("ListarBugEstado", bugestado);
         }
 
-        public ActionResult Contact()
+        public ActionResult ListarBugTipo(string tipobug)
         {
-            ViewBag.Message = "Your contact page.";
+            var tiposbug = _context.Bugs.Where(n => n.TiposBugs.TipoBug == tipobug)
+                .Include(t => t.Tasks)
+                .Include(p => p.Devs)
+                .Include(p => p.Tasks.Projetos)
+                .Include(e => e.EstadosBug)
+                .Include(t => t.TiposBugs)
+                .ToList();
 
-            return View();
+            var bugTipo = _context.Bugs
+               .Where(n => n.TiposBugs.TipoBug == tipobug)
+               .Select(n => n.TiposBugs.TipoBug)
+               .FirstOrDefault();
+            ViewData["bugTipo"] = bugTipo;
+
+            return View("ListarBugTipo", tiposbug);
         }
+
     }
 }

@@ -11,16 +11,16 @@
 *@
 
 @{
-    ViewBag.Title = "ListBugsEstado";
+    ViewBag.Title = "ListBugsTipo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @if (!Model.Any())
 {
-<h2>Nenhum Bug @ViewData["EstadoBug"]!</h2>
+    <h2>Nenhum Bug do Tipo @ViewData["bugTipo"]!</h2>
 }
 else
 {
-    <h2>Bugs <b>@ViewData["EstadoBug"]</b></h2>
+    <h2>Bugs do tipo <b>@ViewData["bugTipo"]</b></h2>
     <p>
         @Html.ActionLink("Reportar Bug", "NovoBug", "Bugs", null, new { @class = "btn btn-primary" })
     </p>
@@ -55,43 +55,43 @@ else
         <tbody>
             @foreach (var bug in Model)
             {
-            <tr>
-                <td>
-                    @bug.TiposBugs.TipoBug<br />
-                    @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
-                </td>
-                <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
-                <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
-                <td>@bug.DataBug.Value.ToString("dd/MM/yyyy")</td>
-                @if (bug.DataEstimadaBug == null)
-                {
-                    <td>@bug.DataEstimadaBug</td>
-                }
-                else
-                {
-                    <td>@bug.DataEstimadaBug.Value.ToShortDateString()</td>
-                }
-                <td>@bug.Devs.DevNome</td>
-                <td>@bug.EstadosBug.NomeEstado</td>
-                <td>
-                    @Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />
-                    @{ if (User.IsInRole("tester"))
-                        {
-                            <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
-                        }
-                        else
-                        {
-                            if (User.IsInRole("admin"))
+                <tr>
+                    <td>
+                        @bug.TiposBugs.TipoBug<br />
+                        @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
+                    </td>
+                    <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
+                    <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
+                    <td>@bug.DataBug.Value.ToString("dd/MM/yyyy")</td>
+                    @if (bug.DataEstimadaBug == null)
+                    {
+                        <td>@bug.DataEstimadaBug</td>
+                    }
+                    else
+                    {
+                        <td>@bug.DataEstimadaBug.Value.ToShortDateString()</td>
+                    }
+                    <td>@bug.Devs.DevNome</td>
+                    <td>@bug.EstadosBug.NomeEstado</td>
+                    <td>
+                        @Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />
+                        @{ if (User.IsInRole("tester"))
                             {
                                 <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
                             }
                             else
                             {
+                                if (User.IsInRole("admin"))
+                                {
+                                    <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                                }
+                                else
+                                {
+                                }
                             }
                         }
-                    }
-                </td>
-            </tr>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

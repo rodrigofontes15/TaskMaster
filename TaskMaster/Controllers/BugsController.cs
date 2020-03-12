@@ -55,20 +55,14 @@ namespace TaskMaster.Controllers
             //  List<Projetos> ListaProjetos = _context.Projetos.ToList();
             //ViewBag.ListaProjetos = new SelectList(ListaProjetos, "ProjetosId", "NomeProjeto");
 
-            var tasks = _context.Tasks.ToList();
-            var devs = _context.Devs.ToList();
-            var projs = _context.Projetos.ToList();
-            var tiposbugs = _context.TiposBugs.ToList();
-            var estadosbugs = _context.EstadosBugs.ToList();
             var viewModel = new BugsViewModel
             {
-                Tasks = tasks,
-                Devs = devs,
-                Projetos = projs,
-                TiposBugs = tiposbugs,
-                EstadosBugs = estadosbugs
-
-            };
+                Tasks = _context.Tasks.ToList(),
+                Devs = _context.Devs.ToList(),
+                Projetos = _context.Projetos.ToList(),
+                TiposBugs = _context.TiposBugs.ToList(),
+                EstadosBugs = _context.EstadosBugs.ToList()
+        };
 
             return View("FormBug", viewModel);
         }

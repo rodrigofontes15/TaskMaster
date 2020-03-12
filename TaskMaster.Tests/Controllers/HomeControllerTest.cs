@@ -38,17 +38,17 @@ namespace TaskMaster.Tests.Controllers
            // Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
-        [TestMethod]
-        public void Contact()
-        {
+       // [TestMethod]
+        //public void Contact()
+        //{
             // Arrange
-            HomeController controller = new HomeController();
+         //   HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Contact() as ViewResult;
+           // ViewResult result = controller.Contact() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
-        }
+            //Assert.IsNotNull(result);
+        //}
     }
 }

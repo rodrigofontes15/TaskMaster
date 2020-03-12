@@ -7,7 +7,7 @@ using TaskMaster.Models;
 
 namespace TaskMaster.ViewModels
 {
-    public class DataRealProjetosViewModel
+    public class HomeViewModel
     {
         public IEnumerable<Tasks> Tasks { get; set; }
         public string NomeTask { get; set; }
@@ -35,7 +35,18 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Data Estimada para Resolução")]
         public DateTime? DataEstimadaBug { get; set; }
 
+        public IEnumerable<Devs> Devs { get; set; }
+        public int DevsId { get; set; }
+        public string DevNome { get; set; }
+        public string EmailDev { get; set; }
+        public string TelDev { get; set; }
+        public string UrlPhotoDev { get; set; }
 
+        public IEnumerable<TiposBugs> TiposBugs { get; set; }
+        [Display(Name = "Tipo de Bug")]
+        public string TipoBug { get; set; }
+        [Display(Name = "Tipo de Bug")]
+        public int TiposBugsId { get; set; }
 
 
     }
