@@ -105,22 +105,29 @@
             <tbody>
                 @foreach (var projeto in Model.Projetos)
                 {
-                    <tr>
-                        <td>
-                            @projeto.NomeProjeto
+                <tr>
+                    <td>
+                        @projeto.NomeProjeto
+                    </td>
+                    <td>
+                        @projeto.QtdBugsPrj
+                    </td>
+                    <td>
+                        1:@ratio
+                    </td>
+                    @if (@projeto.BugsRatio > @ratio)
+                    {
+                        <td style="background-color:lightcoral">
+                            <b>1:@projeto.BugsRatio</b>
                         </td>
-                        <td>
-                            @projeto.QtdBugsPrj
-                          </td>
-                          <td>
-                              1:@ratio
-                          </td>
-                          <td>
-                              1:@projeto.BugsRatio
-                          </td>
-
-
-                      </tr>
+                    }
+                    else
+                    {
+                        <td style="background-color:lightgreen">
+                            1:@projeto.BugsRatio
+                        </td>
+                    }
+                </tr>
                 }
             </tbody>
         </table>
