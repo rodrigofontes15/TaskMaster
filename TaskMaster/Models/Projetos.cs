@@ -33,6 +33,10 @@ namespace TaskMaster.Models
 
         public int QtdBugsPrj { get; set; }
 
+        public int QtdTasksPrj { get; set; }
+
+        public float BugsRatio { get; set; }
+
         public DateTime? DataReal { get; set; }
 
      //   public ICollection<Bugs> Bugs { get; set; }

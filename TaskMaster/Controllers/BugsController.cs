@@ -148,6 +148,11 @@ namespace TaskMaster.Controllers
                 sqlQtdBugsPrj,
                 new SqlParameter("@ProjetosId", projetidnatask));
 
+            var sqlRatioBugsPrj = @"Update [Projetos] SET BugsRatio = (QtdBugsPrj/QtdTasksPrj) WHERE ProjetosId = @ProjetosId";
+            _context.Database.ExecuteSqlCommand(
+                sqlRatioBugsPrj,
+                new SqlParameter("@ProjetosId", projetidnatask));
+
             return RedirectToAction("Index", "Bugs");
 
         }

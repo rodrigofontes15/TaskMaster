@@ -63,7 +63,6 @@ namespace TaskMaster.ViewModels
         public string NotasTrabalho { get; set; }
         public DateTime DataNotaTrabalho { get; set; }
 
-
         public string Titulo
         {
             get

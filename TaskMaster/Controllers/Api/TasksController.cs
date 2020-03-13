@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -74,6 +75,9 @@ namespace TaskMaster.Controllers.Api
         public void DeleteTasks(int id)
         {
 
+            var taskid = _context.Tasks.Where(p => p.TasksId == id).Select(t => t.ProjetosId).SingleOrDefault();
+            var projetid = _context.Projetos.Where(t => t.ProjetosId == taskid).Select(p => p.ProjetosId).SingleOrDefault();
+
             var bugsintask = _context.Bugs.Where(c => c.TasksId == id).ToList();
             if (bugsintask.Count > 0 )
             {
@@ -81,6 +85,7 @@ namespace TaskMaster.Controllers.Api
             }
             else
             { 
+            
 
             var taskInDb = _context.Tasks.SingleOrDefault(c => c.TasksId == id);
             if (taskInDb == null)
@@ -88,6 +93,12 @@ namespace TaskMaster.Controllers.Api
 
             _context.Tasks.Remove(taskInDb);
             _context.SaveChanges();
+
+                var sqlQtdTaskPrj = @"Update [Projetos] SET QtdTasksPrj = (QtdTasksPrj-1) WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlQtdTaskPrj,
+                    new SqlParameter("@ProjetosId", projetid));
+
             }
         }
     }

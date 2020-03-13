@@ -331,6 +331,14 @@
     <Compile Include="Migrations\202003131039415_QtdBugsTaskePrj.Designer.cs">
       <DependentUpon>202003131039415_QtdBugsTaskePrj.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003131806386_QtdTasksPrjeBugsRatioModelProj.cs" />
+    <Compile Include="Migrations\202003131806386_QtdTasksPrjeBugsRatioModelProj.Designer.cs">
+      <DependentUpon>202003131806386_QtdTasksPrjeBugsRatioModelProj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003131916479_RatioBugPrjDataType.cs" />
+    <Compile Include="Migrations\202003131916479_RatioBugPrjDataType.Designer.cs">
+      <DependentUpon>202003131916479_RatioBugPrjDataType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -726,6 +734,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003131039415_QtdBugsTaskePrj.resx">
       <DependentUpon>202003131039415_QtdBugsTaskePrj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131806386_QtdTasksPrjeBugsRatioModelProj.resx">
+      <DependentUpon>202003131806386_QtdTasksPrjeBugsRatioModelProj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131916479_RatioBugPrjDataType.resx">
+      <DependentUpon>202003131916479_RatioBugPrjDataType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

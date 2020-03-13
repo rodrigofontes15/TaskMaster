@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -94,7 +95,15 @@ namespace TaskMaster.Controllers
 
             _context.SaveChanges();
 
+            var taskid = _context.Tasks.Where(p => p.TasksId == task.TasksId).Select(t => t.ProjetosId).SingleOrDefault();
+            var projetid = _context.Projetos.Where(t => t.ProjetosId == taskid).Select(p => p.ProjetosId).SingleOrDefault();
+            var sqlQtdTaskPrj = @"Update [Projetos] SET QtdTasksPrj = (QtdTasksPrj+1) WHERE ProjetosId = @ProjetosId";
+            _context.Database.ExecuteSqlCommand(
+                sqlQtdTaskPrj,
+                new SqlParameter("@ProjetosId", projetid));
+
             return RedirectToAction("Index", "Tasks");
+
         }
 
         [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]

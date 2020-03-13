@@ -11,6 +11,8 @@
     string bugtipoInterface = ViewData["bugtipoInterface"].ToString();
     string bugtipoFluxo = ViewData["bugtipoFluxo"].ToString();
     string bugtipoCalc = ViewData["bugtipoCalc"].ToString();
+
+    int ratio = 2;
 }
 
 <div class="jumbotron container-fluid">
@@ -91,14 +93,14 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <h2>Meta de Bugs por Projeto</h2>
+        <h3><b>Bugs por Projeto</b></h3>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th class="active">Projeto</th>
-                    <th class="active">Quantidade de Bugs</th>
-                    <th class="active">KPI Meta</th>
-                    <th class="active">KPI Real</th>
+                    <th class="active">Bugs</th>
+                    <th class="active" title="2 Bugs para cada Task do Projeto">Meta</th>
+                    <th class="active" title="Número real de Bugs encontrados em cada Task do Projeto">Indicador</th>
                 </tr>
             <tbody>
                 @foreach (var projeto in Model.Projetos)
@@ -108,15 +110,17 @@
                             @projeto.NomeProjeto
                         </td>
                         <td>
-                            Model.Bugs.Count criar proprieda na Model projetoc QTDBugs e atualizar con Raw SQL toda vez que se cria um bug
-                        </td>
-                        <td>
-                            xxxx
-                        </td>
-                        <td>
-                            hhhh
-                        </td>
-                    </tr>
+                            @projeto.QtdBugsPrj
+                          </td>
+                          <td>
+                              1:@ratio
+                          </td>
+                          <td>
+                              1:@projeto.BugsRatio
+                          </td>
+
+
+                      </tr>
                 }
             </tbody>
         </table>
@@ -127,7 +131,7 @@
     </div>
     <div class="col-md-4">
         <h2>Estado de Projetos</h2>
-        <p>Em atraso, no prazo, adiantado</p>
+        <p>Quantidade de projetos no prazo e em atraso (com viewdata)</p>
     </div>
 </div>
 <hr />

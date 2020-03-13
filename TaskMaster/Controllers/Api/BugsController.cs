@@ -93,6 +93,11 @@ namespace TaskMaster.Controllers.Api
                 sqlQtdBugsPrj,
                 new SqlParameter("@ProjetosId", projetidnatask));
 
+            var sqlRatioBugsPrj = @"Update [Projetos] SET BugsRatio = (QtdBugsPrj/QtdTasksPrj) WHERE ProjetosId = @ProjetosId";
+            _context.Database.ExecuteSqlCommand(
+                sqlRatioBugsPrj,
+                new SqlParameter("@ProjetosId", projetidnatask));
+
             if (bugInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             else

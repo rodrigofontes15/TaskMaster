@@ -55,7 +55,7 @@ namespace TaskMaster.Controllers
                 Devs = _context.Devs.ToList(),
                 TiposBugs = _context.TiposBugs.ToList(),
                 EstadosBugs = _context.EstadosBugs.ToList(),
-                Bugs = _context.Bugs.Include(e=>e.EstadosBug).Include(t=>t.Tasks).Include(p=>p.Tasks.Projetos).ToList(),
+                Bugs = _context.Bugs.Include(e => e.EstadosBug).Include(t => t.Tasks).Include(p => p.Tasks.Projetos).ToList(),
             };
             return View(viewModel);
         }
