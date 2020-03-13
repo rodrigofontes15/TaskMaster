@@ -119,10 +119,14 @@ namespace TaskMaster.Controllers
                 datasbugnatask = bugs.DataBug;
             }
                 var sqlDataRealTask = @"Update [Tasks] SET DataReal = @DataReal WHERE TasksId = @TasksId";
-
             _context.Database.ExecuteSqlCommand(
                 sqlDataRealTask,
                 new SqlParameter("@DataReal", datasbugnatask),
+                new SqlParameter("@TasksId", taskdobug));
+
+            var sqlQtdBugsTask = @"Update [Tasks] SET QtdBugsTsk = (QtdBugsTsk+1) WHERE TasksId = @TasksId";
+            _context.Database.ExecuteSqlCommand(
+                sqlQtdBugsTask,
                 new SqlParameter("@TasksId", taskdobug));
 
             var projetidnatask = _context.Tasks.Where(t=>t.TasksId==taskdobug).Select(p => p.ProjetosId).SingleOrDefault();
@@ -137,6 +141,11 @@ namespace TaskMaster.Controllers
             _context.Database.ExecuteSqlCommand(
                 sqlDataRealProjeto,
                 new SqlParameter("@DataReal", datarealnatask),
+                new SqlParameter("@ProjetosId", projetidnatask));
+
+            var sqlQtdBugsPrj = @"Update [Projetos] SET QtdBugsPrj = (QtdBugsPrj+1) WHERE ProjetosId = @ProjetosId";
+            _context.Database.ExecuteSqlCommand(
+                sqlQtdBugsPrj,
                 new SqlParameter("@ProjetosId", projetidnatask));
 
             return RedirectToAction("Index", "Bugs");

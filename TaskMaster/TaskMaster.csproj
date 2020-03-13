@@ -327,6 +327,10 @@
     <Compile Include="Migrations\202003110835536_CampoDatasTaskOpcional.Designer.cs">
       <DependentUpon>202003110835536_CampoDatasTaskOpcional.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003131039415_QtdBugsTaskePrj.cs" />
+    <Compile Include="Migrations\202003131039415_QtdBugsTaskePrj.Designer.cs">
+      <DependentUpon>202003131039415_QtdBugsTaskePrj.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -719,6 +723,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003110835536_CampoDatasTaskOpcional.resx">
       <DependentUpon>202003110835536_CampoDatasTaskOpcional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131039415_QtdBugsTaskePrj.resx">
+      <DependentUpon>202003131039415_QtdBugsTaskePrj.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

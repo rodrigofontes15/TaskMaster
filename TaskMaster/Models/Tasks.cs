@@ -37,6 +37,8 @@ namespace TaskMaster.Models
         [ForeignKey("TiposTestesId")]
         public TiposTestes TiposTestes { get; set; } //navigation class
 
+        public int QtdBugsTsk { get; set; }
+
         public string Titulo
         {
             get

@@ -31,7 +31,7 @@ namespace TaskMaster.Models
         [Display(Name = "Data Estimada de Término")]
         public DateTime? DataEstimada { get; set; }
 
-
+        public int QtdBugsPrj { get; set; }
 
         public DateTime? DataReal { get; set; }
 
