@@ -102,6 +102,9 @@ else
                             method: "DELETE",
                             success: function () {
                                 tabela.row(button.parents("tr")).remove().draw();
+                            },
+                            error: function () {
+                                bootbox.alert("Projeto contem Tasks cadastradas!");
                             }
                         });
                     }

@@ -73,14 +73,22 @@ namespace TaskMaster.Controllers.Api
         [HttpDelete]
         public void DeleteTasks(int id)
         {
-            
+
+            var bugsintask = _context.Bugs.Where(c => c.TasksId == id).ToList();
+            if (bugsintask.Count > 0 )
+            {
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
+            }
+            else
+            { 
+
             var taskInDb = _context.Tasks.SingleOrDefault(c => c.TasksId == id);
             if (taskInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             _context.Tasks.Remove(taskInDb);
             _context.SaveChanges();
+            }
         }
-
     }
 }

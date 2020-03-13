@@ -72,13 +72,20 @@ namespace TaskMaster.Controllers.Api
         [HttpDelete]
         public void DeleteProjeto(int id)
         {
-            
-            var projetoInDb = _context.Projetos.SingleOrDefault(c => c.ProjetosId == id);
-            if (projetoInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            var taskinprj = _context.Tasks.Where(c => c.ProjetosId == id).ToList();
+            if (taskinprj.Count > 0)
+            {
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
+            }
+            else
+            {
+                var projetoInDb = _context.Projetos.SingleOrDefault(c => c.ProjetosId == id);
+                if (projetoInDb == null)
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            _context.Projetos.Remove(projetoInDb);
-            _context.SaveChanges();
+                _context.Projetos.Remove(projetoInDb);
+                _context.SaveChanges();
+            }
         }
 
     }
