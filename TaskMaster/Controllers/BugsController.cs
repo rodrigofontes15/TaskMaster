@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TaskMaster.Models;
@@ -91,10 +92,11 @@ namespace TaskMaster.Controllers
                 };
 
                 return View("FormBug", viewModel);
-            }
-
+            }                   
             if (bugs.BugsId == 0)
+            {
                 _context.Bugs.Add(bugs);
+            }
             else
             {
                 var bugInDb = _context.Bugs.Single(p => p.BugsId == bugs.BugsId);
@@ -107,9 +109,20 @@ namespace TaskMaster.Controllers
                 bugInDb.TiposBugsId = bugs.TiposBugsId;
                 bugInDb.EstadosBugId = bugs.EstadosBugId;
                 bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
-                bugInDb.TempoSolucao = (bugs.DataEstimadaBug - bugs.DataBug).Value.TotalDays;
-            }
 
+                if (bugInDb.DataEstimadaBug == null)
+                {
+                    bugInDb.DataEstimadaBug = bugs.DataBug.Value.AddDays(5);
+                }
+                else if (bugInDb.DataEstimadaBug < bugs.DataBug)
+                {
+                    return Content("Data estimada não pode ser menor que data do Bug");
+                }
+                else
+                {
+                    bugInDb.TempoSolucao = (bugs.DataEstimadaBug - bugs.DataBug).Value.TotalDays;
+                }
+            }
             _context.SaveChanges();
 
             var taskdobug = _context.Bugs.Where(p => p.BugsId == bugs.BugsId).Select(t => t.TasksId).SingleOrDefault();
