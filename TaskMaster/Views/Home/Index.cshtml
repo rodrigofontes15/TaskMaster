@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
 
-    string abertos =ViewData["QtdBugsAbertos"].ToString();
+    string abertos = ViewData["QtdBugsAbertos"].ToString();
     string emTrat = ViewData["QtdBugsEmTrat"].ToString();
     string Corrig = ViewData["QtdBugsCorrigido"].ToString();
 
@@ -23,9 +23,35 @@
     </h3>
 </div>
 <hr />
+<h4><b>Time de Desenvolvimento</b></h4>
+<div class="row">
+    @foreach (var dev in Model.Devs)
+    {
+        <div class="col-md-3">
+            <div class="shadowbox" style="background-color:lightgrey">
+                <table>
+                    <tr>
+                        <td rowspan="3"><img src=@dev.UrlPhotoDev alt="Image" width="60" height="80"></td>
+                        <td><h4><b>@dev.DevNome</b></h4></td>
+                    </tr>
+                    <tr>
+                        <td><a href="mailto:@dev.EmailDev" target="_top">Enviar e-mail</a></td>
+                    </tr>
+                    <tr>
+                        <td>@dev.TelDev</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b>Ver @Html.ActionLink("todos os Bugs", "ListarBugDev", "Home", new { DevId = dev.DevsId }, null) com @dev.DevNome</b></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+<hr />
 <div class="row">
     <div class="col-md-4">
-        <h3><b>Bugs Encontrados</b></h3>
+        <h4><b>Bugs Encontrados</b></h4>
         <table class="table table-condensed table-hover">
             <thead>
                 <tr>
@@ -51,7 +77,7 @@
     </div>
 
     <div class="col-md-4">
-        <h3><b>Bugs por Tipo</b></h3>
+        <h4><b>Bugs por Tipo</b></h4>
         <table class="table table-condensed table-hover">
             <thead>
                 <tr>
@@ -61,7 +87,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td align="center">@Html.ActionLink("Erro 500", "ListarBugTipo", "Home", new { tipobug = "Erro 500" },null)</td>
+                    <td align="center">@Html.ActionLink("Erro 500", "ListarBugTipo", "Home", new { tipobug = "Erro 500" }, null)</td>
                     <td align="center">@bugtipo500</td>
                 </tr>
                 <tr>
@@ -85,138 +111,61 @@
     </div>
 
     <div class="col-md-4">
-        <h2>Tempo médio de resolução de Bugs</h2>
+        <h4>Tempo médio de resolução de Bugs</h4>
         <p>Média em dias, com base na media do time span entre abertura e data estimada de resolucao</p>
         tera um KPI para isso tambem = 95% dos bugs resolvidos em X dias
-        </div>
+    </div>
 </div>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <h3><b>Bugs por Projeto</b></h3>
+        <h4><b>Bugs por Projeto</b></h4>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="active">Projeto</th>
-                    <th class="active">Bugs</th>
-                    <th class="active" title="2 Bugs para cada Task do Projeto">Meta</th>
-                    <th class="active" title="Número real de Bugs encontrados em cada Task do Projeto">Indicador</th>
+                    <th class="active"><center>Projeto</center></th>
+                    <th class="active"><center>Bugs</center></th>
+                    <th class="active" title="2 Bugs para cada Task do Projeto"><center>Meta</center></th>
+                    <th class="active" title="Número real de Bugs encontrados em cada Task do Projeto"><center>Indicador</center></th>
                 </tr>
             <tbody>
                 @foreach (var projeto in Model.Projetos)
                 {
-                <tr>
-                    <td>
-                        @projeto.NomeProjeto
-                    </td>
-                    <td>
-                        @projeto.QtdBugsPrj
-                    </td>
-                    <td>
-                        1:@ratio
-                    </td>
-                    @if (@projeto.BugsRatio > @ratio)
-                    {
-                        <td style="background-color:lightcoral">
-                            <b>1:@projeto.BugsRatio</b>
+                    <tr>
+                        <td>
+                            @projeto.NomeProjeto
                         </td>
-                    }
-                    else
-                    {
-                        <td style="background-color:lightgreen">
-                            1:@projeto.BugsRatio
+                        <td>
+                            @projeto.QtdBugsPrj
                         </td>
-                    }
-                </tr>
+                        <td>
+                            1:@ratio
+                        </td>
+                        @if (@projeto.BugsRatio > @ratio)
+                        {
+                            <td style="background-color:lightcoral" align="center">
+                                <b>1:@projeto.BugsRatio</b>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="background-color:lightgreen" align="center">
+                                1:@projeto.BugsRatio
+                            </td>
+                        }
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
     <div class="col-md-4">
-        <h2>Grafico</h2>
+        <h4>Grafico</h4>
         <p>espaço para o grafico</p>
     </div>
     <div class="col-md-4">
-        <h2>Estado de Projetos</h2>
+        <h4>Estado de Projetos</h4>
         <p>Quantidade de projetos no prazo e em atraso (com viewdata)</p>
     </div>
 </div>
 <hr />
-<div class="row">
-    <div class="col-md-3">
-        <div class="container-fluid" style="background-color:lightgrey">
-            <table>
-                <tr>
-                    <td rowspan="4"><img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3e%3cpath fill='%23000000' d='M528 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-352 96c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm112 236.8c0 10.6-10 19.2-22.4 19.2H86.4C74 384 64 375.4 64 364.8v-19.2c0-31.8 30.1-57.6 67.2-57.6h5c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h5c37.1 0 67.2 25.8 67.2 57.6v19.2zM512 312c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16z'/%3e%3c/svg%3e" alt="Image" width="100" height="100"></td>
-                    <td>DevNome</td>
-                </tr>
-                <tr>
-                    <td>EmailDev</td>
-                </tr>
-                <tr>
-                    <td>TelDev</td>
-                </tr>
-                <tr>
-                    <td>Ver Bugs com Dev</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="container-fluid" style="background-color:lightgray">
-            <table>
-                <tr>
-                    <td rowspan="4"><img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3e%3cpath fill='%23000000' d='M528 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-352 96c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm112 236.8c0 10.6-10 19.2-22.4 19.2H86.4C74 384 64 375.4 64 364.8v-19.2c0-31.8 30.1-57.6 67.2-57.6h5c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h5c37.1 0 67.2 25.8 67.2 57.6v19.2zM512 312c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16z'/%3e%3c/svg%3e" alt="Image" width="100" height="100"></td>
-                    <td>DevNome</td>
-                </tr>
-                <tr>
-                    <td>EmailDev</td>
-                </tr>
-                <tr>
-                    <td>TelDev</td>
-                </tr>
-                <tr>
-                    <td>Ver Bugs com Dev</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="container-fluid" style="background-color:lightgray">
-            <table>
-                <tr>
-                    <td rowspan="4"><img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3e%3cpath fill='%23000000' d='M528 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-352 96c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm112 236.8c0 10.6-10 19.2-22.4 19.2H86.4C74 384 64 375.4 64 364.8v-19.2c0-31.8 30.1-57.6 67.2-57.6h5c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h5c37.1 0 67.2 25.8 67.2 57.6v19.2zM512 312c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16z'/%3e%3c/svg%3e" alt="Image" width="100" height="100"></td>
-                    <td>DevNome</td>
-                </tr>
-                <tr>
-                    <td>EmailDev</td>
-                </tr>
-                <tr>
-                    <td>TelDev</td>
-                </tr>
-                <tr>
-                    <td>Ver Bugs com Dev</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="container-fluid" style="background-color:lightgray">
-            <table>
-                <tr>
-                    <td rowspan="4"><img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3e%3cpath fill='%23000000' d='M528 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-352 96c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm112 236.8c0 10.6-10 19.2-22.4 19.2H86.4C74 384 64 375.4 64 364.8v-19.2c0-31.8 30.1-57.6 67.2-57.6h5c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h5c37.1 0 67.2 25.8 67.2 57.6v19.2zM512 312c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16z'/%3e%3c/svg%3e" alt="Image" width="100" height="100"></td>
-                    <td>DevNome</td>
-                </tr>
-                <tr>
-                    <td>EmailDev</td>
-                </tr>
-                <tr>
-                    <td>TelDev</td>
-                </tr>
-                <tr>
-                    <td>Ver Bugs com Dev</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
+
