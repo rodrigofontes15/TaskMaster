@@ -119,7 +119,14 @@
         <div class="container-fluid" style="background-color:lightgray">
             <table align="center">
                 <tr>
-                    <td rowspan="2" colspan="1"><h5><font size="150" color="red">@MediaTempoSolucao&nbsp;</font></h5></td>
+                    @if (MediaTempoSolucao.AsInt() > meta)
+                    {
+                        <td rowspan="2" colspan="1"><h5><font size="150" color="red">@MediaTempoSolucao&nbsp;</font></h5></td>
+                    }
+                    else
+                    {
+                        <td rowspan="2" colspan="1"><h5><font size="150" color="green">@MediaTempoSolucao&nbsp;</font></h5></td>
+                    }
                 </tr>
                 <tr>
                     <td>dias para corrigir um Bug</td>
