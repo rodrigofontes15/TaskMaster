@@ -339,6 +339,30 @@
     <Compile Include="Migrations\202003131916479_RatioBugPrjDataType.Designer.cs">
       <DependentUpon>202003131916479_RatioBugPrjDataType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003141055555_TempoSulocaBugs.cs" />
+    <Compile Include="Migrations\202003141055555_TempoSulocaBugs.Designer.cs">
+      <DependentUpon>202003141055555_TempoSulocaBugs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141109416_TempoSulocaBugs1.cs" />
+    <Compile Include="Migrations\202003141109416_TempoSulocaBugs1.Designer.cs">
+      <DependentUpon>202003141109416_TempoSulocaBugs1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141113552_TempoSulocaBug.cs" />
+    <Compile Include="Migrations\202003141113552_TempoSulocaBug.Designer.cs">
+      <DependentUpon>202003141113552_TempoSulocaBug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141213064_TempoSulocaBugDtatype.cs" />
+    <Compile Include="Migrations\202003141213064_TempoSulocaBugDtatype.Designer.cs">
+      <DependentUpon>202003141213064_TempoSulocaBugDtatype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141219494_TempoSulocaBugDtatypeDOuple.cs" />
+    <Compile Include="Migrations\202003141219494_TempoSulocaBugDtatypeDOuple.Designer.cs">
+      <DependentUpon>202003141219494_TempoSulocaBugDtatypeDOuple.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141222071_TempoSulocaBugDtatypeDouble.cs" />
+    <Compile Include="Migrations\202003141222071_TempoSulocaBugDtatypeDouble.Designer.cs">
+      <DependentUpon>202003141222071_TempoSulocaBugDtatypeDouble.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -741,6 +765,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003131916479_RatioBugPrjDataType.resx">
       <DependentUpon>202003131916479_RatioBugPrjDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141055555_TempoSulocaBugs.resx">
+      <DependentUpon>202003141055555_TempoSulocaBugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141109416_TempoSulocaBugs1.resx">
+      <DependentUpon>202003141109416_TempoSulocaBugs1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141113552_TempoSulocaBug.resx">
+      <DependentUpon>202003141113552_TempoSulocaBug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141213064_TempoSulocaBugDtatype.resx">
+      <DependentUpon>202003141213064_TempoSulocaBugDtatype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141219494_TempoSulocaBugDtatypeDOuple.resx">
+      <DependentUpon>202003141219494_TempoSulocaBugDtatypeDOuple.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141222071_TempoSulocaBugDtatypeDouble.resx">
+      <DependentUpon>202003141222071_TempoSulocaBugDtatypeDouble.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

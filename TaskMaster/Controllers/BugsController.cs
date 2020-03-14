@@ -107,6 +107,7 @@ namespace TaskMaster.Controllers
                 bugInDb.TiposBugsId = bugs.TiposBugsId;
                 bugInDb.EstadosBugId = bugs.EstadosBugId;
                 bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
+                bugInDb.TempoSolucao = (bugs.DataEstimadaBug - bugs.DataBug).Value.TotalDays;
             }
 
             _context.SaveChanges();

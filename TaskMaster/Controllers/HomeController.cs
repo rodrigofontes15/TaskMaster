@@ -38,6 +38,8 @@ namespace TaskMaster.Controllers
             var bugtipoFluxo = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Fluxo").Count().ToString();
             var bugtipoCalc =  _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Calculo").Count().ToString();
 
+            var MediaTempoSolucao = _context.Bugs.Average(t => t.TempoSolucao).Value.ToString("0", System.Globalization.CultureInfo.InvariantCulture);
+
             ViewData["QtdBugsAbertos"] = qtdbugsAberto;
             ViewData["QtdBugsEmTrat"] = qtdbugsEmTrat;
             ViewData["QtdBugsCorrigido"] = qtdbugsCorrigido;
@@ -47,6 +49,8 @@ namespace TaskMaster.Controllers
             ViewData["bugtipoInterface"] = bugtipoInterface;
             ViewData["bugtipoFluxo"] = bugtipoFluxo;
             ViewData["bugtipoCalc"] = bugtipoCalc;
+
+            ViewData["MediaTempoSolucao"] = MediaTempoSolucao;
 
             var viewModel = new BugsViewModel
             {

@@ -57,6 +57,7 @@ namespace TaskMaster.ViewModels
         public Boolean BugAceito { get; set; }
         [Display(Name = "Repositório (URL GitHub)")]
         public string UrlRepoCodigo { get; set; }
+        public Double? TempoSolucao { get; set; }
 
         public IEnumerable<NotasTrabalhoBug> NotasTrabalhoBugs { get; set; }
         public int? NotasTrabalhoBugsId { get; set; }

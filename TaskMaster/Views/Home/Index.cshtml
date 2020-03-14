@@ -12,15 +12,19 @@
     string bugtipoFluxo = ViewData["bugtipoFluxo"].ToString();
     string bugtipoCalc = ViewData["bugtipoCalc"].ToString();
 
+    string MediaTempoSolucao = ViewData["MediaTempoSolucao"].ToString();
+
     int ratio = 2;
+
+    int meta = 5;
 }
 
 <div class="jumbotron container-fluid">
     <h2><b>Task Master</b></h2>
-    <h3>
-        Software para Controle de Projetos de Desenvolvimento de Software.<br />
-        Cadastre seus Projetos, respectivas Tarefas (Tasks) de Teste e controle os Bugs encontrados.
-    </h3>
+    <h4>
+        Controle seus Processo de Desenvolvimento de Software.<br />
+        Cadastre Projetos, as respectivas Tarefas (Tasks) de Teste e controle os Bugs encontrados.
+    </h4>
 </div>
 <hr />
 <h4><b>Time de Desenvolvimento</b></h4>
@@ -50,7 +54,7 @@
 </div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" align="center">
         <h4><b>Bugs Encontrados</b></h4>
         <table class="table table-condensed table-hover">
             <thead>
@@ -76,7 +80,7 @@
         </table>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4" align="center">
         <h4><b>Bugs por Tipo</b></h4>
         <table class="table table-condensed table-hover">
             <thead>
@@ -110,15 +114,31 @@
         </table>
     </div>
 
-    <div class="col-md-4">
-        <h4>Tempo médio de resolução de Bugs</h4>
-        <p>Média em dias, com base na media do time span entre abertura e data estimada de resolucao</p>
-        tera um KPI para isso tambem = 95% dos bugs resolvidos em X dias
+    <div class="col-md-4" align="center">
+        <h4><b>Tempo médio de resolução</b></h4>
+        <div class="container-fluid" style="background-color:lightgray">
+            <table align="center">
+                <tr>
+                    <td rowspan="2" colspan="1"><h5><font size="150" color="red">@MediaTempoSolucao&nbsp;</font></h5></td>
+                </tr>
+                <tr>
+                    <td>dias para corrigir um Bug</td>
+                </tr>
+            </table>
+            <table align="center">
+                <tr>
+                    <td rowspan="2" colspan="1">A meta de dias é</td>
+                </tr>
+                <tr>
+                    <td><h5><font size="150" color="green">@meta</font></h5></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" align="center">
         <h4><b>Bugs por Projeto</b></h4>
         <table class="table table-bordered table-hover">
             <thead>

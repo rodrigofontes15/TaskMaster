@@ -35,6 +35,8 @@ namespace TaskMaster.Models
         [Display(Name = "Data Estimada para Resolução")]
         public DateTime? DataEstimadaBug { get; set; }
 
+        public Double? TempoSolucao { get; set; }
+
         public int DevsId { get; set; }
         [ForeignKey("DevsId")]
         public Devs Devs { get; set; } //navigation class
