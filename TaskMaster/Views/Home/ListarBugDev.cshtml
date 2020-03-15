@@ -1,0 +1,124 @@
+﻿@model IEnumerable<TaskMaster.Models.Bugs>
+@{
+    ViewBag.Title = "ListarBugDev";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (!Model.Any())
+{
+    <h2>Nenhum Bug com o Dev @ViewData["bugNomeDev"]!</h2>
+}
+else
+{
+    <h2>Bugs com o Dev <b>@ViewData["bugNomeDev"]</b></h2>
+    <p>
+        @Html.ActionLink("Voltar", "Index", "Home", null, new { @class = "btn btn-primary" })
+    </p>
+    <table id="bugs" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="active">Tipo de Bug</th>
+                <th class="active">Projeto</th>
+                <th class="active">Task</th>
+                <th class="active">Data do Bug</th>
+                <th class="active">Estimativa de Solução</th>
+                <th class="active">DEV</th>
+                <th class="active">Estado da Correção</th>
+                @{ if (User.IsInRole("tester"))
+                    {
+                        <th class="active">Excluir</th>
+                    }
+                    else
+                    {
+                        if (User.IsInRole("admin"))
+                        {
+                            <th class="active">Excluir</th>
+                        }
+                        else
+                        {
+                            <th class="active">Ação</th>
+                        }
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bug in Model)
+            {
+                <tr>
+                    <td>
+                        @bug.TiposBugs.TipoBug<br />
+                        @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
+                    </td>
+                    <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
+                    <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null) </td>
+                    <td>@bug.DataBug.Value.ToString("dd/MM/yyyy")</td>
+                    @if (bug.DataEstimadaBug == null)
+                    {
+                        <td>@bug.DataEstimadaBug</td>
+                    }
+                    else
+                    {
+                        <td>@bug.DataEstimadaBug.Value.ToShortDateString()</td>
+                    }
+                    <td>@bug.Devs.DevNome</td>
+                    <td>@bug.EstadosBug.NomeEstado</td>
+                    <td>
+                        @Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })<br />
+                        @{ if (User.IsInRole("tester"))
+                            {
+                                <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                            }
+                            else
+                            {
+                                if (User.IsInRole("admin"))
+                                {
+                                    <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                                }
+                                else
+                                {
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var tabela = $("#bugs").DataTable({
+                "language": {
+                    "emptyTable": "Nenhum registro encontrado!",
+                    "search": "Buscar:",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "lengthMenu": "Mostrando _MENU_ registros",
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Ultima",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+            $("#bugs .js-excluir").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Confirma a Exclusão do Bug?", function (resultado) {
+                    if (resultado) {
+                        $.ajax({
+                            url: "/api/bugs/" + button.attr("data-bug-id"),
+                            method: "DELETE",
+                            success: function () {
+                                tabela.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

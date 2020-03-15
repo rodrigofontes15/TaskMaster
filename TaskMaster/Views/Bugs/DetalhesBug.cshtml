@@ -16,11 +16,12 @@
 
 <h3>Área de Trabalho</h3>
 
-@using (Html.BeginForm("Salvar", "Bugs"))
+@using (Html.BeginForm("SalvarBug", "Bugs"))
 {
-    <div class="form-group" align="justify">
-        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-    </div>
+<div class="form-group" align="justify">
+    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    @Html.ActionLink("Voltar", "Index", "Bugs", null, new { @class = "btn btn-primary" })
+</div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">

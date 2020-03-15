@@ -38,7 +38,17 @@ namespace TaskMaster.Controllers
             var bugtipoFluxo = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Fluxo").Count().ToString();
             var bugtipoCalc =  _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Calculo").Count().ToString();
 
-            var MediaTempoSolucao = _context.Bugs.Average(t => t.TempoSolucao).Value.ToString("0", System.Globalization.CultureInfo.InvariantCulture);
+            var temposolucao = _context.Bugs.Select(t=>t.TempoSolucao).SingleOrDefault();
+            if (temposolucao == null)
+            {
+                var MediaTempoSolucao = 0;
+                ViewData["MediaTempoSolucao"] = MediaTempoSolucao;
+            }
+            else
+            {
+                var MediaTempoSolucao = _context.Bugs.Average(t => t.TempoSolucao).Value.ToString("0", System.Globalization.CultureInfo.InvariantCulture);
+                ViewData["MediaTempoSolucao"] = MediaTempoSolucao;
+            }
 
             ViewData["QtdBugsAbertos"] = qtdbugsAberto;
             ViewData["QtdBugsEmTrat"] = qtdbugsEmTrat;
@@ -49,8 +59,6 @@ namespace TaskMaster.Controllers
             ViewData["bugtipoInterface"] = bugtipoInterface;
             ViewData["bugtipoFluxo"] = bugtipoFluxo;
             ViewData["bugtipoCalc"] = bugtipoCalc;
-
-            ViewData["MediaTempoSolucao"] = MediaTempoSolucao;
 
             var viewModel = new BugsViewModel
             {
@@ -100,6 +108,25 @@ namespace TaskMaster.Controllers
             ViewData["bugTipo"] = bugTipo;
 
             return View("ListarBugTipo", tiposbug);
+        }
+
+        public ActionResult ListarBugDev(int DevId)
+        {
+            var bugedev = _context.Bugs.Where(n => n.DevsId == DevId)
+                .Include(t => t.Tasks)
+                .Include(p => p.Devs)
+                .Include(p => p.Tasks.Projetos)
+                .Include(e => e.EstadosBug)
+                .Include(t => t.TiposBugs)
+                .ToList();
+
+            var bugNomeDev = _context.Bugs
+               .Where(n => n.Devs.DevsId == DevId)
+               .Select(n => n.Devs.DevNome)
+               .FirstOrDefault();
+            ViewData["bugNomeDev"] = bugNomeDev;
+
+            return View("ListarBugDev", bugedev);
         }
 
     }

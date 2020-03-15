@@ -641,6 +641,7 @@
     <Content Include="Views\Bugs\DetalhesBug_SomenteLeitura.cshtml" />
     <Content Include="Views\Bugs\NotasBug_SomenteLeitura.cshtml" />
     <Content Include="Views\Home\ListarBugTipo.cshtml" />
+    <Content Include="Views\Home\ListarBugDev.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

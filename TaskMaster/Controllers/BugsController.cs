@@ -92,7 +92,7 @@ namespace TaskMaster.Controllers
                 };
 
                 return View("FormBug", viewModel);
-            }                   
+            }
             if (bugs.BugsId == 0)
             {
                 _context.Bugs.Add(bugs);
@@ -103,7 +103,7 @@ namespace TaskMaster.Controllers
                 bugInDb.DescBug = bugs.DescBug;
                 bugInDb.DataBug = bugs.DataBug;
                 bugInDb.DataEstimadaBug = bugs.DataEstimadaBug;
-                //  bugInDb.ProjetosId = bugs.ProjetosId;
+                //bugInDb.ProjetosId = bugs.ProjetosId;
                 bugInDb.TasksId = bugs.TasksId;
                 bugInDb.DevsId = bugs.DevsId;
                 bugInDb.TiposBugsId = bugs.TiposBugsId;
@@ -116,7 +116,76 @@ namespace TaskMaster.Controllers
                 }
                 else if (bugInDb.DataEstimadaBug < bugs.DataBug)
                 {
-                    return Content("Data estimada não pode ser menor que data do Bug");    
+                    return Content("Data estimada não pode ser menor que data do Bug");
+                }
+                else
+                {
+                    bugInDb.TempoSolucao = (bugs.DataEstimadaBug - bugs.DataBug).Value.TotalDays;
+                }
+            }
+            _context.SaveChanges();
+
+            var taskdobug = _context.Bugs.Where(p => p.BugsId == bugs.BugsId).Select(t => t.TasksId).SingleOrDefault();
+
+            var sqlQtdBugsTask = @"Update [Tasks] SET QtdBugsTsk = (QtdBugsTsk+1) WHERE TasksId = @TasksId";
+            _context.Database.ExecuteSqlCommand(
+                sqlQtdBugsTask,
+                new SqlParameter("@TasksId", taskdobug));
+
+            var projetidnatask = _context.Tasks.Where(t => t.TasksId == taskdobug).Select(p => p.ProjetosId).SingleOrDefault();
+
+            var sqlQtdBugsPrj = @"Update [Projetos] SET QtdBugsPrj = (QtdBugsPrj+1) WHERE ProjetosId = @ProjetosId";
+            _context.Database.ExecuteSqlCommand(
+                sqlQtdBugsPrj,
+                new SqlParameter("@ProjetosId", projetidnatask));
+
+            var sqlRatioBugsPrj = @"Update [Projetos] SET BugsRatio = (QtdBugsPrj/QtdTasksPrj) WHERE ProjetosId = @ProjetosId";
+            _context.Database.ExecuteSqlCommand(
+                sqlRatioBugsPrj,
+                new SqlParameter("@ProjetosId", projetidnatask));
+
+            return RedirectToAction("Index", "Bugs");
+
+        }
+
+        [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin + "," + NomeRoles.tester)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SalvarBug(Bugs bugs)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new BugsViewModel(bugs)
+                {
+                    Projetos = _context.Projetos.ToList(),
+                    Tasks = _context.Tasks.ToList(),
+                    Devs = _context.Devs.ToList(),
+                    TiposBugs = _context.TiposBugs.ToList(),
+                    EstadosBugs = _context.EstadosBugs.ToList()
+                };
+
+                return View("FormBug", viewModel);
+            }
+            else
+            {
+                var bugInDb = _context.Bugs.Single(p => p.BugsId == bugs.BugsId);
+                bugInDb.DescBug = bugs.DescBug;
+                bugInDb.DataBug = bugs.DataBug;
+                bugInDb.DataEstimadaBug = bugs.DataEstimadaBug;
+                //bugInDb.ProjetosId = bugs.ProjetosId;
+                bugInDb.TasksId = bugs.TasksId;
+                bugInDb.DevsId = bugs.DevsId;
+                bugInDb.TiposBugsId = bugs.TiposBugsId;
+                bugInDb.EstadosBugId = bugs.EstadosBugId;
+                bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
+
+                if (bugInDb.DataEstimadaBug == null)
+                {
+                    bugInDb.DataEstimadaBug = bugs.DataBug.Value.AddDays(5);
+                }
+                else if (bugInDb.DataEstimadaBug < bugs.DataBug)
+                {
+                    return Content("Data estimada não pode ser menor que data do Bug");
                 }
                 else
                 {
@@ -132,18 +201,13 @@ namespace TaskMaster.Controllers
             {
                 datasbugnatask = bugs.DataBug;
             }
-                var sqlDataRealTask = @"Update [Tasks] SET DataReal = @DataReal WHERE TasksId = @TasksId";
+            var sqlDataRealTask = @"Update [Tasks] SET DataReal = @DataReal WHERE TasksId = @TasksId";
             _context.Database.ExecuteSqlCommand(
                 sqlDataRealTask,
                 new SqlParameter("@DataReal", datasbugnatask),
                 new SqlParameter("@TasksId", taskdobug));
 
-            var sqlQtdBugsTask = @"Update [Tasks] SET QtdBugsTsk = (QtdBugsTsk+1) WHERE TasksId = @TasksId";
-            _context.Database.ExecuteSqlCommand(
-                sqlQtdBugsTask,
-                new SqlParameter("@TasksId", taskdobug));
-
-            var projetidnatask = _context.Tasks.Where(t=>t.TasksId==taskdobug).Select(p => p.ProjetosId).SingleOrDefault();
+            var projetidnatask = _context.Tasks.Where(t => t.TasksId == taskdobug).Select(p => p.ProjetosId).SingleOrDefault();
             var datarealnatask = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.DataReal).ToList().Max();
 
             if (datarealnatask == null)
@@ -157,17 +221,12 @@ namespace TaskMaster.Controllers
                 new SqlParameter("@DataReal", datarealnatask),
                 new SqlParameter("@ProjetosId", projetidnatask));
 
-            var sqlQtdBugsPrj = @"Update [Projetos] SET QtdBugsPrj = (QtdBugsPrj+1) WHERE ProjetosId = @ProjetosId";
-            _context.Database.ExecuteSqlCommand(
-                sqlQtdBugsPrj,
-                new SqlParameter("@ProjetosId", projetidnatask));
-
             var sqlRatioBugsPrj = @"Update [Projetos] SET BugsRatio = (QtdBugsPrj/QtdTasksPrj) WHERE ProjetosId = @ProjetosId";
             _context.Database.ExecuteSqlCommand(
                 sqlRatioBugsPrj,
                 new SqlParameter("@ProjetosId", projetidnatask));
 
-            return RedirectToAction("Index", "Bugs");
+            return Redirect(Request.UrlReferrer.ToString());
 
         }
 
