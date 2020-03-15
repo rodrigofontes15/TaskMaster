@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using TaskMaster.Models;
@@ -24,7 +25,6 @@ namespace TaskMaster.ViewModels
 
         [Required]
         [Display(Name = "Data de Início")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataInicio { get; set; }
 
         [Required]
@@ -44,6 +44,7 @@ namespace TaskMaster.ViewModels
         public ProjetoViewModel()
         {
             ProjetosId = 0;
+            DataInicio = DateTime.Today;
         }
 
         public ProjetoViewModel(Projetos projeto)

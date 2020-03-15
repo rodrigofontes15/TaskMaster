@@ -28,7 +28,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.DataInicio)
-        @Html.TextBoxFor(m => m.DataInicio, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.DataInicio, new { @class = "form-control", @readonly = "readonly" })
         @Html.ValidationMessageFor(m => m.DataInicio)
     </div>
 
@@ -42,7 +42,4 @@
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Salvar</button>
 
-}
-@section scripts{
-    @Scripts.Render("~/bundles/jqueryval")
 }

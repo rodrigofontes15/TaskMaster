@@ -63,7 +63,7 @@
     */
     <div class="form-group">
         @Html.LabelFor(m => m.DataBug)
-        @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control", @readonly = "readonly" })
         @Html.ValidationMessageFor(m => m.DataBug)
     </div>
 
@@ -95,12 +95,12 @@
     </div>
 
     @Html.HiddenFor(c => c.BugsId)
+    @Html.HiddenFor(c => c.DataEstimadaBug)
     @Html.HiddenFor(c => c.EstadosBugId)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Salvar</button>
 }
 @section scripts{
-    @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script>
         $(document).ready(function () {

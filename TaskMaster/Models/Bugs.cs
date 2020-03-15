@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using TaskMaster.Models.Validacoes;
 
 namespace TaskMaster.Models
 {
@@ -33,6 +34,8 @@ namespace TaskMaster.Models
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data Estimada para Resolução")]
+      //  [ValidarDataEstimadaBud(ErrorMessage =
+        //    "Data estimada não pode ser menor que data de abertura do bug")]
         public DateTime? DataEstimadaBug { get; set; }
 
         public Double? TempoSolucao { get; set; }

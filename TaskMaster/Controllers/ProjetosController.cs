@@ -72,16 +72,25 @@ namespace TaskMaster.Controllers
             }
 
             if (projetos.ProjetosId == 0)
+            {
+                if (projetos.DataEstimada<projetos.DataInicio)
+                {
+                    return Content("Data estimada não pode ser menor que data de Inicio");
+                }
                 _context.Projetos.Add(projetos);
-            else
+            }
+            else 
             {
                 var projetoInDb = _context.Projetos.Single(p => p.ProjetosId == projetos.ProjetosId);
                 projetoInDb.NomeProjeto = projetos.NomeProjeto;
                 projetoInDb.GerenteProjsId = projetos.GerenteProjsId;
                 projetoInDb.DataInicio = projetos.DataInicio;
                 projetoInDb.DataEstimada = projetos.DataEstimada;
+                if (projetoInDb.DataEstimada < projetos.DataInicio)
+                {
+                    return Content("Data estimada não pode ser menor que data de Inicio");
+                }
             }
-
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Projetos");

@@ -116,7 +116,7 @@ namespace TaskMaster.Controllers
                 }
                 else if (bugInDb.DataEstimadaBug < bugs.DataBug)
                 {
-                    return Content("Data estimada não pode ser menor que data do Bug");
+                    return Content("Data estimada não pode ser menor que data do Bug");    
                 }
                 else
                 {

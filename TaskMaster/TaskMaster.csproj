@@ -379,6 +379,7 @@
     <Compile Include="Models\Testers.cs" />
     <Compile Include="Models\TiposBugs.cs" />
     <Compile Include="Models\TiposTestes.cs" />
+    <Compile Include="Models\Validacoes\ValidarDataEstimadaBud.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BugsViewModel.cs" />
@@ -583,6 +584,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Views\Bugs\NotasBug.cshtml" />
     <Content Include="Views\Projetos\Detalhes.cshtml" />
     <Content Include="Web.config" />
