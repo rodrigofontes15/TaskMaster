@@ -39,6 +39,8 @@ namespace TaskMaster.Models
 
         public DateTime? DataReal { get; set; }
 
-     //   public ICollection<Bugs> Bugs { get; set; }
+        public string EstadoProj { get; set; }
+
+        //   public ICollection<Bugs> Bugs { get; set; }
     }
 }

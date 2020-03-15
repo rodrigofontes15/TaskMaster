@@ -363,6 +363,10 @@
     <Compile Include="Migrations\202003141222071_TempoSulocaBugDtatypeDouble.Designer.cs">
       <DependentUpon>202003141222071_TempoSulocaBugDtatypeDouble.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003151803412_estadoproj.cs" />
+    <Compile Include="Migrations\202003151803412_estadoproj.Designer.cs">
+      <DependentUpon>202003151803412_estadoproj.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bugs.cs" />
@@ -788,6 +792,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003141222071_TempoSulocaBugDtatypeDouble.resx">
       <DependentUpon>202003141222071_TempoSulocaBugDtatypeDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003151803412_estadoproj.resx">
+      <DependentUpon>202003151803412_estadoproj.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

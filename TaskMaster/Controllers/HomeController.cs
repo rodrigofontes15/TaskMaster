@@ -32,6 +32,9 @@ namespace TaskMaster.Controllers
             var qtdbugsEmTrat = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Em Tratamento").Count().ToString();
             var qtdbugsCorrigido = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Corrigido").Count().ToString();
 
+            var qtdprojsNoPrazo = _context.Projetos.Where(i => i.EstadoProj == "No Prazo").Count().ToString();
+            var qtdprojsEmAtraso = _context.Projetos.Where(i => i.EstadoProj == "Em Atraso").Count().ToString();
+
             var bugtipo500 = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Erro 500").Count().ToString();
             var bugtipo404 = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Erro 404").Count().ToString();
             var bugtipoInterface = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Interface").Count().ToString();
@@ -53,6 +56,9 @@ namespace TaskMaster.Controllers
             ViewData["QtdBugsAbertos"] = qtdbugsAberto;
             ViewData["QtdBugsEmTrat"] = qtdbugsEmTrat;
             ViewData["QtdBugsCorrigido"] = qtdbugsCorrigido;
+
+            ViewData["qtdprojsNoPrazo"] = qtdprojsNoPrazo;
+            ViewData["qtdprojsEmAtraso"] = qtdprojsEmAtraso;
 
             ViewData["bugtipo500"] = bugtipo500;
             ViewData["bugtipo404"] = bugtipo404;

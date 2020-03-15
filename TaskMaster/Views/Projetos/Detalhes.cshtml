@@ -29,8 +29,8 @@ else
                 <th class="active">Projetos</th>
                 <th class="active">Gerente de Projeto</th>
                 <th class="active">Data de Início</th>
-                <th class="active">Data Estimada de Término</th>
-                <th class="active">Data Real de Término</th>
+                <th class="active">Data Estimada</th>
+                <th class="active">Data Real</th>
             </tr>
         </thead>
         <tbody>
@@ -45,14 +45,22 @@ else
                 <td>@projeto.GerenteProjs.Nome</td>
                 <td>@projeto.DataInicio.Value.ToString("dd/MM/yyyy")</td>
                 <td>@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
-                @{if (projeto.DataReal <= projeto.DataEstimada)
+                @{if (projeto.DataReal == null)
                     {
-                        <td>@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@projeto.DataReal</td>
                     }
                     else
                     {
-                   <td>@projeto.DataReal</td>}}
-            </tr>
+                        if (projeto.DataEstimada <= projeto.DataReal)
+                        {
+                            <td style="background-color:lightsalmon">@projeto.DataReal.Value.ToString("dd/MM/yyyy")</td>
+                        }
+                        else { 
+                        <td style="background-color:lightgreen">@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+                        }
+                    }
+                }
+              </tr>
             }
         </tbody>
     </table>

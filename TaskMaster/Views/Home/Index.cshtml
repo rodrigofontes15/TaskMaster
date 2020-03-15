@@ -6,6 +6,9 @@
     string emTrat = ViewData["QtdBugsEmTrat"].ToString();
     string Corrig = ViewData["QtdBugsCorrigido"].ToString();
 
+    string qtdprojsNoPrazo = ViewData["qtdprojsNoPrazo"].ToString();
+    string qtdprojsEmAtraso = ViewData["qtdprojsEmAtraso"].ToString();
+
     string bugtipo500 = ViewData["bugtipo500"].ToString();
     string bugtipo404 = ViewData["bugtipo404"].ToString();
     string bugtipoInterface = ViewData["bugtipoInterface"].ToString();
@@ -22,7 +25,7 @@
 <div class="jumbotron container-fluid">
     <h2><b>Task Master</b></h2>
     <h4>
-        Controle seus Processo de Desenvolvimento de Software.<br />
+        Controle o Processo de Desenvolvimento de Software.<br />
         Cadastre Projetos, as respectivas Tarefas (Tasks) de Teste e controle os Bugs encontrados.
     </h4>
 </div>
@@ -55,7 +58,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4" align="center">
-        <h4><b>Bugs Encontrados</b></h4>
+        <h4><b>Estado dos Bugs</b></h4>
         <table class="table table-condensed table-hover">
             <thead>
                 <tr>
@@ -146,6 +149,27 @@
 <hr />
 <div class="row">
     <div class="col-md-4" align="center">
+        <h4><b>Estado dos Projetos</b></h4>
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th class="active" align="center"><center>Estado</center></th>
+                    <th class="active" align="center"><center>Quantidade de Projetos</center></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center" style="background-color:lightcoral">@Html.ActionLink("Em Atraso", "ListarProjetoEstado", "Home", new { estado = "Em Atraso" }, new { Style = "color:White" })</td>
+                    <td align="center">@qtdprojsEmAtraso</td>
+                </tr>
+                <tr>
+                    <td align="center" style="background-color:lightgreen">@Html.ActionLink("No Prazo", "ListarProjetoEstado", "Home", new { estado = "No Prazo" }, new { Style = "color:White" })</td>
+                    <td align="center">@qtdprojsNoPrazo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4" align="center">
         <h4><b>Bugs por Projeto</b></h4>
         <table class="table table-bordered table-hover">
             <thead>
@@ -189,10 +213,5 @@
         <h4>Grafico</h4>
         <p>espaço para o grafico</p>
     </div>
-    <div class="col-md-4">
-        <h4>Estado de Projetos</h4>
-        <p>Quantidade de projetos no prazo e em atraso (com viewdata)</p>
-    </div>
 </div>
-<hr />
 

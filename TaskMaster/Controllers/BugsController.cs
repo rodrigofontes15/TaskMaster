@@ -163,7 +163,6 @@ namespace TaskMaster.Controllers
                     TiposBugs = _context.TiposBugs.ToList(),
                     EstadosBugs = _context.EstadosBugs.ToList()
                 };
-
                 return View("FormBug", viewModel);
             }
             else
@@ -225,6 +224,24 @@ namespace TaskMaster.Controllers
             _context.Database.ExecuteSqlCommand(
                 sqlRatioBugsPrj,
                 new SqlParameter("@ProjetosId", projetidnatask));
+
+            var dataestimadanoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataEstimada).SingleOrDefault();
+            var datarealnoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataReal).SingleOrDefault();
+
+            if (dataestimadanoprojeto < datarealnoprojeto)
+            {
+                var sqlDataPrj = @"Update [Projetos] SET EstadoProj = 'Em Atraso'  WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlDataPrj,
+                    new SqlParameter("@ProjetosId", projetidnatask));
+            }
+            else
+            {
+                var sqlDataPrj = @"Update [Projetos] SET EstadoProj = 'No Prazo'  WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlDataPrj,
+                    new SqlParameter("@ProjetosId", projetidnatask));
+            }
 
             return Redirect(Request.UrlReferrer.ToString());
 
