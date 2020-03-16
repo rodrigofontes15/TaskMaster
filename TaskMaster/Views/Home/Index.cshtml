@@ -295,26 +295,20 @@
         @Html.Raw(renderer.RenderHtml())
     </div>
     <div class="col-md-6" align="center">
-        placeholder
-        grafico de linha de tendencia com Bugs encontrados por dia VERSUS corrigidos
         @{var chartOptions2 = new Highcharts
             {
                 Title = new Title
                 {
-                    Text = "Monthly Average Temperature",
+                    Text = "Evolução Bugs Abertos VERSUS Corrigidos",
                     X = -20
                 },
-                Subtitle = new Subtitle
-                {
-                    Text = "Source: WorldClimate.com",
-                    X = -20
-                },
+
                 XAxis = new List<XAxis>
 {
                 new XAxis
                 {
-                    Categories = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" },
+                    Categories = new List<string> { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+                                "Jul", "Ago", "Set", "Out", "Nov", "Dez" },
 
                 }
             },
@@ -324,7 +318,7 @@
                 {
                     Title = new YAxisTitle
                     {
-                        Text = "Temperature (°C)"
+                        Text = "Bugs"
                     },
                     PlotLines = new List<YAxisPlotLines>
     {
@@ -353,22 +347,12 @@
 {
                 new LineSeries
                 {
-                    Name = "Tokyo",
+                    Name = "Encontrados",
                     Data = @ViewData["tokyoData"] as List<LineSeriesData>
                 },
                 new LineSeries
                 {
-                    Name = "NY",
-                    Data = @ViewData["nyData"] as List<LineSeriesData>
-                },
-                new LineSeries
-                {
-                    Name = "Berlin",
-                    Data = @ViewData["berlinData"] as List<LineSeriesData>
-                },
-                new LineSeries
-                {
-                    Name = "London",
+                    Name = "Corrigidos",
                     Data = @ViewData["londonData"] as List<LineSeriesData>
                 }
             }
