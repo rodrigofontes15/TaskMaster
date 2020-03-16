@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using TaskMaster.Models;
 using TaskMaster.ViewModels;
+using Highsoft.Web.Mvc.Charts;
 
 namespace TaskMaster.Controllers
 {
@@ -27,6 +28,35 @@ namespace TaskMaster.Controllers
 
         public ViewResult Index()
         {
+            List<PieSeriesData> pieData = new List<PieSeriesData>();
+
+            pieData.Add(new PieSeriesData { Name = "Erro 500", Y = _context.Bugs.Where(i=>i.TiposBugsId == 1).Count()});
+            pieData.Add(new PieSeriesData { Name = "Erro 404", Y = _context.Bugs.Where(i => i.TiposBugsId == 2).Count() });
+            pieData.Add(new PieSeriesData { Name = "Interface", Y = _context.Bugs.Where(i => i.TiposBugsId == 5).Count() });
+            pieData.Add(new PieSeriesData { Name = "Fluxo", Y = _context.Bugs.Where(i => i.TiposBugsId == 6).Count() });
+            pieData.Add(new PieSeriesData { Name = "Calculo", Y = _context.Bugs.Where(i => i.TiposBugsId == 7).Count() });
+
+            ViewData["pieData"] = pieData;
+
+            List<double> tokyoValues = new List<double> { 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6 };
+            List<double> nyValues = new List<double> { -0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5 };
+            List<double> berlinValues = new List<double> { -0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0 };
+            List<double> londonValues = new List<double> { 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8 };
+            List<LineSeriesData> tokyoData = new List<LineSeriesData>();
+            List<LineSeriesData> nyData = new List<LineSeriesData>();
+            List<LineSeriesData> berlinData = new List<LineSeriesData>();
+            List<LineSeriesData> londonData = new List<LineSeriesData>();
+
+            tokyoValues.ForEach(p => tokyoData.Add(new LineSeriesData { Y = p }));
+            nyValues.ForEach(p => nyData.Add(new LineSeriesData { Y = p }));
+            berlinValues.ForEach(p => berlinData.Add(new LineSeriesData { Y = p }));
+            londonValues.ForEach(p => londonData.Add(new LineSeriesData { Y = p }));
+
+
+            ViewData["tokyoData"] = tokyoData;
+            ViewData["nyData"] = nyData;
+            ViewData["berlinData"] = berlinData;
+            ViewData["londonData"] = londonData;
 
             var qtdbugsAberto = _context.Bugs.Where(i=>i.EstadosBug.NomeEstado=="Aberto").Count().ToString();
             var qtdbugsEmTrat = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Em Tratamento").Count().ToString();
@@ -41,7 +71,7 @@ namespace TaskMaster.Controllers
             var bugtipoFluxo = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Fluxo").Count().ToString();
             var bugtipoCalc =  _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Calculo").Count().ToString();
 
-            var temposolucao = _context.Bugs.Select(t=>t.TempoSolucao).SingleOrDefault();
+            var temposolucao = _context.Bugs.Select(t=>t.TempoSolucao).FirstOrDefault();
             if (temposolucao == null)
             {
                 var MediaTempoSolucao = 0;

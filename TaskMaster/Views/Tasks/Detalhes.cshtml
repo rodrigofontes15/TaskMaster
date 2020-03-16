@@ -41,8 +41,7 @@
             @* <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
         <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>*@
             <td>@task.Testers.Nome</td>
-            <td>@task.QtdBugsTsk<br>
-            @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)</td>
+            <td>@Html.ActionLink(task.QtdBugsTsk.ToString(), "BugsTask", "Bugs", new { id = task.TasksId }, null)</td>
         </tr>
                 }
             </tbody>

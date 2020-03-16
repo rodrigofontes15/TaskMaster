@@ -32,6 +32,7 @@ else
                 @*<th class="active">Data de Início</th>
                  <th class="active">Data Estimada de Término</th>*@
                 <th class="active">Testador Responsável</th>
+                <th class="active">Bugs Encontrados</th>
                 @{ if (User.IsInRole("tester"))
                     {
                         <th class="active">Excluir</th>
@@ -56,13 +57,13 @@ else
                 <td>
                     @task.Projetos.NomeProjeto<br />
                     @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
-                    @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
                 </td>
                 <td>@task.TiposTestes.TipoTeste</td>
                 <td>@task.NomeTask</td>
                @* <td>@task.DataInicio</td>
                 <td>@task.DataEstimada</td>*@
                 <td>@task.Testers.Nome</td>
+                <td>@Html.ActionLink(task.QtdBugsTsk.ToString(), "BugsTask", "Bugs", new { id = task.TasksId }, null)</td>
                 @{ if (User.IsInRole("tester"))
                     {
                 <td><button data-task-id="@task.TasksId" class="btn-danger btn-sm js-excluir">Excluir</button></td>

@@ -22,9 +22,10 @@
             <th class="active">Nome da Task</th>
             <th class="active">Projeto</th>
             <th class="active">Tipo de Teste</th>
-          @*<th class="active">Data de Início</th>
-            <th class="active">Data de Término</th>*@
+            @*<th class="active">Data de Início</th>
+        <th class="active">Data de Término</th>*@
             <th class="active">Testador</th>
+            <th class="active">Bugs Encontrados</th>
         </tr>
     </thead>
     <tbody>
@@ -37,8 +38,9 @@
             <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
             <td>@task.TiposTestes.TipoTeste</td>
             @* <td>@task.DataInicio.Value.ToShortDateString()</td>
-            <td>@task.DataEstimada</td>*@
+        <td>@task.DataEstimada</td>*@
             <td>@task.Testers.Nome</td>
+            <td>@Html.ActionLink(task.QtdBugsTsk.ToString(), "BugsTask", "Bugs", new { id = task.TasksId }, null)</td>
         </tr>
                 }
             </tbody>

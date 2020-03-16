@@ -28,6 +28,7 @@
             @*  <th class="active">Data de Início</th>
                 <th class="active">Data de Término</th>*@
             <th class="active">Testador</th>
+            <th class="active">Bugs Encontrados</th>
             <th class="active">Ações</th>
                 </tr>
             </thead>
@@ -38,17 +39,18 @@
                     <td>
                         <b>@task.NomeTask</b><br />
                         @Html.ActionLink("Editar", "Editar", "Tasks", new { id = task.TasksId }, null)
-                        @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
                     </td>
                     <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
                     <td>@task.TiposTestes.TipoTeste</td>
                     @*<td>@task.DataInicio.Value.ToShortDateString()</td>
-                    <td>@task.DataEstimada</td>*@
+        <td>@task.DataEstimada</td>*@
                     <td>@task.Testers.Nome</td>
-                    <td>
-                        @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
-                        <button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
-                    </td>
+                    <td>@Html.ActionLink(task.QtdBugsTsk.ToString(), "BugsTask", "Bugs", new { id = task.TasksId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
+                    <button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                </td>
                 </tr>
                 }
             </tbody>
