@@ -30,13 +30,13 @@
     </h4>
 </div>
 <hr />
-<h4><b>Time de Desenvolvimento</b></h4>
+<center><h4><b>Time de Desenvolvimento</b></h4></center>
 <div class="row">
     @foreach (var dev in Model.Devs)
     {
-        <div class="col-md-3">
+        <div align="center" class="col-md-3">
             <div class="shadowbox" style="background-color:lightgrey">
-                <table>
+                <table align="center">
                     <tr>
                         <td rowspan="3"><img src=@dev.UrlPhotoDev alt="Image" width="60" height="80"></td>
                         <td><h4><b>@dev.DevNome</b></h4></td>
