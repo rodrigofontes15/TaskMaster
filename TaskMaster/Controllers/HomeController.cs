@@ -135,5 +135,20 @@ namespace TaskMaster.Controllers
             return View("ListarBugDev", bugedev);
         }
 
+
+        public ActionResult ListaProjetoEstado(string estado)
+        {
+            var estadoprojeto = _context.Projetos.Where(n => n.EstadoProj == estado)
+               .Include(g => g.GerenteProjs)
+                .ToList();
+
+            var prjEstado = _context.Projetos
+               .Where(n => n.EstadoProj == estado)
+               .Select(n => n.EstadoProj)
+               .FirstOrDefault();
+            ViewData["prjEstado"] = prjEstado;
+
+            return View("ListaProjetoEstado", estadoprojeto);
+        }
     }
 }

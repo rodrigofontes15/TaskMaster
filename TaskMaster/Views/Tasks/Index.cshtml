@@ -46,8 +46,8 @@
                     <td>@task.DataEstimada</td>*@
                     <td>@task.Testers.Nome</td>
                     <td>
-                        @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })<br />
-                        <button data-task-id="@task.TasksId" class="btn-danger btn-sm js-excluir">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Excluir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
+                        <button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
                     </td>
                 </tr>
                 }

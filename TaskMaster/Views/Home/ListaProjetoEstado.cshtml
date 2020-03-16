@@ -11,16 +11,14 @@
 *@
 
 @{
-    ViewBag.Title = "Projetos";
+    ViewBag.Title = "ListaProjetoEstado";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string prjEstado = ViewData["prjEstado"].ToString();
 
 }
 
-<h2>Projetos</h2>
-<p>
-    @Html.ActionLink("Cadastrar Projeto", "NovoProjeto", "Projetos", null, new { @class = "btn btn-primary" })
-</p>
-
+<h2>Projetos @prjEstado</h2>
 @if (!Model.Any())
 {
     <p>Nenhum Projeto Cadastrado!</p>
@@ -41,35 +39,36 @@ else
         <tbody>
             @foreach (var projeto in Model)
             {
-            <tr>
-                <td>
-                    <b>@projeto.NomeProjeto</b><br />
-                    @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)
-                    @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)
-                </td>
-                <td>@projeto.GerenteProjs.Nome</td>
-                <td>@projeto.DataInicio.Value.ToShortDateString()</td>
-                <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
-                @{if (projeto.DataReal == null)
-                    {
-                        <td>@projeto.DataReal</td>
-                    }
-                    else
-                    {
-                        if (projeto.DataEstimada <= projeto.DataReal)
+                <tr>
+                    <td>
+                        <b>@projeto.NomeProjeto</b><br />
+                        @Html.ActionLink("Editar", "Editar", "Projetos", new { id = projeto.ProjetosId }, null)
+                        @Html.ActionLink("Ver Tasks", "TasksProjeto", "Tasks", new { id = projeto.ProjetosId }, null)
+                    </td>
+                    <td>@projeto.GerenteProjs.Nome</td>
+                    <td>@projeto.DataInicio.Value.ToShortDateString()</td>
+                    <td>@projeto.DataEstimada.Value.ToShortDateString()</td>
+                    @{if (projeto.DataReal == null)
                         {
-                            <td style="background-color:lightsalmon">@projeto.DataReal.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@projeto.DataReal</td>
                         }
-                        else { 
-                        <td style="background-color:lightgreen">@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+                        else
+                        {
+                            if (projeto.DataEstimada <= projeto.DataReal)
+                            {
+                                <td style="background-color:lightsalmon">@projeto.DataReal.Value.ToString("dd/MM/yyyy")</td>
+                            }
+                            else
+                            {
+                                <td style="background-color:lightgreen">@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+                            }
                         }
                     }
-                }
-                <td>
-                    @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })
-                    <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
-                </td>
-            </tr>
+                    <td>
+                        @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })
+                        <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

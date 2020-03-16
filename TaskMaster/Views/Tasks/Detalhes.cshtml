@@ -27,6 +27,7 @@
             @*<th class="active">Data de Início</th>
         <th class="active">Data Estimada de Término</th>*@
             <th class="active">Testador</th>
+            <th class="active">Bugs Encontrados</th>
         </tr>
     </thead>
     <tbody>
@@ -34,20 +35,18 @@
         {
         <tr>
             <td>
-                <b>@task.NomeTask</b><br />
-                @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)
+                <b>@task.NomeTask</b>
             </td>
             <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
             @* <td>@task.DataInicio.Value.ToString("dd/MM/yyyy")</td>
         <td>@task.DataEstimada.Value.ToString("dd/MM/yyyy")</td>*@
             <td>@task.Testers.Nome</td>
+            <td>@task.QtdBugsTsk<br>
+            @Html.ActionLink("Ver Bugs", "BugsTask", "Bugs", new { id = task.TasksId }, null)</td>
         </tr>
                 }
             </tbody>
         </table>
-
-
-
         @section scripts
         {
             <script>
@@ -64,6 +63,23 @@
                                 "next": "Próxima",
                                 "previous": "Anterior"
                             }
+                        }
+                    });
+                });
+                $("#tasks .js-excluir").on("click", function () {
+                    var button = $(this);
+                    bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
+                        if (resultado) {
+                            $.ajax({
+                                url: "/api/tasks/" + button.attr("data-task-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    tabela.row(button.parents("tr")).remove().draw();
+                                },
+                                error: function () {
+                                    bootbox.alert("Task contem bugs cadastrados!");
+                                }
+                            });
                         }
                     });
                 });
