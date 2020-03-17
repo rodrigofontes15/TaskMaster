@@ -292,7 +292,8 @@ namespace TaskMaster.Controllers
             var taskIdBug = _context.Bugs.Where(t => t.BugsId == id).Select(t => t.TasksId).FirstOrDefault();
             var projetoIdtask = _context.Tasks.Where(t => t.TasksId == taskIdBug).Select(p => p.ProjetosId).FirstOrDefault();
             var devIdBug = _context.Bugs.Where(t => t.BugsId == id).Select(p => p.DevsId).FirstOrDefault();
-
+            var estadoIdBug = _context.Bugs.Where(t => t.BugsId == id).Select(p => p.EstadosBugId).FirstOrDefault();
+            var tipoIdBug = _context.Bugs.Where(t => t.BugsId == id).Select(p => p.TiposBugsId).FirstOrDefault();
 
             if (bug == null)
                 return HttpNotFound();
@@ -325,6 +326,18 @@ namespace TaskMaster.Controllers
           .FirstOrDefault();
             ViewData["NomeDev"] = nomeDev;
 
+            var estadoBug = _context.Bugs
+             .Where(n => n.EstadosBugId == estadoIdBug)
+            .Select(n => n.EstadosBug.NomeEstado)
+            .FirstOrDefault();
+            ViewData["NomeEstado"] = estadoBug;
+
+            var nomeTipoBug = _context.Bugs
+              .Where(n => n.TiposBugsId == tipoIdBug)
+            .Select(n => n.TiposBugs.TipoBug)
+          .FirstOrDefault();
+            ViewData["nomeTipoBug"] = nomeTipoBug;
+
             if (User.IsInRole("dev"))
             {
                 return View("DetalhesBug", viewModel);
@@ -339,6 +352,56 @@ namespace TaskMaster.Controllers
                     return View("DetalhesBug_SomenteLeitura", viewModel);
             }
             
+        }
+
+        [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin)]
+        public ActionResult EmTratamento(int id)
+        {
+
+            var datahoraagora = DateTime.Now;
+            string nota = "Bug passado para -Em Tratamento- nesta data";
+
+            var sqlEstadoBug = @"Update [Bugs] SET EstadosBugId = (3) WHERE BugsId = @BugsId";
+            _context.Database.ExecuteSqlCommand(
+                sqlEstadoBug,
+                new SqlParameter("@BugsId", id));
+
+            var sqlNotaUpdate = @"INSERT INTO NotasTrabalhoBugs (DataNotaTrabalho, NotasTrabalho, BugsId) VALUES (@datahoraagora,@nota,@BugsId)";
+            _context.Database.ExecuteSqlCommand(
+                sqlNotaUpdate,
+                new SqlParameter("@BugsId", id),
+                new SqlParameter("@datahoraagora", datahoraagora),
+                new SqlParameter("@nota", nota));
+
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin)]
+        public ActionResult Corrigido(int id)
+        {
+            var datahoraagora = DateTime.Now;
+            string nota = "Bug Corrigido nesta data";
+
+            var sqlEstadoBug = @"Update [Bugs] SET EstadosBugId = (4) WHERE BugsId = @BugsId";
+            _context.Database.ExecuteSqlCommand(
+                sqlEstadoBug,
+                new SqlParameter("@BugsId", id));
+
+            var sqlNotaUpdate = @"INSERT INTO NotasTrabalhoBugs (DataNotaTrabalho, NotasTrabalho, BugsId) VALUES (@datahoraagora,@nota,@BugsId)";
+            _context.Database.ExecuteSqlCommand(
+                sqlNotaUpdate,
+                new SqlParameter("@BugsId", id),
+                new SqlParameter("@datahoraagora", datahoraagora),
+                new SqlParameter("@nota", nota));
+
+            var sqlDataRealBug = @"Update [Bugs] SET DataEstimadaBug = @DataEstimadaBug WHERE BugsId = @BugsId";
+            _context.Database.ExecuteSqlCommand(
+                sqlDataRealBug,
+                new SqlParameter("@DataEstimadaBug", datahoraagora),
+                new SqlParameter("@BugsId", id));
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin)]

@@ -18,10 +18,31 @@
 
 @using (Html.BeginForm("SalvarBug", "Bugs"))
 {
-<div class="form-group" align="justify">
-    <button type="submit" class="btn btn-primary btn-sm">Salvar Alterações</button>
-    &nbsp;&nbsp;&nbsp;@Html.ActionLink("Voltar", "Index", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
-</div>
+    <div class="form-group" align="justify">
+        @{ if (Model.EstadosBugId == 4)
+            {
+
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary btn-sm">Salvar Alterações</button>
+            }
+        }
+        @{ if (Model.EstadosBugId == 2)
+            {
+                @Html.ActionLink("Iniciar Correção", "EmTratamento", "Bugs", new { id = Model.BugsId }, new { @onclick = "return confirm('Tem certeza? O estado da correção passará para -Em Tratamento-');", @class = "btn btn-danger btn-sm" })
+            }
+            else if
+                (Model.EstadosBugId == 3)
+            {
+                @Html.ActionLink("Corrigir Bug", "Corrigido", "Bugs", new { id = Model.BugsId }, new { @onclick = "return confirm('Tem certeza? O estado da correção passará para -Corrigido-');", @class = "btn btn-success btn-sm" })
+            }
+            else
+            {
+
+            }
+        }
+    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -42,28 +63,42 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(m => m.TiposBugsId)
-                @Html.DropDownListFor(m => m.TiposBugsId, new SelectList(Model.TiposBugs, "TiposBugsId", "TipoBug"), "Selecione...", new { @class = "form-control" })
+                @{ if (Model.EstadosBugId == 4)
+                    {
+                        @Html.TextBox("nomeTipoBug", ViewData["nomeTipoBug"], new { @class = "form-control", @readonly = "readonly" })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(m => m.TiposBugsId, new SelectList(Model.TiposBugs, "TiposBugsId", "TipoBug"), "Selecione...", new { @class = "form-control" })
+                    }
+                }
                 @Html.ValidationMessageFor(m => m.TiposBugsId)
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.DataBug)
                 @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control", @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.DataBug)
+                @Html.ValidationMessageFor(m => m.DataBug)  
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.DataEstimadaBug)
-                @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.DataEstimadaBug)
+                @{if (Model.EstadosBugId == 4) { 
+                    @Html.Label("Data de Correção")
+                    @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control", @readonly = "readonly" })
+                    }
+                    else { 
+                    @Html.LabelFor(m => m.DataEstimadaBug)
+                    @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.DataEstimadaBug)
+                    }
+                }
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(m => m.EstadosBugId)
-                @Html.DropDownListFor(m => m.EstadosBugId, new SelectList(Model.EstadosBugs, "EstadosBugId", "NomeEstado"), "Selecione...", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.EstadosBugId)
+                @Html.TextBox("NomeEstado", ViewData["NomeEstado"], new { @class = "form-control", @readonly = "readonly" })
             </div>
 
             <div class="form-group">
@@ -72,9 +107,18 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.UrlRepoCodigo)
-                @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.UrlRepoCodigo)
+                @{ if (Model.EstadosBugId == 4)
+                    {
+                        @Html.LabelFor(m => m.UrlRepoCodigo)
+                        @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control" , @readonly = "readonly" })
+                    }
+                    else
+                    {
+                        @Html.LabelFor(m => m.UrlRepoCodigo)
+                        @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UrlRepoCodigo)
+                    }
+                }
             </div>
         </div>
     </div>
@@ -84,40 +128,49 @@
     @Html.AntiForgeryToken()
 
 }
-@using (Html.BeginForm("AddNotasBug", "Bugs"))
-{
-    <hr />
-    <h4><b>Notas de Trabalho</b></h4>
-    <div class="jumbotron">
-        <div class="container">
-            @Html.TextAreaFor(m => m.NotasTrabalho, new { @class = "form-control", style = "width: 100%; max-width: 100%;", @cols = "100", @rows = "6" })
-        </div>
-    </div>
-    <div class="form-group" align="justify">
-        <button type="submit" class="btn btn-primary btn-sm" id="c => c.BugsId">Adcionar Nota</button>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="form-inline">
+@{if (Model.EstadosBugId == 4)
+    {
+    }
+    else
+    {
+        using (Html.BeginForm("AddNotasBug", "Bugs"))
+        {
+            <hr />
+            <h4><b>Notas de Trabalho</b></h4>
+            <div class="jumbotron">
+                <div class="container">
+                    @Html.TextAreaFor(m => m.NotasTrabalho, new { @class = "form-control", style = "width: 100%; max-width: 100%;", @cols = "100", @rows = "6" })
+                </div>
+            </div>
+            <div class="form-group" align="justify">
+                <button type="submit" class="btn btn-primary btn-sm" id="c => c.BugsId">Adcionar Nota</button>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-inline">
 
-        </div>
-    </div>
-    @Html.HiddenFor(c => c.BugsId)
-    @Html.AntiForgeryToken()
+                </div>
+            </div>
+
+            @Html.HiddenFor(c => c.BugsId)
+            @Html.AntiForgeryToken()
+        }
+    }
 }
-@{ if (User.IsInRole("dev"))
+@{ if (User.IsInRole("admin"))
     {@Html.Partial("NotasBug", Model.NotasTrabalhoBugs)
     }
     else
     {
-        if (User.IsInRole("admin"))
+        if (User.IsInRole("dev"))
         {
-            @Html.Partial("NotasBug", Model.NotasTrabalhoBugs)
-        }
-        else { 
         @Html.Partial("NotasBug_SomenteLeitura", Model.NotasTrabalhoBugs)
-        }
     }
+    else
+    {
+        @Html.Partial("NotasBug_SomenteLeitura", Model.NotasTrabalhoBugs)
+    }
+}
 }
 @section scripts
 {
@@ -148,6 +201,13 @@
                                 tabela.row(button.parents("tr")).remove().draw();
                             }
                         });
+                    }
+                });
+            });
+            jQuery(document).ready(function () {
+                jQuery('[data-confirm]').click(function (e) {
+                    if (!confirm(jQuery(this).attr("data-confirm"))) {
+                        e.preventDefault();
                     }
                 });
             });
