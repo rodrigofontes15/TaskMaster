@@ -78,18 +78,20 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.DataBug)
                 @Html.TextBoxFor(m => m.DataBug, new { @class = "form-control", @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.DataBug)  
+                @Html.ValidationMessageFor(m => m.DataBug)
             </div>
 
             <div class="form-group">
-                @{if (Model.EstadosBugId == 4) { 
-                    @Html.Label("Data de Correção")
-                    @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control", @readonly = "readonly" })
+                @{if (Model.EstadosBugId == 4)
+                    {
+                        @Html.Label("Data de Correção")
+                        @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control", @readonly = "readonly" })
                     }
-                    else { 
-                    @Html.LabelFor(m => m.DataEstimadaBug)
-                    @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.DataEstimadaBug)
+                    else
+                    {
+                        @Html.LabelFor(m => m.DataEstimadaBug)
+                        @Html.TextBoxFor(m => m.DataEstimadaBug, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.DataEstimadaBug)
                     }
                 }
             </div>
@@ -110,7 +112,7 @@
                 @{ if (Model.EstadosBugId == 4)
                     {
                         @Html.LabelFor(m => m.UrlRepoCodigo)
-                        @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control" , @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.UrlRepoCodigo, new { @class = "form-control", @readonly = "readonly" })
                     }
                     else
                     {
@@ -125,6 +127,7 @@
     @Html.HiddenFor(c => c.BugsId)
     @Html.HiddenFor(m => m.TasksId)
     @Html.HiddenFor(m => m.DevsId)
+    @Html.HiddenFor(m => m.EstadosBugId)
     @Html.AntiForgeryToken()
 
 }
@@ -159,11 +162,11 @@
 }
 @{ if (User.IsInRole("admin"))
     {@Html.Partial("NotasBug", Model.NotasTrabalhoBugs)
-    }
-    else
+}
+else
+{
+    if (User.IsInRole("dev"))
     {
-        if (User.IsInRole("dev"))
-        {
         @Html.Partial("NotasBug_SomenteLeitura", Model.NotasTrabalhoBugs)
     }
     else

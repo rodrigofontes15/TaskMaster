@@ -357,7 +357,13 @@ namespace TaskMaster.Controllers
         [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin)]
         public ActionResult EmTratamento(int id)
         {
-
+            var dataestimada = _context.Bugs.Where(i => i.BugsId == id).Select(d => d.DataEstimadaBug).Single();
+            if (dataestimada == null)
+            {
+                return Content("Defina a Data Estimada!");
+            }
+            else
+            { 
             var datahoraagora = DateTime.Now;
             string nota = "Bug passado para -Em Tratamento- nesta data";
 
@@ -375,6 +381,7 @@ namespace TaskMaster.Controllers
 
 
             return Redirect(Request.UrlReferrer.ToString());
+                }
         }
 
         [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin)]
