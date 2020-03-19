@@ -7,7 +7,7 @@
     string abertos = ViewData["QtdBugsAbertos"].ToString();
     string emTrat = ViewData["QtdBugsEmTrat"].ToString();
     string Corrig = ViewData["QtdBugsCorrigido"].ToString();
-< a href = "~/Views/Home/Index.cshtml" > ~/ Views / Home / Index.cshtml </ a >
+
 
      string qtdprojsNoPrazo = ViewData["qtdprojsNoPrazo"].ToString();
     string qtdprojsEmAtraso = ViewData["qtdprojsEmAtraso"].ToString();
@@ -349,12 +349,12 @@
                 new LineSeries
                 {
                     Name = "Encontrados",
-                    Data = @ViewData["tokyoData"] as List<LineSeriesData>
+                    Data = @ViewData["encontrados"] as List<LineSeriesData>
                 },
                 new LineSeries
                 {
                     Name = "Corrigidos",
-                    Data = @ViewData["londonData"] as List<LineSeriesData>
+                    Data = @ViewData["corrigidos"] as List<LineSeriesData>
                 }
             }
             };

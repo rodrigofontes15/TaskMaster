@@ -408,6 +408,18 @@ namespace TaskMaster.Controllers
                 new SqlParameter("@DataEstimadaBug", datahoraagora),
                 new SqlParameter("@BugsId", id));
 
+            var DataEstimadaBug = _context.Bugs.Where(b => b.BugsId == id).Select(d => d.DataEstimadaBug).FirstOrDefault();
+
+            var DataBug = _context.Bugs.Where(b => b.BugsId == id).Select(d => d.DataBug).FirstOrDefault();
+
+            var TempoSolucao = (DataEstimadaBug - DataBug).Value.TotalDays;
+
+            var sqlTempoSolucao = @"Update [Bugs] SET TempoSolucao = @TempoSolucao WHERE BugsId = @BugsId";
+            _context.Database.ExecuteSqlCommand(
+                sqlTempoSolucao,
+                new SqlParameter("@BugsId", id),
+                new SqlParameter("@TempoSolucao", TempoSolucao));
+
             return Redirect(Request.UrlReferrer.ToString());
         }
 

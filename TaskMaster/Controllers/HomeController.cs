@@ -38,22 +38,49 @@ namespace TaskMaster.Controllers
 
             ViewData["pieData"] = pieData;
 
+            var bugsabertosemandamentojan = _context.Bugs.Where(t => t.DataBug.Value.Month == 1).Count();
+            var bugsabertosemandamentofeb = _context.Bugs.Where(t => t.DataBug.Value.Month == 2).Count();
+            var bugsabertosemandamentomar = _context.Bugs.Where(t => t.DataBug.Value.Month == 3).Count();
+            var bugsabertosemandamentoabr = _context.Bugs.Where(t => t.DataBug.Value.Month == 4).Count();
+            var bugsabertosemandamentomai = _context.Bugs.Where(t => t.DataBug.Value.Month == 5).Count();
+            var bugsabertosemandamentojun = _context.Bugs.Where(t => t.DataBug.Value.Month == 6).Count();
+            var bugsabertosemandamentojul = _context.Bugs.Where(t => t.DataBug.Value.Month == 7).Count();
+            var bugsabertosemandamentoago = _context.Bugs.Where(t => t.DataBug.Value.Month == 8).Count();
+            var bugsabertosemandamentoset = _context.Bugs.Where(t => t.DataBug.Value.Month == 9).Count();
+            var bugsabertosemandamentoout = _context.Bugs.Where(t => t.DataBug.Value.Month == 10).Count();
+            var bugsabertosemandamentonov = _context.Bugs.Where(t => t.DataBug.Value.Month == 11).Count();
+            var bugsabertosemandamentodez = _context.Bugs.Where(t => t.DataBug.Value.Month == 12).Count();
 
+            var bugscorrigidosjan = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 1).Where(b=>b.EstadosBugId==4).Count();
+            var bugscorrigidosfev = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 2).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosmar = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 3).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosabr = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 4).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosmai = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 5).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosjun = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 6).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosjul = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 7).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosago = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 8).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosset = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 9).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosout = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 10).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosnov = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 11).Where(b => b.EstadosBugId == 4).Count();
+            var bugscorrigidosdez = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 12).Where(b => b.EstadosBugId == 4).Count();
 
-            List<double> tokyoValues = new List<double> { 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6 };
-            List<double> berlinValues = new List<double> { -0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0 };
-            List<double> londonValues = new List<double> { 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8 };
-            List<LineSeriesData> tokyoData = new List<LineSeriesData>();
-            List<LineSeriesData> berlinData = new List<LineSeriesData>();
-            List<LineSeriesData> londonData = new List<LineSeriesData>();
+            List<double> encontradoValores = new List<double> { bugsabertosemandamentojan, bugsabertosemandamentofeb,
+            bugsabertosemandamentomar, bugsabertosemandamentoabr, bugsabertosemandamentomai, bugsabertosemandamentojun,
+            bugsabertosemandamentojul, bugsabertosemandamentoago, bugsabertosemandamentoset, bugsabertosemandamentoout,
+            bugsabertosemandamentonov,bugsabertosemandamentodez };
+            
+            List<double> corrigidosValores = new List<double> { bugscorrigidosjan, bugscorrigidosfev, bugscorrigidosmar, bugscorrigidosabr,
+                bugscorrigidosmai, bugscorrigidosjun, bugscorrigidosjul, bugscorrigidosago, bugscorrigidosset, bugscorrigidosout,
+            bugscorrigidosnov, bugscorrigidosdez};
 
-            tokyoValues.ForEach(p => tokyoData.Add(new LineSeriesData { Y = p }));
-            berlinValues.ForEach(p => berlinData.Add(new LineSeriesData { Y = p }));
-            londonValues.ForEach(p => londonData.Add(new LineSeriesData { Y = p }));
+            List<LineSeriesData> encontrados = new List<LineSeriesData>();
+            List<LineSeriesData> corrigidos = new List<LineSeriesData>();
 
-            ViewData["tokyoData"] = tokyoData;
-            ViewData["berlinData"] = berlinData;
-            ViewData["londonData"] = londonData;
+            encontradoValores.ForEach(p => encontrados.Add(new LineSeriesData { Y = p }));
+            corrigidosValores.ForEach(p => corrigidos.Add(new LineSeriesData { Y = p }));
+
+            ViewData["encontrados"] = encontrados;
+            ViewData["corrigidos"] = corrigidos;
 
             var qtdbugsAberto = _context.Bugs.Where(i=>i.EstadosBug.NomeEstado=="Aberto").Count().ToString();
             var qtdbugsEmTrat = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Em Tratamento").Count().ToString();
