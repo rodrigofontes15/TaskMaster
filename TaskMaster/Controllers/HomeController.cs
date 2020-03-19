@@ -95,6 +95,14 @@ namespace TaskMaster.Controllers
             var bugtipoFluxo = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Fluxo").Count().ToString();
             var bugtipoCalc =  _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Calculo").Count().ToString();
 
+            var bugtestetipoUni = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Unitário").Select(b => b.QtdBugsTsk).FirstOrDefault();
+            var bugtestetipoInt = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Integração").Select(b => b.QtdBugsTsk).FirstOrDefault();
+            var bugtestetipoFum = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Fumaça").Select(b => b.QtdBugsTsk).FirstOrDefault();
+            var bugtestetipoInf = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Interface").Select(b => b.QtdBugsTsk).FirstOrDefault();
+            var bugtestetipoReg = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Regressão").Select(b => b.QtdBugsTsk).FirstOrDefault();
+            var bugtestetipoPer = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Performance/Carga").Select(b => b.QtdBugsTsk).FirstOrDefault();
+            var bugtestetipoBeta = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Beta/Aceitação").Select(b => b.QtdBugsTsk).FirstOrDefault();
+
             var temposolucao = _context.Bugs.Select(t=>t.TempoSolucao).FirstOrDefault();
             if (temposolucao == null)
             {
@@ -119,6 +127,14 @@ namespace TaskMaster.Controllers
             ViewData["bugtipoInterface"] = bugtipoInterface;
             ViewData["bugtipoFluxo"] = bugtipoFluxo;
             ViewData["bugtipoCalc"] = bugtipoCalc;
+
+            ViewData["bugtestetipoUni"] = bugtestetipoUni;
+            ViewData["bugtestetipoInt"] = bugtestetipoInt;
+            ViewData["bugtestetipoFum"] = bugtestetipoFum;
+            ViewData["bugtestetipoInf"] = bugtestetipoInf;
+            ViewData["bugtestetipoReg"] = bugtestetipoReg;
+            ViewData["bugtestetipoPer"] = bugtestetipoPer;
+            ViewData["bugtestetipoBeta"] = bugtestetipoBeta;
 
             var viewModel = new BugsViewModel
             {

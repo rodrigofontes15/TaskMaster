@@ -9,7 +9,7 @@
     string Corrig = ViewData["QtdBugsCorrigido"].ToString();
 
 
-     string qtdprojsNoPrazo = ViewData["qtdprojsNoPrazo"].ToString();
+    string qtdprojsNoPrazo = ViewData["qtdprojsNoPrazo"].ToString();
     string qtdprojsEmAtraso = ViewData["qtdprojsEmAtraso"].ToString();
 
     string bugtipo500 = ViewData["bugtipo500"].ToString();
@@ -17,6 +17,14 @@
     string bugtipoInterface = ViewData["bugtipoInterface"].ToString();
     string bugtipoFluxo = ViewData["bugtipoFluxo"].ToString();
     string bugtipoCalc = ViewData["bugtipoCalc"].ToString();
+
+    string bugtestetipoUni =ViewData["bugtestetipoUni"].ToString();
+    string bugtestetipoInt =ViewData["bugtestetipoInt"].ToString();
+    string bugtestetipoFum =ViewData["bugtestetipoFum"].ToString();
+    string bugtestetipoInf =ViewData["bugtestetipoInf"].ToString();
+    string bugtestetipoReg =ViewData["bugtestetipoReg"].ToString();
+    string bugtestetipoPer =ViewData["bugtestetipoPer"].ToString();
+    string bugtestetipoBeta =ViewData["bugtestetipoBeta"].ToString();
 
     string MediaTempoSolucao = ViewData["MediaTempoSolucao"].ToString();
 
@@ -212,8 +220,46 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-4">
-        <h4>Bugs por Tipo de Teste</h4>
+    <div class="col-md-4" align="center">
+        <h4><b>Bugs por Tarefa de Teste</b></h4>
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th class="active" align="center"><center>Tipo de Teste</center></th>
+                    <th class="active" align="center"><center>Quantidade</center></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center">@Html.ActionLink("Unitário", "ListarBugTipoTask", "Home", new { tipobug = "Erro 500" }, null)</td>
+                    <td align="center">@bugtestetipoUni</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Integração", "ListarBugTipoTask", "Home", new { tipobug = "Erro 404" }, null)</td>
+                    <td align="center">@bugtestetipoInt</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Fumaça", "ListarBugTipoTask", "Home", new { tipobug = "Interface" }, null)</td>
+                    <td align="center">@bugtestetipoFum</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Interface", "ListarBugTipoTask", "Home", new { tipobug = "Fluxo" }, null)</td>
+                    <td align="center">@bugtestetipoInf</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Regressão", "ListarBugTipoTask", "Home", new { tipobug = "Calculo" }, null)</td>
+                    <td align="center">@bugtestetipoReg</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Performance/Carga", "ListarBugTipoTask", "Home", new { tipobug = "Calculo" }, null)</td>
+                    <td align="center">@bugtestetipoPer</td>
+                </tr>
+                <tr>
+                    <td align="center">@Html.ActionLink("Beta/Aceitação", "ListarBugTipoTask", "Home", new { tipobug = "Calculo" }, null)</td>
+                    <td align="center">@bugtestetipoBeta</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
