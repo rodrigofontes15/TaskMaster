@@ -18,13 +18,13 @@
     string bugtipoFluxo = ViewData["bugtipoFluxo"].ToString();
     string bugtipoCalc = ViewData["bugtipoCalc"].ToString();
 
-    string bugtestetipoUni =ViewData["bugtestetipoUni"].ToString();
-    string bugtestetipoInt =ViewData["bugtestetipoInt"].ToString();
-    string bugtestetipoFum =ViewData["bugtestetipoFum"].ToString();
-    string bugtestetipoInf =ViewData["bugtestetipoInf"].ToString();
-    string bugtestetipoReg =ViewData["bugtestetipoReg"].ToString();
-    string bugtestetipoPer =ViewData["bugtestetipoPer"].ToString();
-    string bugtestetipoBeta =ViewData["bugtestetipoBeta"].ToString();
+    string bugtestetipoUni = ViewData["bugtestetipoUni"].ToString();
+    string bugtestetipoInt = ViewData["bugtestetipoInt"].ToString();
+    string bugtestetipoFum = ViewData["bugtestetipoFum"].ToString();
+    string bugtestetipoInf = ViewData["bugtestetipoInf"].ToString();
+    string bugtestetipoReg = ViewData["bugtestetipoReg"].ToString();
+    string bugtestetipoPer = ViewData["bugtestetipoPer"].ToString();
+    string bugtestetipoBeta = ViewData["bugtestetipoBeta"].ToString();
 
     string MediaTempoSolucao = ViewData["MediaTempoSolucao"].ToString();
 
@@ -231,31 +231,31 @@
             </thead>
             <tbody>
                 <tr>
-                    <td align="center">@Html.ActionLink("Unitário", "ListarBugTipoTask", "Home", new { tipobug = "Erro 500" }, null)</td>
+                    <td align="center">@Html.ActionLink("Unitário", "ListarBugTipoTask", "Home", new { tipotask = "Unitário" }, null)</td>
                     <td align="center">@bugtestetipoUni</td>
                 </tr>
                 <tr>
-                    <td align="center">@Html.ActionLink("Integração", "ListarBugTipoTask", "Home", new { tipobug = "Erro 404" }, null)</td>
+                    <td align="center">@Html.ActionLink("Integração", "ListarBugTipoTask", "Home", new { tipotask = "Integração" }, null)</td>
                     <td align="center">@bugtestetipoInt</td>
                 </tr>
                 <tr>
-                    <td align="center">@Html.ActionLink("Fumaça", "ListarBugTipoTask", "Home", new { tipobug = "Interface" }, null)</td>
+                    <td align="center">@Html.ActionLink("Fumaça", "ListarBugTipoTask", "Home", new { tipotask = "Fumaça" }, null)</td>
                     <td align="center">@bugtestetipoFum</td>
                 </tr>
                 <tr>
-                    <td align="center">@Html.ActionLink("Interface", "ListarBugTipoTask", "Home", new { tipobug = "Fluxo" }, null)</td>
+                    <td align="center">@Html.ActionLink("Interface", "ListarBugTipoTask", "Home", new { tipotask = "Interface" }, null)</td>
                     <td align="center">@bugtestetipoInf</td>
                 </tr>
                 <tr>
-                    <td align="center">@Html.ActionLink("Regressão", "ListarBugTipoTask", "Home", new { tipobug = "Calculo" }, null)</td>
+                    <td align="center">@Html.ActionLink("Regressão", "ListarBugTipoTask", "Home", new { tipotask = "Regressão" }, null)</td>
                     <td align="center">@bugtestetipoReg</td>
                 </tr>
                 <tr>
-                    <td align="center">@Html.ActionLink("Performance/Carga", "ListarBugTipoTask", "Home", new { tipobug = "Calculo" }, null)</td>
+                    <td align="center">@Html.ActionLink("Performance/Carga", "ListarBugTipoTask", "Home", new { tipotask = "Performance/Carga" }, null)</td>
                     <td align="center">@bugtestetipoPer</td>
                 </tr>
                 <tr>
-                    <td align="center">@Html.ActionLink("Beta/Aceitação", "ListarBugTipoTask", "Home", new { tipobug = "Calculo" }, null)</td>
+                    <td align="center">@Html.ActionLink("Beta/Aceitação", "ListarBugTipoTask", "Home", new { tipotask = "Beta/Aceitação" }, null)</td>
                     <td align="center">@bugtestetipoBeta</td>
                 </tr>
             </tbody>
@@ -272,37 +272,37 @@
         @using System.Collections;
 
         @{ var chartOptions =
-                 new Highcharts
-                 {
-                     Chart = new Highsoft.Web.Mvc.Charts.Chart
-                     {
-                         PlotBackgroundColor = null,
-                         PlotBorderWidth = null,
-                         PlotShadow = new Shadow
-                         {
-                             Enabled = false
-                         }
-                     },
-                     Title = new Title
-                     {
-                         Text = "Distribuição % de Bugs"
-                     },
-                     Tooltip = new Tooltip
-                     {
-                         PointFormat = "{series.name}: <b>{point.percentage:.1f}%</b>"
-                     },
-                     PlotOptions = new PlotOptions
-                     {
-                         Pie = new PlotOptionsPie
-                         {
-                             AllowPointSelect = true,
-                             Cursor = PlotOptionsPieCursor.Pointer,
-                             DataLabels = new Hashtable { { "enabled", false } },
-                             ShowInLegend = true
-                         }
-                     },
-                     XAxis = new List<XAxis>
-                         {
+                  new Highcharts
+                  {
+                      Chart = new Highsoft.Web.Mvc.Charts.Chart
+                      {
+                          PlotBackgroundColor = null,
+                          PlotBorderWidth = null,
+                          PlotShadow = new Shadow
+                          {
+                              Enabled = false
+                          }
+                      },
+                      Title = new Title
+                      {
+                          Text = "Distribuição % de Bugs"
+                      },
+                      Tooltip = new Tooltip
+                      {
+                          PointFormat = "{series.name}: <b>{point.percentage:.1f}%</b>"
+                      },
+                      PlotOptions = new PlotOptions
+                      {
+                          Pie = new PlotOptionsPie
+                          {
+                              AllowPointSelect = true,
+                              Cursor = PlotOptionsPieCursor.Pointer,
+                              DataLabels = new Hashtable { { "enabled", false } },
+                              ShowInLegend = true
+                          }
+                      },
+                      XAxis = new List<XAxis>
+                          {
         new XAxis
         {
             Title = new XAxisTitle
@@ -311,9 +311,9 @@
             },
             Categories = new List<string> { "Erro 500", "Erro 404", "Interface", "Fluxo", "Calculo" }
         }
-                                         },
-                     YAxis = new List<YAxis>
-                         {
+                                          },
+                      YAxis = new List<YAxis>
+                          {
         new YAxis
         {
             Min = 0,
@@ -323,17 +323,17 @@
                 Align = YAxisTitleAlign.Center
             }
         }
-                                         },
-                     Series = new List<Series>
-                         {
+                                          },
+                      Series = new List<Series>
+                          {
         new PieSeries
         {
             Name = "Percentual",
             Data = @ViewData["pieData"] as List<PieSeriesData>
         },
 
-                                         }
-                 };
+                                          }
+                  };
 
             chartOptions.ID = "chart";
             var renderer = new HighchartsRenderer(chartOptions);
@@ -380,7 +380,7 @@
             },
                 Tooltip = new Tooltip
                 {
-                    PointFormat = "{point.y} - {point.custom1} - {point.custom2}"
+                    PointFormat = "{point.y}"
                     //ValueSuffix = "°C"
                 },
                 Legend = new Legend
@@ -412,4 +412,22 @@
         @Html.Raw(renderer2.RenderHtml())
     </div>
 </div>
-
+<hr />
+<div class="row">
+    <div class="col-md-6" align="center">
+        Placeholder - grafico de Barras com tipos de Teste em andamento
+    </div>
+    <div class="col-md-6" align="center">
+        grafico de barras, com visualicação do KPI versus executado, por mes
+        http://dotnet.highcharts.com/Highcharts/Demo/Gallery?demo=ErrorBar&theme=default
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6" align="center">
+        Placeholder - grafico de Barras com projetos em atraso e no prazo
+    </div>
+    <div class="col-md-6" align="center">
+        outro tipo de grafico
+    </div>
+</div>

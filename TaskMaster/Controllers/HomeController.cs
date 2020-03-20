@@ -64,12 +64,12 @@ namespace TaskMaster.Controllers
             var bugscorrigidosnov = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 11).Where(b => b.EstadosBugId == 4).Count();
             var bugscorrigidosdez = _context.Bugs.Where(t => t.DataEstimadaBug.Value.Month == 12).Where(b => b.EstadosBugId == 4).Count();
 
-            List<double> encontradoValores = new List<double> { bugsabertosemandamentojan, bugsabertosemandamentofeb,
+            List<int> encontradoValores = new List<int> { bugsabertosemandamentojan, bugsabertosemandamentofeb,
             bugsabertosemandamentomar, bugsabertosemandamentoabr, bugsabertosemandamentomai, bugsabertosemandamentojun,
             bugsabertosemandamentojul, bugsabertosemandamentoago, bugsabertosemandamentoset, bugsabertosemandamentoout,
             bugsabertosemandamentonov,bugsabertosemandamentodez };
             
-            List<double> corrigidosValores = new List<double> { bugscorrigidosjan, bugscorrigidosfev, bugscorrigidosmar, bugscorrigidosabr,
+            List<int> corrigidosValores = new List<int> { bugscorrigidosjan, bugscorrigidosfev, bugscorrigidosmar, bugscorrigidosabr,
                 bugscorrigidosmai, bugscorrigidosjun, bugscorrigidosjul, bugscorrigidosago, bugscorrigidosset, bugscorrigidosout,
             bugscorrigidosnov, bugscorrigidosdez};
 
@@ -219,6 +219,26 @@ namespace TaskMaster.Controllers
             ViewData["prjEstado"] = prjEstado;
 
             return View("ListaProjetoEstado", estadoprojeto);
+        }
+
+        public ActionResult ListarBugTipoTask(string tipotask)
+        {
+            var bugtipotask = _context.Bugs.Where(n => n.Tasks.TiposTestes.TipoTeste == tipotask)
+                 .Include(t => t.Tasks)
+                .Include(p => p.Devs)
+                .Include(p => p.Tasks.Projetos)
+                .Include(e => e.EstadosBug)
+                .Include(t => t.TiposBugs)
+                .ToList();
+
+            var tipoTeste = _context.Tasks
+               .Where(n => n.TiposTestes.TipoTeste == tipotask)
+               .Select(n => n.TiposTestes.TipoTeste)
+               .FirstOrDefault();
+            ViewData["tipoTeste"] = tipoTeste;
+
+            return View("ListarBugTipoTask", bugtipotask);
+
         }
     }
 }

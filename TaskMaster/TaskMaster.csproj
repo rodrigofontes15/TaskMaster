@@ -954,6 +954,7 @@
     <Content Include="Views\Home\ListarBugTipo.cshtml" />
     <Content Include="Views\Home\ListarBugDev.cshtml" />
     <Content Include="Views\Home\ListaProjetoEstado.cshtml" />
+    <Content Include="Views\Home\ListarBugTipoTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
