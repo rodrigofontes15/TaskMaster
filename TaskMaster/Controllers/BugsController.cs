@@ -420,6 +420,43 @@ namespace TaskMaster.Controllers
                 new SqlParameter("@BugsId", id),
                 new SqlParameter("@TempoSolucao", TempoSolucao));
 
+            var taskdobug = _context.Bugs.Where(p => p.BugsId == id).Select(t => t.TasksId).SingleOrDefault();
+            var datasbugnatask = _context.Bugs.Where(i => i.TasksId == taskdobug).Select(d => d.DataEstimadaBug).ToList().Max();
+
+            var sqlDataRealTask = @"Update [Tasks] SET DataReal = @DataReal WHERE TasksId = @TasksId";
+            _context.Database.ExecuteSqlCommand(
+                sqlDataRealTask,
+                new SqlParameter("@DataReal", datasbugnatask),
+                new SqlParameter("@TasksId", taskdobug));
+
+            var projetidnatask = _context.Tasks.Where(t => t.TasksId == taskdobug).Select(p => p.ProjetosId).SingleOrDefault();
+            var datarealnatask = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.DataReal).ToList().Max();
+
+            var sqlDataRealProjeto = @"Update [Projetos] SET DataReal = @DataReal WHERE ProjetosId = @ProjetosId";
+
+            _context.Database.ExecuteSqlCommand(
+                sqlDataRealProjeto,
+                new SqlParameter("@DataReal", datarealnatask),
+                new SqlParameter("@ProjetosId", projetidnatask));
+
+            var dataestimadanoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataEstimada).SingleOrDefault();
+            var datarealnoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataReal).SingleOrDefault();
+
+            if (dataestimadanoprojeto < datarealnoprojeto)
+            {
+                var sqlDataPrj = @"Update [Projetos] SET EstadoProj = 'Em Atraso'  WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlDataPrj,
+                    new SqlParameter("@ProjetosId", projetidnatask));
+            }
+            else
+            {
+                var sqlDataPrj = @"Update [Projetos] SET EstadoProj = 'No Prazo'  WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlDataPrj,
+                    new SqlParameter("@ProjetosId", projetidnatask));
+            }
+
             return Redirect(Request.UrlReferrer.ToString());
         }
 
