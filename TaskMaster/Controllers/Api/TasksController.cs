@@ -49,25 +49,26 @@ namespace TaskMaster.Controllers.Api
         }
 
         [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
-        // PUT /api/tasks/id
+        //PUT /api/tasks/id
         [HttpPut]
         public void UpdateTasks(int id, Tasks tasks)
         {
-            if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+        if (!ModelState.IsValid)
+        throw new HttpResponseException(HttpStatusCode.BadRequest);
+    
+        var taskInDb = _context.Tasks.SingleOrDefault(c => tasks.TasksId == id);
+        if (taskInDb==null)
+        throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var taskInDb = _context.Tasks.SingleOrDefault(c => tasks.TasksId == id);
-            if (taskInDb==null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+        taskInDb.NomeTask = tasks.NomeTask;
+        taskInDb.DataInicio = tasks.DataInicio;
+        taskInDb.DataEstimada = tasks.DataEstimada;
+        taskInDb.TestersId = tasks.TestersId;
+        taskInDb.ProjetosId = tasks.ProjetosId;
 
-            taskInDb.NomeTask = tasks.NomeTask;
-            taskInDb.DataInicio = tasks.DataInicio;
-            taskInDb.DataEstimada = tasks.DataEstimada;
-            taskInDb.TestersId = tasks.TestersId;
-            taskInDb.ProjetosId = tasks.ProjetosId;
-
-            _context.SaveChanges();
+        _context.SaveChanges();
         }
+
 
         [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
         // DELETE /api/tasks/
@@ -85,8 +86,6 @@ namespace TaskMaster.Controllers.Api
             }
             else
             { 
-            
-
             var taskInDb = _context.Tasks.SingleOrDefault(c => c.TasksId == id);
             if (taskInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);

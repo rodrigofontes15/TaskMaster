@@ -102,6 +102,13 @@ namespace TaskMaster.Controllers
                 sqlQtdTaskPrj,
                 new SqlParameter("@ProjetosId", projetid));
 
+            var taskIdEstado = _context.Tasks.Where(c => c.TasksId == task.TasksId).Select(c => c.TasksId).SingleOrDefault();
+
+            var sqlEstadoTask = @"Update [Tasks] SET EstadoTask = 'Aberto' WHERE TasksId = @TasksId";
+            _context.Database.ExecuteSqlCommand(
+                sqlEstadoTask,
+                new SqlParameter("@TasksId", taskIdEstado));
+
             return RedirectToAction("Index", "Tasks");
 
         }
@@ -154,6 +161,33 @@ namespace TaskMaster.Controllers
                 return HttpNotFound();
 
             return View(task);
+        }
+
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
+        public ActionResult FecharTask(int id)
+        {
+            var bugsabertos = _context.Bugs.Where(c => c.TasksId == id).Count(e=>e.EstadosBugId==2);
+            var bugsemandamento = _context.Bugs.Where(c => c.TasksId == id).Count(e => e.EstadosBugId==3);
+
+            if (bugsabertos!=0)
+            {
+                return Content("Task Contem Bugs Abertos");
+            }
+            else if (bugsemandamento != 0)
+            {
+                return Content("Task Contem Bugs Em Tratamento");
+            }
+            else
+            {
+                var taskInDb = _context.Tasks.Where(c => c.TasksId == id).Select(c=>c.TasksId).FirstOrDefault();
+
+                var sqlEstadoTask = @"Update [Tasks] SET EstadoTask = 'Fechado' WHERE TasksId = @TasksId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlEstadoTask,
+                    new SqlParameter("@TasksId", taskInDb));
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
         }
 
     }

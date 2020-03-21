@@ -37,6 +37,9 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Data Estimada de Término do Teste")]
         public DateTime? DataEstimada { get; set; }
 
+        [Display(Name = "Estado da Task")]
+        public string EstadoTask { get; set; }
+
         public DateTime? DataReal { get; set; }
 
         public string Titulo
@@ -62,7 +65,6 @@ namespace TaskMaster.ViewModels
             ProjetosId = task.ProjetosId;
             TestersId = task.TestersId;
             TiposTestesId = task.TiposTestesId;
-
         }
 
     }

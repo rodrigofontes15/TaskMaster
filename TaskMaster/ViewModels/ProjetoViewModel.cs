@@ -31,6 +31,9 @@ namespace TaskMaster.ViewModels
         [Display(Name = "Data Estimada de Término")]
         public DateTime? DataEstimada { get; set; }
 
+        [Display(Name = "Estado do Projeto")]
+        public string EstadoProj { get; set; }
+
         public DateTime? DataReal { get; set; }
 
         public string Titulo

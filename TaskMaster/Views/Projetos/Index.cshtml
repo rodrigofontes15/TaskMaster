@@ -35,6 +35,7 @@ else
                 <th class="active">Data de Início</th>
                 <th class="active">Data de Entrega</th>
                 <th class="active">Data Real</th>
+                <th class="active">Estado do Projeto</th>
                 <th class="active">Ações</th>
             </tr>
         </thead>
@@ -65,9 +66,11 @@ else
                         }
                     }
                 }
+                <td>@projeto.EstadoProj</td>
                 <td>
                     @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })
                     <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                    <button id="fechar" data-task-id="@projeto.ProjetosId" class="btn btn-success btn-sm js-fechar">Fechar</button>
                 </td>
             </tr>
             }

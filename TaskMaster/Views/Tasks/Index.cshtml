@@ -28,7 +28,8 @@
             @*  <th class="active">Data de Início</th>
                 <th class="active">Data de Término</th>*@
             <th class="active">Testador</th>
-            <th class="active">Bugs Encontrados</th>
+            <th class="active">Bugs</th>
+            <th class="active">Estado</th>
             <th class="active">Ações</th>
                 </tr>
             </thead>
@@ -47,10 +48,12 @@
                     <td>@task.Testers.Nome</td>
                     <td>@Html.ActionLink(task.QtdBugsTsk.ToString(), "BugsTask", "Bugs", new { id = task.TasksId }, null)
                 </td>
-                <td>
-                    @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
-                    <button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
-                </td>
+                    <td>@task.EstadoTask</td>
+                    <td>
+                        @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
+                        <button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                        @Html.ActionLink("Fechar", "FecharTask", "Tasks", new { id = task.TasksId }, new { @onclick = "return confirm('Deseja Fechar a Task? Não será mais possivel abrir Bugs.');", @class = "btn btn-success btn-sm" })
+                    </td>
                 </tr>
                 }
             </tbody>

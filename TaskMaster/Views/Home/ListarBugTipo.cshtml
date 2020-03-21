@@ -36,13 +36,13 @@ else
                 <th class="active">Estado da Correção</th>
                 @{ if (User.IsInRole("tester"))
                     {
-                        <th class="active">Excluir</th>
+                        <th class="active">Ação</th>
                     }
                     else
                     {
                         if (User.IsInRole("admin"))
                         {
-                            <th class="active">Excluir</th>
+                        <th class="active">Ação</th>
                         }
                         else
                         {

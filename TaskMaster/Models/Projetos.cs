@@ -39,6 +39,7 @@ namespace TaskMaster.Models
 
         public DateTime? DataReal { get; set; }
 
+        [Display(Name = "Estado do Projeto")]
         public string EstadoProj { get; set; }
 
         //   public ICollection<Bugs> Bugs { get; set; }

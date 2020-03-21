@@ -225,8 +225,8 @@ namespace TaskMaster.Controllers
                 sqlRatioBugsPrj,
                 new SqlParameter("@ProjetosId", projetidnatask));
 
-            var dataestimadanoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataEstimada).SingleOrDefault();
-            var datarealnoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataReal).SingleOrDefault();
+            var dataestimadanoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataEstimada).FirstOrDefault();
+            var datarealnoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataReal).FirstOrDefault();
 
             if (dataestimadanoprojeto < datarealnoprojeto)
             {
@@ -439,8 +439,8 @@ namespace TaskMaster.Controllers
                 new SqlParameter("@DataReal", datarealnatask),
                 new SqlParameter("@ProjetosId", projetidnatask));
 
-            var dataestimadanoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataEstimada).SingleOrDefault();
-            var datarealnoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataReal).SingleOrDefault();
+            var dataestimadanoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataEstimada).FirstOrDefault();
+            var datarealnoprojeto = _context.Tasks.Where(i => i.ProjetosId == projetidnatask).Select(d => d.Projetos.DataReal).FirstOrDefault();
 
             if (dataestimadanoprojeto < datarealnoprojeto)
             {

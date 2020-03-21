@@ -39,6 +39,9 @@ namespace TaskMaster.Models
 
         public int QtdBugsTsk { get; set; }
 
+        [Display(Name = "Estado da Task")]
+        public string EstadoTask { get; set; }
+
         public string Titulo
         {
             get
