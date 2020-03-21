@@ -97,6 +97,8 @@ namespace TaskMaster.Controllers
 
             var taskid = _context.Tasks.Where(p => p.TasksId == task.TasksId).Select(t => t.ProjetosId).SingleOrDefault();
             var projetid = _context.Projetos.Where(t => t.ProjetosId == taskid).Select(p => p.ProjetosId).SingleOrDefault();
+            var estadoprojeto = _context.Projetos.Where(t => t.ProjetosId == taskid).Select(p => p.EstadoProj).SingleOrDefault();
+
             var sqlQtdTaskPrj = @"Update [Projetos] SET QtdTasksPrj = (QtdTasksPrj+1) WHERE ProjetosId = @ProjetosId";
             _context.Database.ExecuteSqlCommand(
                 sqlQtdTaskPrj,
@@ -104,10 +106,20 @@ namespace TaskMaster.Controllers
 
             var taskIdEstado = _context.Tasks.Where(c => c.TasksId == task.TasksId).Select(c => c.TasksId).SingleOrDefault();
 
-            var sqlEstadoTask = @"Update [Tasks] SET EstadoTask = 'Aberto' WHERE TasksId = @TasksId";
+            var sqlEstadoTask = @"Update [Tasks] SET EstadoTask = 'Em Andamento' WHERE TasksId = @TasksId";
             _context.Database.ExecuteSqlCommand(
                 sqlEstadoTask,
                 new SqlParameter("@TasksId", taskIdEstado));
+
+            if (estadoprojeto == "Fechado")
+            {
+                var sqlEstadoPrj = @"Update [Projetos] SET EstadoProj = ' ' WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlEstadoPrj,
+                    new SqlParameter("@ProjetosId", projetid));
+
+                return RedirectToAction("Index", "Tasks");
+            }
 
             return RedirectToAction("Index", "Tasks");
 

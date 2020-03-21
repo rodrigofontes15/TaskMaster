@@ -70,7 +70,7 @@ else
                 <td>
                     @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })
                     <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
-                    <button id="fechar" data-task-id="@projeto.ProjetosId" class="btn btn-success btn-sm js-fechar">Fechar</button>
+                    @Html.ActionLink("Fechar", "FecharProjeto", "Projetos", new { id = projeto.ProjetosId}, new { @onclick = "return confirm('Deseja Fechar o Projeto? Não será mais possivel abrir Tasks.');", @class = "btn btn-success btn-sm" })
                 </td>
             </tr>
             }

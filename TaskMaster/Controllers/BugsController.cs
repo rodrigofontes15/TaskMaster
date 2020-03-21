@@ -144,6 +144,11 @@ namespace TaskMaster.Controllers
                 sqlRatioBugsPrj,
                 new SqlParameter("@ProjetosId", projetidnatask));
 
+            var sqlEstadoTask = @"Update [Tasks] SET EstadoTask = 'Em Andamento' WHERE TasksId = @TasksId";
+            _context.Database.ExecuteSqlCommand(
+                sqlEstadoTask,
+                new SqlParameter("@TasksId", taskdobug));
+
             return RedirectToAction("Index", "Bugs");
 
         }

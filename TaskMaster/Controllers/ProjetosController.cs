@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -118,6 +119,27 @@ namespace TaskMaster.Controllers
                 .Include(g => g.GerenteProjs).ToList();
 
             return View("Detalhes", projeto);
+        }
+        [Authorize(Roles = NomeRoles.gp + "," + NomeRoles.admin)]
+        public ActionResult FecharProjeto(int id)
+        {
+            var taskemandamento = _context.Tasks.Where(c => c.ProjetosId == id).Count(e => e.EstadoTask == "Em Andamento");
+
+            if (taskemandamento != 0)
+            {
+                return Content("Projeto Contem Tasks Em Andamento");
+            }
+            else
+            {
+                var projetoInDb = _context.Projetos.Where(c => c.ProjetosId == id).Select(c => c.ProjetosId).FirstOrDefault();
+
+                var sqlEstadoPrj = @"Update [Projetos] SET EstadoProj = 'Fechado' WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlEstadoPrj,
+                    new SqlParameter("@ProjetosId", projetoInDb));
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
         }
     }
 
