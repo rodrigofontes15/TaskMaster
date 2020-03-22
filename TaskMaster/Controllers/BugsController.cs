@@ -166,7 +166,7 @@ namespace TaskMaster.Controllers
 
         }
 
-        [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin + "," + NomeRoles.tester)]
+        [Authorize(Roles = NomeRoles.dev + "," + NomeRoles.admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SalvarBug(Bugs bugs)
