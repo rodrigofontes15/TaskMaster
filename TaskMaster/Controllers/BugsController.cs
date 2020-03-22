@@ -95,7 +95,14 @@ namespace TaskMaster.Controllers
             }
             if (bugs.BugsId == 0)
             {
-                _context.Bugs.Add(bugs);
+                var TasksId = bugs.TasksId;
+                var estadoTaskinDb = _context.Tasks.Where(i => i.TasksId == TasksId).Select(e => e.EstadoTask).FirstOrDefault();
+                if (estadoTaskinDb == "Fechado")
+                {
+                    return Content("Task Fechada!");
+                }
+                else
+                    _context.Bugs.Add(bugs);
             }
             else
             {
@@ -109,6 +116,12 @@ namespace TaskMaster.Controllers
                 bugInDb.TiposBugsId = bugs.TiposBugsId;
                 bugInDb.EstadosBugId = bugs.EstadosBugId;
                 bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
+
+                var estadoTaskinDb = _context.Tasks.Where(i => i.TasksId == bugInDb.TasksId).Select(e => e.EstadoTask).FirstOrDefault();
+                if (estadoTaskinDb == "Fechado")
+                {
+                    return Content("Task Fechada!");
+                }
 
                 if (bugInDb.DataEstimadaBug == null)
                 {

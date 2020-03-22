@@ -32,7 +32,8 @@ else
                 @*<th class="active">Data de Início</th>
                  <th class="active">Data Estimada de Término</th>*@
                 <th class="active">Testador Responsável</th>
-                <th class="active">Bugs Encontrados</th>
+                <th class="active">Bugs</th>
+                <th class="active">Estado da Task</th>
                 @{ if (User.IsInRole("tester"))
                     {
                         <th class="active">Excluir</th>
@@ -64,15 +65,24 @@ else
                 <td>@task.DataEstimada</td>*@
                 <td>@task.Testers.Nome</td>
                 <td>@Html.ActionLink(task.QtdBugsTsk.ToString(), "BugsTask", "Bugs", new { id = task.TasksId }, null)</td>
+                <td>@task.EstadoTask</td>
                 @{ if (User.IsInRole("tester"))
                     {
-                <td><button data-task-id="@task.TasksId" class="btn-danger btn-sm js-excluir">Excluir</button></td>
+                <td>
+                    @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
+                    <button data-task-id="@task.TasksId" class="btn-danger btn-sm js-excluir">Excluir</button>
+                    @Html.ActionLink("Fechar", "FecharTask", "Tasks", new { id = task.TasksId }, new { @onclick = "return confirm('Deseja Fechar a Task? Não será mais possivel abrir Bugs.');", @class = "btn btn-success btn-sm" })
+                </td>
                     }
                     else
                     {
                         if (User.IsInRole("admin"))
                         {
-                <td><button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button></td>
+                <td>
+                    @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
+                    <button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                    @Html.ActionLink("Fechar", "FecharTask", "Tasks", new { id = task.TasksId }, new { @onclick = "return confirm('Deseja Fechar a Task? Não será mais possivel abrir Bugs.');", @class = "btn btn-success btn-sm" })
+                </td>
                         }
                         else
                         {

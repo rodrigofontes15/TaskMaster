@@ -81,9 +81,18 @@ namespace TaskMaster.Controllers
             }
 
             if (task.TasksId == 0)
-                _context.Tasks.Add(task);
-            else
             {
+                var ProjetosId = task.ProjetosId;
+                var estadoProjetoinDb = _context.Projetos.Where(i => i.ProjetosId == ProjetosId).Select(e => e.EstadoProj).FirstOrDefault();
+                if (estadoProjetoinDb == "Fechado")
+                {
+                    return Content("Projeto Fechado");
+                }
+                else
+                    _context.Tasks.Add(task);
+            }
+            else
+            {   
                 var taskInDb = _context.Tasks.Single(p => p.TasksId == task.TasksId);
                 taskInDb.NomeTask = task.NomeTask;
                 taskInDb.DataInicio = task.DataInicio;
@@ -91,8 +100,13 @@ namespace TaskMaster.Controllers
                 taskInDb.TestersId = task.TestersId;
                 taskInDb.ProjetosId = task.ProjetosId;
                 taskInDb.TiposTestesId = task.TiposTestesId;
-            }
 
+                var estadoProjetoinDb = _context.Projetos.Where(i => i.ProjetosId == taskInDb.ProjetosId).Select(e => e.EstadoProj).FirstOrDefault();
+                if (estadoProjetoinDb == "Fechado")
+                {
+                    return Content("Projeto Fechado");
+                }
+            }
             _context.SaveChanges();
 
             var taskid = _context.Tasks.Where(p => p.TasksId == task.TasksId).Select(t => t.ProjetosId).SingleOrDefault();
@@ -122,7 +136,6 @@ namespace TaskMaster.Controllers
             }
 
             return RedirectToAction("Index", "Tasks");
-
         }
 
         [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
