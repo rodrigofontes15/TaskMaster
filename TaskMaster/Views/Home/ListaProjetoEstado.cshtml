@@ -11,20 +11,22 @@
 *@
 
 @{
-    ViewBag.Title = "ListaProjetoEstado";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+                /**/
 
-    string prjEstado = ViewData["prjEstado"].ToString();
+                ViewBag.Title = "ListaProjetoEstado";
+                Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-
-<h2>Projetos @prjEstado</h2>
 @if (!Model.Any())
 {
-    <p>Nenhum Projeto Cadastrado!</p>
+    <h2>Nenhum Projeto @ViewData["prjEstado"]</h2>
 }
 else
 {
+    <h2>Projetos <b>@ViewData["prjEstado"]</b></h2>
+    <p>
+        @Html.ActionLink("Cadastrar Projeto", "NovoProjeto", "Projetos", null, new { @class = "btn btn-primary" })
+    </p>
     <table id="projetos" class="table table-bordered table-hover">
         <thead>
             <tr>

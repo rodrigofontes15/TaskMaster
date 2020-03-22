@@ -11,6 +11,7 @@
 
     string qtdprojsNoPrazo = ViewData["qtdprojsNoPrazo"].ToString();
     string qtdprojsEmAtraso = ViewData["qtdprojsEmAtraso"].ToString();
+    string qtdprojsFechado = ViewData["qtdprojsFechado"].ToString();
 
     string bugtipo500 = ViewData["bugtipo500"].ToString();
     string bugtipo404 = ViewData["bugtipo404"].ToString();
@@ -174,8 +175,12 @@
                     <td align="center">@qtdprojsEmAtraso</td>
                 </tr>
                 <tr>
-                    <td align="center" style="background-color:lightgreen">@Html.ActionLink("No Prazo", "ListaProjetoEstado", "Home", new { estado = "No Prazo" }, new { Style = "color:White" })</td>
+                    <td align="center" style="background-color:lightsalmon">@Html.ActionLink("No Prazo", "ListaProjetoEstado", "Home", new { estado = "No Prazo" }, new { Style = "color:White" })</td>
                     <td align="center">@qtdprojsNoPrazo</td>
+                </tr>
+                <tr>
+                    <td align="center" style="background-color:lightgreen">@Html.ActionLink("Fechado", "ListaProjetoEstado", "Home", new { estado = "Fechado" }, new { Style = "color:White" })</td>
+                    <td align="center">@qtdprojsFechado</td>
                 </tr>
             </tbody>
         </table>

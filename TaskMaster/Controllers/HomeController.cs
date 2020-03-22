@@ -88,6 +88,7 @@ namespace TaskMaster.Controllers
 
             var qtdprojsNoPrazo = _context.Projetos.Where(i => i.EstadoProj == "No Prazo").Count().ToString();
             var qtdprojsEmAtraso = _context.Projetos.Where(i => i.EstadoProj == "Em Atraso").Count().ToString();
+            var qtdprojsFechado = _context.Projetos.Where(i => i.EstadoProj == "Fechado").Count().ToString();
 
             var bugtipo500 = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Erro 500").Count().ToString();
             var bugtipo404 = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Erro 404").Count().ToString();
@@ -121,6 +122,7 @@ namespace TaskMaster.Controllers
 
             ViewData["qtdprojsNoPrazo"] = qtdprojsNoPrazo;
             ViewData["qtdprojsEmAtraso"] = qtdprojsEmAtraso;
+            ViewData["qtdprojsFechado"] = qtdprojsFechado;
 
             ViewData["bugtipo500"] = bugtipo500;
             ViewData["bugtipo404"] = bugtipo404;
