@@ -48,6 +48,7 @@ namespace TaskMaster.ViewModels
         {
             ProjetosId = 0;
             DataInicio = DateTime.Today;
+            EstadoProj = "Aberto";
         }
 
         public ProjetoViewModel(Projetos projeto)
@@ -57,6 +58,7 @@ namespace TaskMaster.ViewModels
            // GerenteProjsId = projeto.GerenteProjsId;
             DataInicio = projeto.DataInicio;
             DataEstimada = projeto.DataEstimada;
+            EstadoProj = projeto.EstadoProj;
         }
 
     }

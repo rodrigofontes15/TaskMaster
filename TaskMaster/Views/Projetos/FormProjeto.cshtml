@@ -39,6 +39,7 @@
     </div>
 
     @Html.HiddenFor(c => c.ProjetosId)
+    @Html.HiddenFor(e=>e.EstadoProj)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Salvar</button>
 

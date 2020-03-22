@@ -131,12 +131,20 @@ namespace TaskMaster.Controllers
             }
             else
             {
+
+                var datarealProjeto = DateTime.Now;            
                 var projetoInDb = _context.Projetos.Where(c => c.ProjetosId == id).Select(c => c.ProjetosId).FirstOrDefault();
 
                 var sqlEstadoPrj = @"Update [Projetos] SET EstadoProj = 'Fechado' WHERE ProjetosId = @ProjetosId";
                 _context.Database.ExecuteSqlCommand(
                     sqlEstadoPrj,
                     new SqlParameter("@ProjetosId", projetoInDb));
+
+                var sqlDataRealPrj = @"Update [Projetos] SET DataReal = @DataReal WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlDataRealPrj,
+                    new SqlParameter("@ProjetosId", projetoInDb),
+                    new SqlParameter("@DataReal", datarealProjeto));
 
                 return Redirect(Request.UrlReferrer.ToString());
             }
