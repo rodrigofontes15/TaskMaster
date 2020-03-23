@@ -813,7 +813,10 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\img\dev_bolso.png" />
     <Content Include="Content\img\dev_collor.png" />
+    <Content Include="Content\img\dev_fhc.png" />
+    <Content Include="Content\img\dev_lula.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
