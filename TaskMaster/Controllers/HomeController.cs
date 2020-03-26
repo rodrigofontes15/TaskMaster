@@ -82,6 +82,113 @@ namespace TaskMaster.Controllers
             ViewData["encontrados"] = encontrados;
             ViewData["corrigidos"] = corrigidos;
 
+
+            List<double?> enzoValues = new List<double?> { _context.Tasks.Where(i=>i.TestersId==1).Where(t=>t.TiposTestes.TipoTeste=="Unitário").Count(),
+            _context.Tasks.Where(i=>i.TestersId==1).Where(t=>t.TiposTestes.TipoTeste=="Integração").Count(),
+            _context.Tasks.Where(i=>i.TestersId==1).Where(t=>t.TiposTestes.TipoTeste=="Fumaça").Count(),
+            _context.Tasks.Where(i=>i.TestersId==1).Where(t=>t.TiposTestes.TipoTeste=="Interface").Count(),
+            _context.Tasks.Where(i=>i.TestersId==1).Where(t=>t.TiposTestes.TipoTeste=="Regressão").Count(),
+            _context.Tasks.Where(i=>i.TestersId==1).Where(t=>t.TiposTestes.TipoTeste=="Performance/Carga").Count(),
+            _context.Tasks.Where(i=>i.TestersId==1).Where(t=>t.TiposTestes.TipoTeste=="Beta/Aceitação").Count()};
+            List<double?> valentinaValues = new List<double?> { _context.Tasks.Where(i => i.TestersId == 2).Where(t => t.TiposTestes.TipoTeste == "Unitário").Count(),
+            _context.Tasks.Where(i => i.TestersId == 2).Where(t => t.TiposTestes.TipoTeste == "Integração").Count(),
+            _context.Tasks.Where(i => i.TestersId == 2).Where(t => t.TiposTestes.TipoTeste == "Fumaça").Count(),
+            _context.Tasks.Where(i => i.TestersId == 2).Where(t => t.TiposTestes.TipoTeste == "Interface").Count(),
+            _context.Tasks.Where(i => i.TestersId == 2).Where(t => t.TiposTestes.TipoTeste == "Regressão").Count(),
+            _context.Tasks.Where(i => i.TestersId == 2).Where(t => t.TiposTestes.TipoTeste == "Performance/Carga").Count(),
+            _context.Tasks.Where(i => i.TestersId == 2).Where(t => t.TiposTestes.TipoTeste == "Beta/Aceitação").Count()};
+            List<double?> miguelValues = new List<double?> { _context.Tasks.Where(i => i.TestersId == 3).Where(t => t.TiposTestes.TipoTeste == "Unitário").Count(),
+            _context.Tasks.Where(i => i.TestersId == 3).Where(t => t.TiposTestes.TipoTeste == "Integração").Count(),
+            _context.Tasks.Where(i => i.TestersId == 3).Where(t => t.TiposTestes.TipoTeste == "Fumaça").Count(),
+            _context.Tasks.Where(i => i.TestersId == 3).Where(t => t.TiposTestes.TipoTeste == "Interface").Count(),
+            _context.Tasks.Where(i => i.TestersId == 3).Where(t => t.TiposTestes.TipoTeste == "Regressão").Count(),
+            _context.Tasks.Where(i => i.TestersId == 3).Where(t => t.TiposTestes.TipoTeste == "Performance/Carga").Count(),
+            _context.Tasks.Where(i => i.TestersId == 3).Where(t => t.TiposTestes.TipoTeste == "Beta/Aceitação").Count()};
+
+            List<ColumnSeriesData> enzoData = new List<ColumnSeriesData>();
+            List<ColumnSeriesData> valentinaData = new List<ColumnSeriesData>();
+            List<ColumnSeriesData> miguelData = new List<ColumnSeriesData>();
+
+            enzoValues.ForEach(p => enzoData.Add(new ColumnSeriesData { Y = p }));
+            valentinaValues.ForEach(p => valentinaData.Add(new ColumnSeriesData { Y = p }));
+            miguelValues.ForEach(p => miguelData.Add(new ColumnSeriesData { Y = p }));
+
+            ViewData["enzoData"] = enzoData;
+            ViewData["valentinaData"] = valentinaData;
+            ViewData["miguelData"] = miguelData;
+
+
+
+            var somabugs = _context.Bugs.Count();
+            var somabugs500 = _context.Bugs.Where(t => t.TiposBugs.TipoBug == "Erro 500").Count();
+            var somabugs404 = _context.Bugs.Where(t => t.TiposBugs.TipoBug == "Erro 404").Count();
+            var somabugsint = _context.Bugs.Where(t => t.TiposBugs.TipoBug == "Interface").Count();
+            var somabugsfluxo = _context.Bugs.Where(t => t.TiposBugs.TipoBug == "Fluxo").Count();
+            var somabugscalc = _context.Bugs.Where(t => t.TiposBugs.TipoBug == "Calculo").Count();
+
+            var bugsbolsonaro = _context.Bugs.Where(b => b.Devs.DevNome == "Bolsonaro").Count();
+            var bugserro500bolso = _context.Bugs.Where(t => t.Devs.DevNome == "Bolsonaro").Where(b => b.TiposBugs.TipoBug == "Erro 500").Count();
+            var bugserro404bolso = _context.Bugs.Where(t => t.Devs.DevNome == "Bolsonaro").Where(b => b.TiposBugs.TipoBug == "Erro 404").Count();
+            var bugserrointbolso = _context.Bugs.Where(t => t.Devs.DevNome == "Bolsonaro").Where(b => b.TiposBugs.TipoBug == "Interface").Count();
+            var bugserrofluxobolso = _context.Bugs.Where(t => t.Devs.DevNome == "Bolsonaro").Where(b => b.TiposBugs.TipoBug == "Fluxo").Count();
+            var bugserrocalcbolso = _context.Bugs.Where(t => t.Devs.DevNome == "Bolsonaro").Where(b => b.TiposBugs.TipoBug == "Calculo").Count();
+
+            var bugslula = _context.Bugs.Where(b => b.Devs.DevNome == "Lula").Count();
+            var bugserro500lula = _context.Bugs.Where(t => t.Devs.DevNome == "Lula").Where(b => b.TiposBugs.TipoBug == "Erro 500").Count();
+            var bugserro404lula = _context.Bugs.Where(t => t.Devs.DevNome == "Lula").Where(b => b.TiposBugs.TipoBug == "Erro 404").Count();
+            var bugserrointlula = _context.Bugs.Where(t => t.Devs.DevNome == "Lula").Where(b => b.TiposBugs.TipoBug == "Interface").Count();
+            var bugserrofluxolula = _context.Bugs.Where(t => t.Devs.DevNome == "Lula").Where(b => b.TiposBugs.TipoBug == "Fluxo").Count();
+            var bugserrocalclula = _context.Bugs.Where(t => t.Devs.DevNome == "Lula").Where(b => b.TiposBugs.TipoBug == "Calculo").Count();
+
+            var bugscollor = _context.Bugs.Where(b => b.Devs.DevNome == "Collor").Count();
+            var bugserro500collor = _context.Bugs.Where(t => t.Devs.DevNome == "Collor").Where(b => b.TiposBugs.TipoBug == "Erro 500").Count();
+            var bugserro404collor = _context.Bugs.Where(t => t.Devs.DevNome == "Collor").Where(b => b.TiposBugs.TipoBug == "Erro 404").Count();
+            var bugserrointcollor = _context.Bugs.Where(t => t.Devs.DevNome == "Collor").Where(b => b.TiposBugs.TipoBug == "Interface").Count();
+            var bugserrofluxocollor = _context.Bugs.Where(t => t.Devs.DevNome == "Collor").Where(b => b.TiposBugs.TipoBug == "Fluxo").Count();
+            var bugserrocalccollor = _context.Bugs.Where(t => t.Devs.DevNome == "Collor").Where(b => b.TiposBugs.TipoBug == "Calculo").Count();
+
+            var bugsfhc = _context.Bugs.Where(b => b.Devs.DevNome == "FHC").Count();
+            var bugserro500fhc = _context.Bugs.Where(t => t.Devs.DevNome == "FHC").Where(b => b.TiposBugs.TipoBug == "Erro 500").Count();
+            var bugserro404fhc = _context.Bugs.Where(t => t.Devs.DevNome == "FHC").Where(b => b.TiposBugs.TipoBug == "Erro 404").Count();
+            var bugserrointfhc = _context.Bugs.Where(t => t.Devs.DevNome == "FHC").Where(b => b.TiposBugs.TipoBug == "Interface").Count();
+            var bugserrofluxofhc = _context.Bugs.Where(t => t.Devs.DevNome == "FHC").Where(b => b.TiposBugs.TipoBug == "Fluxo").Count();
+            var bugserrocalcfhc = _context.Bugs.Where(t => t.Devs.DevNome == "FHC").Where(b => b.TiposBugs.TipoBug == "Calculo").Count();
+
+            ViewData["somabugs"] = somabugs;
+            ViewData["somabugs500"] = somabugs500;
+            ViewData["somabugs404"] = somabugs404;
+            ViewData["somabugsint"] = somabugsint;
+            ViewData["somabugsfluxo"] = somabugsfluxo;
+            ViewData["somabugscalc"] = somabugscalc;
+
+            ViewData["bugsbolsonaro"] = Convert.ToDouble(bugsbolsonaro);
+            ViewData["bugserro500bolso"] = Convert.ToDouble(bugserro500bolso);
+            ViewData["bugserro404bolso"] = Convert.ToDouble(bugserro404bolso);
+            ViewData["bugserrointbolso"] = Convert.ToDouble(bugserrointbolso);
+            ViewData["bugserrofluxobolso"] = Convert.ToDouble(bugserrofluxobolso);
+            ViewData["bugserrocalcbolso"] = Convert.ToDouble(bugserrocalcbolso);
+
+            ViewData["bugslula"] = Convert.ToDouble(bugslula);
+            ViewData["bugserro500lula"] = Convert.ToDouble(bugserro500lula);
+            ViewData["bugserro404lula"] = Convert.ToDouble(bugserro404lula);
+            ViewData["bugserrointlula"] = Convert.ToDouble(bugserrointlula);
+            ViewData["bugserrofluxolula"] = Convert.ToDouble(bugserrofluxolula);
+            ViewData["bugserrocalclula"] = Convert.ToDouble(bugserrocalclula);
+
+            ViewData["bugscollor"] = Convert.ToDouble(bugscollor);
+            ViewData["bugserro500collor"] = Convert.ToDouble(bugserro500collor);
+            ViewData["bugserro404collor"] = Convert.ToDouble(bugserro404collor);
+            ViewData["bugserrointcollor"] = Convert.ToDouble(bugserrointcollor);
+            ViewData["bugserrofluxocollor"] = Convert.ToDouble(bugserrofluxocollor);
+            ViewData["bugserrocalccollor"] = Convert.ToDouble(bugserrocalccollor);
+
+            ViewData["bugsfhc"] = Convert.ToDouble(bugsfhc);
+            ViewData["bugserro500fhc"] = Convert.ToDouble(bugserro500fhc);
+            ViewData["bugserro404fhc"] = Convert.ToDouble(bugserro404fhc);
+            ViewData["bugserrointfhc"] = Convert.ToDouble(bugserrointfhc);
+            ViewData["bugserrofluxofhc"] = Convert.ToDouble(bugserrofluxofhc);
+            ViewData["bugserrocalcfhc"] = Convert.ToDouble(bugserrocalcfhc);
+
             var qtdbugsAberto = _context.Bugs.Where(i=>i.EstadosBug.NomeEstado=="Aberto").Count().ToString();
             var qtdbugsEmTrat = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Em Tratamento").Count().ToString();
             var qtdbugsCorrigido = _context.Bugs.Where(i => i.EstadosBug.NomeEstado == "Corrigido").Count().ToString();

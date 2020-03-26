@@ -8472,7 +8472,7 @@ input[type="checkbox"] {
 .shadowbox {
     width: 17em;
     border: 0px initial #333;
-    box-shadow: 1px 1px 0px #444;
+    box-shadow: 1px 0px 0px #ddd;
     padding: 8px 12px;
-    background-image: linear-gradient(360deg, #fff, #ddd 40%, #ccc);
+    background-image: linear-gradient(360deg, #eeeeee, #eeeeee 40%, #eeeeee);
 }

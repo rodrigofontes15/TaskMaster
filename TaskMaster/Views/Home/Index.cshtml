@@ -32,6 +32,14 @@
     int ratio = 2;
 
     int meta = 5;
+
+    int somabugs = Convert.ToInt16(ViewData["somabugs"]);
+
+    int somabugs500 = Convert.ToInt16(ViewData["somabugs500"]);
+    int somabugs404 = Convert.ToInt16(ViewData["somabugs404"]);
+    int somabugsint = Convert.ToInt16(ViewData["somabugsint"]);
+    int somabugsfluxo = Convert.ToInt16(ViewData["somabugsfluxo"]);
+    int somabugscalc = Convert.ToInt16(ViewData["somabugscalc"]);
 }
 
 <div class="jumbotron container-fluid">
@@ -131,7 +139,7 @@
 
     <div class="col-md-4" align="center">
         <h4><b>Tempo médio de resolução</b></h4>
-        <div class="container-fluid" style="background-color:lightgray">
+        <div class="container-fluid" style="background-color:#eeeeee">
             <table align="center">
                 <tr>
                     @if (MediaTempoSolucao.AsInt() > meta)
@@ -270,6 +278,7 @@
 
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
 <div class="row">
     <div class="col-md-6" align="center">
         @using Highsoft.Web.Mvc.Charts
@@ -277,37 +286,34 @@
         @using System.Collections;
 
         @{ var chartOptions =
-                  new Highcharts
-                  {
-                      Chart = new Highsoft.Web.Mvc.Charts.Chart
-                      {
-                          PlotBackgroundColor = null,
-                          PlotBorderWidth = null,
-                          PlotShadow = new Shadow
-                          {
-                              Enabled = false
-                          }
-                      },
-                      Title = new Title
-                      {
-                          Text = "Distribuição % de Bugs"
-                      },
-                      Tooltip = new Tooltip
-                      {
-                          PointFormat = "{series.name}: <b>{point.percentage:.1f}%</b>"
-                      },
-                      PlotOptions = new PlotOptions
-                      {
-                          Pie = new PlotOptionsPie
-                          {
-                              AllowPointSelect = true,
-                              Cursor = PlotOptionsPieCursor.Pointer,
-                              DataLabels = new Hashtable { { "enabled", false } },
-                              ShowInLegend = true
-                          }
-                      },
-                      XAxis = new List<XAxis>
-                          {
+                   new Highcharts
+                   {
+                       Chart = new Highsoft.Web.Mvc.Charts.Chart
+                       {
+                           PlotBackgroundColor = null,
+                           PlotBorderWidth = null,
+                           PlotShadow = null,
+                       },
+                       Title = new Title
+                       {
+                           Text = "Distribuição % de Bugs (desde início do ano)"
+                       },
+                       Tooltip = new Tooltip
+                       {
+                           PointFormat = "{series.name}: <b>{point.percentage:.1f}%</b>"
+                       },
+                       PlotOptions = new PlotOptions
+                       {
+                           Pie = new PlotOptionsPie
+                           {
+                               AllowPointSelect = true,
+                               Cursor = PlotOptionsPieCursor.Pointer,
+                               DataLabels = new Hashtable { { "enabled", false } },
+                               ShowInLegend = true
+                           }
+                       },
+                       XAxis = new List<XAxis>
+                           {
         new XAxis
         {
             Title = new XAxisTitle
@@ -316,9 +322,9 @@
             },
             Categories = new List<string> { "Erro 500", "Erro 404", "Interface", "Fluxo", "Calculo" }
         }
-                                          },
-                      YAxis = new List<YAxis>
-                          {
+                                           },
+                       YAxis = new List<YAxis>
+                           {
         new YAxis
         {
             Min = 0,
@@ -328,17 +334,17 @@
                 Align = YAxisTitleAlign.Center
             }
         }
-                                          },
-                      Series = new List<Series>
-                          {
+                                           },
+                       Series = new List<Series>
+                           {
         new PieSeries
         {
             Name = "Percentual",
             Data = @ViewData["pieData"] as List<PieSeriesData>
         },
 
-                                          }
-                  };
+                                           }
+                   };
 
             chartOptions.ID = "chart";
             var renderer = new HighchartsRenderer(chartOptions);
@@ -373,7 +379,7 @@
                         Text = "Bugs"
                     },
                     PlotLines = new List<YAxisPlotLines>
-    {
+                {
                             new YAxisPlotLines
                         {
                             Value = 0,
@@ -419,20 +425,240 @@
 </div>
 <hr />
 <div class="row">
-    <div class="col-md-6" align="center">
-        Placeholder - grafico de Barras com tipos de Teste em andamento
-    </div>
-    <div class="col-md-6" align="center">
-        grafico de barras, com visualicação do KPI versus executado, por mes
-        http://dotnet.highcharts.com/Highcharts/Demo/Gallery?demo=ErrorBar&theme=default
+    <div class="col-md-12" align="center">
+        <script type="text/javascript">
+
+            function formatToolTip() {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }
+        </script>
+
+        @{ var chartOptions3 = new Highcharts
+            {
+                Title = new Title
+                {
+                    Text = "Distribuição de Tasks (desde início do ano)"
+                },
+                XAxis = new List<XAxis>
+    {
+                new XAxis
+                {
+                    Categories = new List<string> { "Unitario", "Integração", "Fumaça", "Interface", "Regressão", "Performance/Carga", "Beta/Aceitção" }
+                }
+            },
+                YAxis = new List<YAxis>
+    {
+                new YAxis
+                {
+                    Min = 0,
+                    Title = new YAxisTitle
+                    {
+                        Text = "Total de Tasks"
+                    },
+                    StackLabels = new YAxisStackLabels
+                    {
+                        Enabled = true,
+                        Style = new YAxisStackLabelsStyle() { FontWeight = "bold" }
+                    }
+                }
+            },
+                Legend = new Legend
+                {
+                    Align = LegendAlign.Right,
+                    X = -30,
+                    VerticalAlign = LegendVerticalAlign.Top,
+                    Y = 25,
+                    Floating = true,
+                    BorderColor = "#CCC",
+                    BorderWidth = 1,
+                    BackgroundColor = "white"
+
+                },
+                Tooltip = new Tooltip
+                {
+                    Formatter = "formatToolTip"
+                },
+                PlotOptions = new PlotOptions
+                {
+                    Column = new PlotOptionsColumn
+                    {
+                        Stacking = PlotOptionsColumnStacking.Normal,
+                        DataLabels = new PlotOptionsColumnDataLabels
+                        {
+                            Enabled = true,
+                            Color = "#FFFFFF",
+
+                            Shadow = new Shadow()
+                            {
+                                Enabled = true,
+                                Color = "black",
+                                Width = 10,
+                                OffsetX = 0,
+                                OffsetY = 0
+                            }
+                        }
+                    }
+                },
+                Series = new List<Series>
+    {
+                new ColumnSeries
+                {
+                    Name = "Enzo",
+                    Data = @ViewData["enzoData"] as List<ColumnSeriesData>
+                },
+                new ColumnSeries
+                {
+                    Name = "Valentina",
+                    Data = @ViewData["valentinaData"] as List<ColumnSeriesData>
+                },
+                new ColumnSeries
+                {
+                    Name = "Miguel",
+                    Data = @ViewData["miguelData"] as List<ColumnSeriesData>
+                }
+            }
+            };
+
+            chartOptions3.ID = "chart3";
+            var renderer3 = new HighchartsRenderer(chartOptions3);
+        }
+
+        @Html.Raw(renderer3.RenderHtml())
     </div>
 </div>
 <hr />
 <div class="row">
-    <div class="col-md-6" align="center">
-        Placeholder - grafico de Barras com projetos em atraso e no prazo
-    </div>
-    <div class="col-md-6" align="center">
-        outro tipo de grafico
+    <div class="col-md-12" align="center">
+        @{ var chartOptions4 = new Highcharts
+            {
+                Title = new Title
+                {
+                    Text = "Distribuição de Bugs por Dev (desde o início do ano)"
+                },
+                Subtitle = new Subtitle
+                {
+                    Text = "Clique na coluna para ver detalhes"
+                },
+                XAxis = new List<XAxis>
+{
+                new XAxis
+                {
+                    Type = "category"
+                }
+            },
+                YAxis = new List<YAxis>
+{
+                new YAxis
+                {
+                    Title = new YAxisTitle
+                    {
+                        Text = "Percentual de Bugs com o Dev"
+                    }
+                }
+            },
+                Legend = new Legend
+                {
+                    Enabled = false
+                },
+                Tooltip = new Tooltip
+                {
+                    HeaderFormat = "<span style='font-size:11px'>{series.name}</span><br>",
+                    PointFormat = "<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y:.2f}%</b> do total<br/>"
+                },
+
+                PlotOptions = new PlotOptions
+                {
+                    Series = new PlotOptionsSeries
+                    {
+                        DataLabels = new PlotOptionsSeriesDataLabels
+                        {
+                            Enabled = true,
+                            Format = "{point.y:.1f}%"
+                        }
+                    }
+                },
+                Series = new List<Series>
+{
+                new ColumnSeries
+                {
+                    Name = "Devs",
+                    ColorByPoint = true,
+                    Data = new List<ColumnSeriesData>
+    {
+                        new ColumnSeriesData { Name = "Bolsonaro", Y = ((@Convert.ToDouble(ViewData["bugsbolsonaro"]))*100)/somabugs, Drilldown = "Bolsonaro" },
+                        new ColumnSeriesData { Name = "Lula", Y = ((@Convert.ToDouble(ViewData["bugslula"]))*100)/somabugs, Drilldown = "Lula" },
+                        new ColumnSeriesData { Name = "Collor", Y = ((@Convert.ToDouble(ViewData["bugscollor"]))*100)/somabugs, Drilldown = "Collor" },
+                        new ColumnSeriesData { Name = "FHC", Y = ((@Convert.ToDouble(ViewData["bugsfhc"]))*100)/somabugs, Drilldown = "FHC" },
+                    }
+                }
+            },
+                Drilldown = new Drilldown
+                {
+                    Series = new List<Series>
+{
+                    new ColumnSeries
+                    {
+                        Name = "Bolsonaro",
+                        Id = "Bolsonaro",
+                        Data = new List<ColumnSeriesData>
+        {
+                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500bolso"]))*100)/somabugs500 },
+                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404bolso"]))*100)/somabugs404 },
+                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointbolso"]))*100)/somabugsint },
+                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxobolso"]))*100)/somabugsfluxo },
+                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalcbolso"]))*100)/somabugscalc },
+                        }
+                    },
+                    new ColumnSeries
+                    {
+                        Name = "Lula",
+                        Id = "Lula",
+                        Data = new List<ColumnSeriesData>
+        {
+                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500lula"]))*100)/somabugs500 },
+                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404lula"]))*100)/somabugs404 },
+                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointlula"]))*100)/somabugsint },
+                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxolula"]))*100)/somabugsfluxo },
+                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalclula"]))*100)/somabugscalc },
+                        }
+                    },
+                    new ColumnSeries
+                    {
+                        Name = "Collor",
+                        Id = "Collor",
+                        Data = new List<ColumnSeriesData>
+        {
+                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500collor"]))*100)/somabugs500 },
+                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404collor"]))*100)/somabugs404 },
+                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointcollor"]))*100)/somabugsint },
+                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxocollor"]))*100)/somabugsfluxo },
+                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalccollor"]))*100)/somabugscalc },
+                        }
+                    },
+                    new ColumnSeries
+                    {
+                        Name = "FHC",
+                        Id = "FHC",
+                        Data = new List<ColumnSeriesData>
+        {
+                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500fhc"]))*100)/somabugs500 },
+                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404fhc"]))*100)/somabugs404 },
+                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointfhc"]))*100)/somabugsint },
+                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxofhc"]))*100)/somabugsfluxo },
+                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalcfhc"]))*100)/somabugscalc },
+                        }
+                    },
+                }
+                }
+            };
+
+            chartOptions4.ID = "chart4";
+            var renderer4 = new HighchartsRenderer(chartOptions4);
+        }
+
+        @Html.Raw(renderer4.RenderHtml())
+
     </div>
 </div>
