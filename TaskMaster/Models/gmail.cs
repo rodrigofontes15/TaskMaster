@@ -8,8 +8,10 @@ namespace TaskMaster.Models
 {
     public class gmail
     {
-        public string To { get; set; } = "rodrigofontes1985@gmail.com";
+        [Display(Name = "Enviar Para")]
+        public string To { get; set; }
 
+        [Display(Name = "E-mail do Solicitante")]
         public string From { get; set; }
 
         [Required]

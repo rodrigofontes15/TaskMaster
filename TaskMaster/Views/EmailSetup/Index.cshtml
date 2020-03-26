@@ -1,6 +1,8 @@
 ﻿@model TaskMaster.Models.gmail
 @{
-    ViewBag.Title = "Solicitar Novo Usuario";
+                /**/
+
+                ViewBag.Title = "Solicitar Novo Usuario";
 }
 <h2>@ViewBag.Title</h2>
 
@@ -11,9 +13,15 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })        
+        @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.From, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.From, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
