@@ -604,11 +604,11 @@
                         Id = "Bolsonaro",
                         Data = new List<ColumnSeriesData>
         {
-                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500bolso"]))*100)/somabugs500 },
-                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404bolso"]))*100)/somabugs404 },
-                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointbolso"]))*100)/somabugsint },
-                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxobolso"]))*100)/somabugsfluxo },
-                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalcbolso"]))*100)/somabugscalc },
+                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500bolso"]))*100)/(@Convert.ToDouble(ViewData["bugsbolsonaro"])) },
+                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404bolso"]))*100)/(@Convert.ToDouble(ViewData["bugsbolsonaro"])) },
+                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointbolso"]))*100)/(@Convert.ToDouble(ViewData["bugsbolsonaro"])) },
+                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxobolso"]))*100)/(@Convert.ToDouble(ViewData["bugsbolsonaro"])) },
+                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalcbolso"]))*100)/(@Convert.ToDouble(ViewData["bugsbolsonaro"])) },
                         }
                     },
                     new ColumnSeries
@@ -617,11 +617,11 @@
                         Id = "Lula",
                         Data = new List<ColumnSeriesData>
         {
-                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500lula"]))*100)/somabugs500 },
-                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404lula"]))*100)/somabugs404 },
-                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointlula"]))*100)/somabugsint },
-                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxolula"]))*100)/somabugsfluxo },
-                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalclula"]))*100)/somabugscalc },
+                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500lula"]))*100)/(@Convert.ToDouble(ViewData["bugslula"])) },
+                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404lula"]))*100)/(@Convert.ToDouble(ViewData["bugslula"])) },
+                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointlula"]))*100)/(@Convert.ToDouble(ViewData["bugslula"])) },
+                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxolula"]))*100)/(@Convert.ToDouble(ViewData["bugslula"])) },
+                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalclula"]))*100)/(@Convert.ToDouble(ViewData["bugslula"])) },
                         }
                     },
                     new ColumnSeries
@@ -630,11 +630,11 @@
                         Id = "Collor",
                         Data = new List<ColumnSeriesData>
         {
-                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500collor"]))*100)/somabugs500 },
-                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404collor"]))*100)/somabugs404 },
-                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointcollor"]))*100)/somabugsint },
-                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxocollor"]))*100)/somabugsfluxo },
-                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalccollor"]))*100)/somabugscalc },
+                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500collor"]))*100)/(@Convert.ToDouble(ViewData["bugscollor"])) },
+                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404collor"]))*100)/(@Convert.ToDouble(ViewData["bugscollor"])) },
+                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointcollor"]))*100)/(@Convert.ToDouble(ViewData["bugscollor"])) },
+                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxocollor"]))*100)/(@Convert.ToDouble(ViewData["bugscollor"])) },
+                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalccollor"]))*100)/(@Convert.ToDouble(ViewData["bugscollor"])) },
                         }
                     },
                     new ColumnSeries
@@ -643,11 +643,11 @@
                         Id = "FHC",
                         Data = new List<ColumnSeriesData>
         {
-                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500fhc"]))*100)/somabugs500 },
-                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404fhc"]))*100)/somabugs404 },
-                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointfhc"]))*100)/somabugsint },
-                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxofhc"]))*100)/somabugsfluxo },
-                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalcfhc"]))*100)/somabugscalc },
+                            new ColumnSeriesData { Name = "Erro 500", Y = ((@Convert.ToDouble(ViewData["bugserro500fhc"]))*100)/(@Convert.ToDouble(ViewData["bugsfhc"])) },
+                            new ColumnSeriesData { Name = "Erro 404", Y = ((@Convert.ToDouble(ViewData["bugserro404fhc"]))*100)/(@Convert.ToDouble(ViewData["bugsfhc"])) },
+                            new ColumnSeriesData { Name = "Interface", Y =((@Convert.ToDouble(ViewData["bugserrointfhc"]))*100)/(@Convert.ToDouble(ViewData["bugsfhc"])) },
+                            new ColumnSeriesData { Name = "Fluxo", Y = ((@Convert.ToDouble(ViewData["bugserrofluxofhc"]))*100)/(@Convert.ToDouble(ViewData["bugsfhc"])) },
+                            new ColumnSeriesData { Name = "Calculo", Y = ((@Convert.ToDouble(ViewData["bugserrocalcfhc"]))*100)/(@Convert.ToDouble(ViewData["bugsfhc"])) },
                         }
                     },
                 }
