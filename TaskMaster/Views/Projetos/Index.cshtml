@@ -33,9 +33,10 @@ else
                 <th class="active">Nome do Projeto</th>
                 <th class="active">Gerente de Projeto</th>
                 <th class="active">Data de Início</th>
-                <th class="active">Data de Entrega</th>
-                <th class="active">Data Real</th>
-                <th class="active">Estado do Projeto</th>
+                <th class="active">Data Requerida</th>
+                <th class="active">Data Estimada</th>
+                <th class="active">Estado</th>
+                <th class="active">Bugs</th>
                 <th class="active">Ações</th>
             </tr>
         </thead>
@@ -61,16 +62,18 @@ else
                         {
                             <td style="background-color:lightsalmon">@projeto.DataReal.Value.ToString("dd/MM/yyyy")</td>
                         }
-                        else { 
-                        <td style="background-color:lightgreen">@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
+                        else
+                        {
+                            <td style="background-color:lightgreen">@projeto.DataEstimada.Value.ToString("dd/MM/yyyy")</td>
                         }
                     }
                 }
                 <td>@projeto.EstadoProj</td>
+                <td>@projeto.QtdBugsPrj</td>
                 <td>
                     @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })
                     <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
-                    @Html.ActionLink("Fechar", "FecharProjeto", "Projetos", new { id = projeto.ProjetosId}, new { @onclick = "return confirm('Deseja Fechar o Projeto? Não será mais possivel abrir Tasks.');", @class = "btn btn-success btn-sm" })
+                    @Html.ActionLink("Fechar", "FecharProjeto", "Projetos", new { id = projeto.ProjetosId }, new { @onclick = "return confirm('Deseja Fechar o Projeto? Não será mais possivel abrir Tasks.');", @class = "btn btn-success btn-sm" })
                 </td>
             </tr>
             }

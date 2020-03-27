@@ -3,6 +3,7 @@
     /**/
 
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
     string abertos = ViewData["QtdBugsAbertos"].ToString();
     string emTrat = ViewData["QtdBugsEmTrat"].ToString();
@@ -41,6 +42,8 @@
     int somabugsfluxo = Convert.ToInt16(ViewData["somabugsfluxo"]);
     int somabugscalc = Convert.ToInt16(ViewData["somabugscalc"]);
 }
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
 <div class="jumbotron container-fluid">
     <h2><b>Task Master</b></h2>
@@ -194,7 +197,7 @@
         </table>
     </div>
     <div class="col-md-4" align="center">
-        <h4><b>Bugs por Projeto</b></h4>
+        <h4><b>Bugs por projeto</b></h4>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -204,7 +207,7 @@
                     <th class="active" title="Número real de Bugs encontrados em cada Task do Projeto"><center>Indicador</center></th>
                 </tr>
             <tbody>
-                @foreach (var projeto in Model.Projetos)
+                @foreach (var projeto in Model.Projetos.Take(6))
                 {
                     <tr>
                         <td>
@@ -230,6 +233,58 @@
                         }
                     </tr>
                 }
+                <tr>
+                    <td colspan="4">
+                        <div align="right">
+                            <a href="#" class="btn btn-sm" data-toggle="modal" data-target="#myModal">Ver Mais...</a>
+                            <div class="modal fade" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="active"><center>Projeto</center></th>
+                                                        <th class="active"><center>Bugs</center></th>
+                                                        <th class="active" title="2 Bugs para cada Task do Projeto"><center>Meta</center></th>
+                                                        <th class="active" title="Número real de Bugs encontrados em cada Task do Projeto"><center>Indicador</center></th>
+                                                    </tr>
+                                                <tbody>
+                                                    @foreach (var projeto in Model.Projetos)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @projeto.NomeProjeto
+                                                            </td>
+                                                            <td>
+                                                                @projeto.QtdBugsPrj
+                                                            </td>
+                                                            <td>
+                                                                1:@ratio
+                                                            </td>
+                                                            @if (@projeto.BugsRatio > @ratio)
+                                                            {
+                                                                <td style="background-color:lightcoral" align="center">
+                                                                    <b>1:@projeto.BugsRatio</b>
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="background-color:lightgreen" align="center">
+                                                                    1:@projeto.BugsRatio
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -286,34 +341,34 @@
         @using System.Collections;
 
         @{ var chartOptions =
-                   new Highcharts
-                   {
-                       Chart = new Highsoft.Web.Mvc.Charts.Chart
-                       {
-                           PlotBackgroundColor = null,
-                           PlotBorderWidth = null,
-                           PlotShadow = null,
-                       },
-                       Title = new Title
-                       {
-                           Text = "Distribuição % de Bugs (desde início do ano)"
-                       },
-                       Tooltip = new Tooltip
-                       {
-                           PointFormat = "{series.name}: <b>{point.percentage:.1f}%</b>"
-                       },
-                       PlotOptions = new PlotOptions
-                       {
-                           Pie = new PlotOptionsPie
-                           {
-                               AllowPointSelect = true,
-                               Cursor = PlotOptionsPieCursor.Pointer,
-                               DataLabels = new Hashtable { { "enabled", false } },
-                               ShowInLegend = true
-                           }
-                       },
-                       XAxis = new List<XAxis>
-                           {
+                    new Highcharts
+                    {
+                        Chart = new Highsoft.Web.Mvc.Charts.Chart
+                        {
+                            PlotBackgroundColor = null,
+                            PlotBorderWidth = null,
+                            PlotShadow = null,
+                        },
+                        Title = new Title
+                        {
+                            Text = "Distribuição % cumulativa de Bugs"
+                        },
+                        Tooltip = new Tooltip
+                        {
+                            PointFormat = "{series.name}: <b>{point.percentage:.1f}%</b>"
+                        },
+                        PlotOptions = new PlotOptions
+                        {
+                            Pie = new PlotOptionsPie
+                            {
+                                AllowPointSelect = true,
+                                Cursor = PlotOptionsPieCursor.Pointer,
+                                DataLabels = new Hashtable { { "enabled", false } },
+                                ShowInLegend = true
+                            }
+                        },
+                        XAxis = new List<XAxis>
+                            {
         new XAxis
         {
             Title = new XAxisTitle
@@ -322,9 +377,9 @@
             },
             Categories = new List<string> { "Erro 500", "Erro 404", "Interface", "Fluxo", "Calculo" }
         }
-                                           },
-                       YAxis = new List<YAxis>
-                           {
+                                            },
+                        YAxis = new List<YAxis>
+                            {
         new YAxis
         {
             Min = 0,
@@ -334,17 +389,17 @@
                 Align = YAxisTitleAlign.Center
             }
         }
-                                           },
-                       Series = new List<Series>
-                           {
+                                            },
+                        Series = new List<Series>
+                            {
         new PieSeries
         {
             Name = "Percentual",
             Data = @ViewData["pieData"] as List<PieSeriesData>
         },
 
-                                           }
-                   };
+                                            }
+                    };
 
             chartOptions.ID = "chart";
             var renderer = new HighchartsRenderer(chartOptions);
@@ -357,7 +412,7 @@
             {
                 Title = new Title
                 {
-                    Text = "Evolução Bugs Abertos VERSUS Corrigidos",
+                    Text = "Evolução Bugs Abertos Vs Corrigidos",
                     X = -20
                 },
 
@@ -427,7 +482,6 @@
 <div class="row">
     <div class="col-md-12" align="center">
         <script type="text/javascript">
-
             function formatToolTip() {
                 return '<b>' + this.x + '</b><br/>' +
                     this.series.name + ': ' + this.y + '<br/>' +
@@ -439,7 +493,7 @@
             {
                 Title = new Title
                 {
-                    Text = "Distribuição de Tasks (desde início do ano)"
+                    Text = "Distribuição cumulativa de Tasks"
                 },
                 XAxis = new List<XAxis>
     {
@@ -535,7 +589,7 @@
             {
                 Title = new Title
                 {
-                    Text = "Distribuição de Bugs por Dev (desde o início do ano)"
+                    Text = "Distribuição cumulativa de Bugs por Dev"
                 },
                 Subtitle = new Subtitle
                 {

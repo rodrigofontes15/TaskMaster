@@ -817,6 +817,17 @@
     <Content Include="Content\img\dev_collor.png" />
     <Content Include="Content\img\dev_fhc.png" />
     <Content Include="Content\img\dev_lula.png" />
+    <Content Include="Content\themes\base\AUTHORS.txt" />
+    <Content Include="Content\themes\base\index.html" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Content\themes\base\jquery-ui.structure.css" />
+    <Content Include="Content\themes\base\jquery-ui.structure.min.css" />
+    <Content Include="Content\themes\base\jquery-ui.theme.css" />
+    <Content Include="Content\themes\base\jquery-ui.theme.min.css" />
+    <Content Include="Content\themes\base\LICENSE.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -827,6 +838,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Content\themes\base\package.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
