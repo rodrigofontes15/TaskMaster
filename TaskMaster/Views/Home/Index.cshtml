@@ -203,11 +203,12 @@
                 <tr>
                     <th class="active"><center>Projeto</center></th>
                     <th class="active"><center>Bugs</center></th>
+                    <th class="active"><center>Tasks</center></th>
                     <th class="active" title="2 Bugs para cada Task do Projeto"><center>Meta</center></th>
                     <th class="active" title="Número real de Bugs encontrados em cada Task do Projeto"><center>Indicador</center></th>
                 </tr>
             <tbody>
-                @foreach (var projeto in Model.Projetos.Take(6))
+                @foreach (var projeto in Model.Projetos.Take(5))
                 {
                     <tr>
                         <td>
@@ -215,6 +216,9 @@
                         </td>
                         <td>
                             @projeto.QtdBugsPrj
+                        </td>
+                        <td>
+                            @projeto.QtdTasksPrj
                         </td>
                         <td>
                             1:@ratio
@@ -234,7 +238,7 @@
                     </tr>
                 }
                 <tr>
-                    <td colspan="4">
+                    <td colspan="5">
                         <div align="right">
                             <a href="#" class="btn btn-sm" data-toggle="modal" data-target="#myModal">Ver Mais...</a>
                             <div class="modal fade" id="myModal">
@@ -246,35 +250,39 @@
                                                     <tr>
                                                         <th class="active"><center>Projeto</center></th>
                                                         <th class="active"><center>Bugs</center></th>
+                                                        <th class="active"><center>Tasks</center></th>
                                                         <th class="active" title="2 Bugs para cada Task do Projeto"><center>Meta</center></th>
                                                         <th class="active" title="Número real de Bugs encontrados em cada Task do Projeto"><center>Indicador</center></th>
                                                     </tr>
                                                 <tbody>
                                                     @foreach (var projeto in Model.Projetos)
                                                     {
-                                                        <tr>
-                                                            <td>
-                                                                @projeto.NomeProjeto
+                                                    <tr>
+                                                        <td>
+                                                            @projeto.NomeProjeto
+                                                        </td>
+                                                        <td>
+                                                            @projeto.QtdBugsPrj
+                                                        </td>
+                                                        <td>
+                                                            @projeto.QtdTasksPrj
+                                                        </td>
+                                                        <td>
+                                                            1:@ratio
+                                                        </td>
+                                                        @if (@projeto.BugsRatio > @ratio)
+                                                        {
+                                                            <td style="background-color:lightcoral" align="center">
+                                                                <b>1:@projeto.BugsRatio</b>
                                                             </td>
-                                                            <td>
-                                                                @projeto.QtdBugsPrj
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="background-color:lightgreen" align="center">
+                                                                1:@projeto.BugsRatio
                                                             </td>
-                                                            <td>
-                                                                1:@ratio
-                                                            </td>
-                                                            @if (@projeto.BugsRatio > @ratio)
-                                                            {
-                                                                <td style="background-color:lightcoral" align="center">
-                                                                    <b>1:@projeto.BugsRatio</b>
-                                                                </td>
-                                                            }
-                                                            else
-                                                            {
-                                                                <td style="background-color:lightgreen" align="center">
-                                                                    1:@projeto.BugsRatio
-                                                                </td>
-                                                            }
-                                                        </tr>
+                                                        }
+                                                    </tr>
                                                     }
                                                 </tbody>
                                             </table>
