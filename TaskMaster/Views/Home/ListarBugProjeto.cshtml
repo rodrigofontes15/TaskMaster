@@ -1,0 +1,112 @@
+﻿@model IEnumerable<TaskMaster.Models.Bugs>
+@*
+    NOTA DO PROFESSOR DO CURSO (MOSH): I've set the model for this view to IEnumerable.
+    This is a simple interface implemented by the list class. Since
+    in this view we only want to iterate over this list, and we don't
+    need any of the operations in the List class (eg Add, Remove, etc),
+    it's better to use the IEnumerable interface, which allows use to
+    iterate over the list. If in the future, we replace the List with a
+    different data structure, as long as it is enumerable, our view code
+    will remain unchanged.
+*@
+
+@{
+    ViewBag.Title = "ListarBugProjeto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!Model.Any())
+{
+    <h2>Nenhum Bug no Projeto @ViewData["nomeProjeto"]!</h2>
+}
+else
+{
+    <h2>Bugs no Projeto <b>@ViewData["nomeProjeto"]</b></h2>
+    <p>
+        @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary" })
+    </p>
+    <table id="bugs" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="active">Tipo de Bug</th>
+                <th class="active">Detalhes</th>
+                <th class="active">Projeto</th>
+                <th class="active">Task</th>
+                <th class="active">Data do Bug</th>
+                <th class="active">Data da Solução</th>
+                <th class="active">Dev</th>
+                <th class="active">Estado</th>
+                <th class="active">Ações</th>
+            </tr>
+        <tbody>
+            @foreach (var bug in Model)
+            {
+                <tr>
+                    <td>
+                        @bug.TiposBugs.TipoBug<br />
+                        @Html.ActionLink("Editar", "Editar", "Bugs", new { id = bug.BugsId }, null)
+                    </td>
+                    <td>
+                        <details>
+                            <summary>Ver...</summary>
+                            @bug.DescBug
+                        </details>
+                    </td>
+                    <td>@Html.ActionLink(bug.Tasks.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = bug.Tasks.ProjetosId }, null)</td>
+                    <td>@Html.ActionLink(bug.Tasks.NomeTask, "Detalhes", "Tasks", new { id = bug.TasksId }, null)</td>
+                    <td>@bug.DataBug.Value.ToShortDateString()</td>
+                    @if (bug.DataEstimadaBug == null)
+                    {
+                        <td>@bug.DataEstimadaBug</td>
+                    }
+                    else
+                    {
+                        <td>@bug.DataEstimadaBug.Value.ToShortDateString()</td>
+                    }
+                    <td>@bug.Devs.DevNome</td>
+                    <td>@bug.EstadosBug.NomeEstado</td>
+                    <td>
+                        @Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })
+                        <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+    @section scripts
+{
+        <script>
+            $(document).ready(function () {
+                var tabela = $("#bugs").DataTable({
+                    "language": {
+                        "emptyTable": "Nenhum registro encontrado!",
+                        "search": "Buscar:",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "lengthMenu": "Mostrando _MENU_ registros",
+                        "paginate": {
+                            "first": "Primeira",
+                            "last": "Ultima",
+                            "next": "Próxima",
+                            "previous": "Anterior"
+                        }
+                    }
+                });
+                $("#bugs .js-excluir").on("click", function () {
+                    var button = $(this);
+                    bootbox.confirm("Confirma a Exclusão do Bug?", function (resultado) {
+                        if (resultado) {
+                            $.ajax({
+                                url: "/api/bugs/" + button.attr("data-bug-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    tabela.row(button.parents("tr")).remove().draw();
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+    }

@@ -13,6 +13,7 @@
     string qtdprojsNoPrazo = ViewData["qtdprojsNoPrazo"].ToString();
     string qtdprojsEmAtraso = ViewData["qtdprojsEmAtraso"].ToString();
     string qtdprojsFechado = ViewData["qtdprojsFechado"].ToString();
+    string qtdprojsAberto = ViewData["qtdprojsAberto"].ToString();
 
     string bugtipo500 = ViewData["bugtipo500"].ToString();
     string bugtipo404 = ViewData["bugtipo404"].ToString();
@@ -193,6 +194,10 @@
                     <td align="center" style="background-color:lightgreen">@Html.ActionLink("Fechado", "ListaProjetoEstado", "Home", new { estado = "Fechado" }, new { Style = "color:White" })</td>
                     <td align="center">@qtdprojsFechado</td>
                 </tr>
+                 <tr>
+                    <td align="center" style="background-color:lightgray">@Html.ActionLink("Aberto", "ListaProjetoEstado", "Home", new { estado = "Aberto" }, new { Style = "color:Black" })</td>
+                    <td align="center">@qtdprojsAberto</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -212,7 +217,7 @@
                 {
                     <tr>
                         <td>
-                            @projeto.NomeProjeto
+                            @Html.ActionLink(projeto.NomeProjeto, "ListarBugProjeto", "Home", new { projetoId = projeto.ProjetosId }, null)
                         </td>
                         <td>
                             @projeto.QtdBugsPrj
@@ -257,32 +262,32 @@
                                                 <tbody>
                                                     @foreach (var projeto in Model.Projetos)
                                                     {
-                                                    <tr>
-                                                        <td>
-                                                            @projeto.NomeProjeto
-                                                        </td>
-                                                        <td>
-                                                            @projeto.QtdBugsPrj
-                                                        </td>
-                                                        <td>
-                                                            @projeto.QtdTasksPrj
-                                                        </td>
-                                                        <td>
-                                                            1:@ratio
-                                                        </td>
-                                                        @if (@projeto.BugsRatio > @ratio)
-                                                        {
-                                                            <td style="background-color:lightcoral" align="center">
-                                                                <b>1:@projeto.BugsRatio</b>
+                                                        <tr>
+                                                            <td>
+                                                                @Html.ActionLink(projeto.NomeProjeto, "ListarBugProjeto", "Home", new { projetoId = projeto.ProjetosId }, null)
                                                             </td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td style="background-color:lightgreen" align="center">
-                                                                1:@projeto.BugsRatio
+                                                            <td>
+                                                                @projeto.QtdBugsPrj
                                                             </td>
-                                                        }
-                                                    </tr>
+                                                            <td>
+                                                                @projeto.QtdTasksPrj
+                                                            </td>
+                                                            <td>
+                                                                1:@ratio
+                                                            </td>
+                                                            @if (@projeto.BugsRatio > @ratio)
+                                                            {
+                                                                <td style="background-color:lightcoral" align="center">
+                                                                    <b>1:@projeto.BugsRatio</b>
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="background-color:lightgreen" align="center">
+                                                                    1:@projeto.BugsRatio
+                                                                </td>
+                                                            }
+                                                        </tr>
                                                     }
                                                 </tbody>
                                             </table>
@@ -349,34 +354,34 @@
         @using System.Collections;
 
         @{ var chartOptions =
-                    new Highcharts
-                    {
-                        Chart = new Highsoft.Web.Mvc.Charts.Chart
-                        {
-                            PlotBackgroundColor = null,
-                            PlotBorderWidth = null,
-                            PlotShadow = null,
-                        },
-                        Title = new Title
-                        {
-                            Text = "Distribuição % cumulativa de Bugs"
-                        },
-                        Tooltip = new Tooltip
-                        {
-                            PointFormat = "{series.name}: <b>{point.percentage:.1f}%</b>"
-                        },
-                        PlotOptions = new PlotOptions
-                        {
-                            Pie = new PlotOptionsPie
-                            {
-                                AllowPointSelect = true,
-                                Cursor = PlotOptionsPieCursor.Pointer,
-                                DataLabels = new Hashtable { { "enabled", false } },
-                                ShowInLegend = true
-                            }
-                        },
-                        XAxis = new List<XAxis>
-                            {
+                     new Highcharts
+                     {
+                         Chart = new Highsoft.Web.Mvc.Charts.Chart
+                         {
+                             PlotBackgroundColor = null,
+                             PlotBorderWidth = null,
+                             PlotShadow = null,
+                         },
+                         Title = new Title
+                         {
+                             Text = "Distribuição % cumulativa de Bugs"
+                         },
+                         Tooltip = new Tooltip
+                         {
+                             PointFormat = "{series.name}: <b>{point.percentage:.1f}%</b>"
+                         },
+                         PlotOptions = new PlotOptions
+                         {
+                             Pie = new PlotOptionsPie
+                             {
+                                 AllowPointSelect = true,
+                                 Cursor = PlotOptionsPieCursor.Pointer,
+                                 DataLabels = new Hashtable { { "enabled", false } },
+                                 ShowInLegend = true
+                             }
+                         },
+                         XAxis = new List<XAxis>
+                             {
         new XAxis
         {
             Title = new XAxisTitle
@@ -385,9 +390,9 @@
             },
             Categories = new List<string> { "Erro 500", "Erro 404", "Interface", "Fluxo", "Calculo" }
         }
-                                            },
-                        YAxis = new List<YAxis>
-                            {
+                                             },
+                         YAxis = new List<YAxis>
+                             {
         new YAxis
         {
             Min = 0,
@@ -397,17 +402,17 @@
                 Align = YAxisTitleAlign.Center
             }
         }
-                                            },
-                        Series = new List<Series>
-                            {
+                                             },
+                         Series = new List<Series>
+                             {
         new PieSeries
         {
             Name = "Percentual",
             Data = @ViewData["pieData"] as List<PieSeriesData>
         },
 
-                                            }
-                    };
+                                             }
+                     };
 
             chartOptions.ID = "chart";
             var renderer = new HighchartsRenderer(chartOptions);

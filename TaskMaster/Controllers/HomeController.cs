@@ -196,6 +196,7 @@ namespace TaskMaster.Controllers
             var qtdprojsNoPrazo = _context.Projetos.Where(i => i.EstadoProj == "No Prazo").Count().ToString();
             var qtdprojsEmAtraso = _context.Projetos.Where(i => i.EstadoProj == "Em Atraso").Count().ToString();
             var qtdprojsFechado = _context.Projetos.Where(i => i.EstadoProj == "Fechado").Count().ToString();
+            var qtdprojsAberto = _context.Projetos.Where(i => i.EstadoProj == "Aberto").Count().ToString();
 
             var bugtipo500 = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Erro 500").Count().ToString();
             var bugtipo404 = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Erro 404").Count().ToString();
@@ -203,13 +204,13 @@ namespace TaskMaster.Controllers
             var bugtipoFluxo = _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Fluxo").Count().ToString();
             var bugtipoCalc =  _context.Bugs.Where(i => i.TiposBugs.TipoBug == "Calculo").Count().ToString();
 
-            var bugtestetipoUni = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Unitário").Select(b => b.QtdBugsTsk).FirstOrDefault();
-            var bugtestetipoInt = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Integração").Select(b => b.QtdBugsTsk).FirstOrDefault();
-            var bugtestetipoFum = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Fumaça").Select(b => b.QtdBugsTsk).FirstOrDefault();
-            var bugtestetipoInf = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Interface").Select(b => b.QtdBugsTsk).FirstOrDefault();
-            var bugtestetipoReg = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Regressão").Select(b => b.QtdBugsTsk).FirstOrDefault();
-            var bugtestetipoPer = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Performance/Carga").Select(b => b.QtdBugsTsk).FirstOrDefault();
-            var bugtestetipoBeta = _context.Tasks.Where(i => i.TiposTestes.TipoTeste == "Beta/Aceitação").Select(b => b.QtdBugsTsk).FirstOrDefault();
+            var bugtestetipoUni = _context.Tasks.Where(i => i.TiposTestesId == 1).Sum(b => (int?)b.QtdBugsTsk) ?? 0;
+            var bugtestetipoInt = _context.Tasks.Where(i => i.TiposTestesId == 2).Sum(b => (int?)b.QtdBugsTsk) ?? 0;
+            var bugtestetipoFum = _context.Tasks.Where(i => i.TiposTestesId == 3).Sum(b => (int?)b.QtdBugsTsk) ?? 0;
+            var bugtestetipoInf = _context.Tasks.Where(i => i.TiposTestesId == 4).Sum(b => (int?)b.QtdBugsTsk) ?? 0;
+            var bugtestetipoReg = _context.Tasks.Where(i => i.TiposTestesId == 5).Sum(b => (int?)b.QtdBugsTsk) ?? 0;
+            var bugtestetipoPer = _context.Tasks.Where(i => i.TiposTestesId == 6).Sum(b => (int?)b.QtdBugsTsk) ?? 0;
+            var bugtestetipoBeta = _context.Tasks.Where(i => i.TiposTestesId == 9).Sum(b => (int?)b.QtdBugsTsk) ?? 0;
 
             var temposolucao = _context.Bugs.Select(t=>t.TempoSolucao).FirstOrDefault();
             if (temposolucao == null)
@@ -230,6 +231,7 @@ namespace TaskMaster.Controllers
             ViewData["qtdprojsNoPrazo"] = qtdprojsNoPrazo;
             ViewData["qtdprojsEmAtraso"] = qtdprojsEmAtraso;
             ViewData["qtdprojsFechado"] = qtdprojsFechado;
+            ViewData["qtdprojsAberto"] = qtdprojsAberto;
 
             ViewData["bugtipo500"] = bugtipo500;
             ViewData["bugtipo404"] = bugtipo404;
@@ -347,7 +349,25 @@ namespace TaskMaster.Controllers
             ViewData["tipoTeste"] = tipoTeste;
 
             return View("ListarBugTipoTask", bugtipotask);
+        }
 
+        public ActionResult ListarBugProjeto(int projetoId)
+        {
+            var bugs = _context.Bugs.Where(t=>t.Tasks.ProjetosId==projetoId)
+                .Include(p => p.Tasks.Projetos)
+                .Include(g => g.Tasks)
+                .Include(g => g.Devs)
+                .Include(b => b.TiposBugs)
+                .Include(e => e.EstadosBug)
+                .ToList();
+
+            var nomeProjeto = _context.Projetos
+             .Where(n => n.ProjetosId == projetoId)
+             .Select(n => n.NomeProjeto)
+             .FirstOrDefault();
+            ViewData["nomeProjeto"] = nomeProjeto;
+
+            return View("ListarBugProjeto", bugs);
         }
     }
 }
