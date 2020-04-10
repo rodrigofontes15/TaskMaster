@@ -69,7 +69,7 @@ else
                     }
                 }
                 <td>@projeto.EstadoProj</td>
-                <td>@projeto.QtdBugsPrj</td>
+                <td>@Html.ActionLink(projeto.QtdBugsPrj.ToString(), "ListarBugProjeto", "Home", new { projetoId = projeto.ProjetosId }, null)</td>
                 <td>
                     @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary btn-sm" })
                     <button data-projeto-id="@projeto.ProjetosId" class="btn btn-danger btn-sm js-excluir">Excluir</button>

@@ -83,21 +83,6 @@ namespace TaskMaster.Controllers.Api
 
             var DataNull = "";
 
-            var sqlQtdBugsTask = @"Update [Tasks] SET QtdBugsTsk = (QtdBugsTsk-1) WHERE TasksId = @TasksId";
-            _context.Database.ExecuteSqlCommand(
-                sqlQtdBugsTask,
-                new SqlParameter("@TasksId", taskdobug));
-
-            var sqlQtdBugsPrj = @"Update [Projetos] SET QtdBugsPrj = (QtdBugsPrj-1) WHERE ProjetosId = @ProjetosId";
-            _context.Database.ExecuteSqlCommand(
-                sqlQtdBugsPrj,
-                new SqlParameter("@ProjetosId", projetidnatask));
-
-            var sqlRatioBugsPrj = @"Update [Projetos] SET BugsRatio = (QtdBugsPrj/QtdTasksPrj) WHERE ProjetosId = @ProjetosId";
-            _context.Database.ExecuteSqlCommand(
-                sqlRatioBugsPrj,
-                new SqlParameter("@ProjetosId", projetidnatask));
-
             if (bugInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             else
@@ -111,11 +96,40 @@ namespace TaskMaster.Controllers.Api
                         new SqlParameter("@DataReal", DataNull),
                         new SqlParameter("@ProjetosId", projetidnatask));
 
+                    var sqlQtdBugsTask = @"Update [Tasks] SET QtdBugsTsk = (QtdBugsTsk-1) WHERE TasksId = @TasksId";
+                    _context.Database.ExecuteSqlCommand(
+                        sqlQtdBugsTask,
+                        new SqlParameter("@TasksId", taskdobug));
+
+                    var sqlQtdBugsPrj = @"Update [Projetos] SET QtdBugsPrj = (QtdBugsPrj-1) WHERE ProjetosId = @ProjetosId";
+                    _context.Database.ExecuteSqlCommand(
+                        sqlQtdBugsPrj,
+                        new SqlParameter("@ProjetosId", projetidnatask));
+
+                    var sqlRatioBugsPrj = @"Update [Projetos] SET BugsRatio = (QtdBugsPrj/QtdTasksPrj) WHERE ProjetosId = @ProjetosId";
+                    _context.Database.ExecuteSqlCommand(
+                        sqlRatioBugsPrj,
+                        new SqlParameter("@ProjetosId", projetidnatask));
+
                     _context.Bugs.Remove(bugInDb);
                     _context.SaveChanges();
                 }
                 else
                 {
+                    var sqlQtdBugsTask = @"Update [Tasks] SET QtdBugsTsk = (QtdBugsTsk-1) WHERE TasksId = @TasksId";
+                    _context.Database.ExecuteSqlCommand(
+                        sqlQtdBugsTask,
+                        new SqlParameter("@TasksId", taskdobug));
+
+                    var sqlQtdBugsPrj = @"Update [Projetos] SET QtdBugsPrj = (QtdBugsPrj-1) WHERE ProjetosId = @ProjetosId";
+                    _context.Database.ExecuteSqlCommand(
+                        sqlQtdBugsPrj,
+                        new SqlParameter("@ProjetosId", projetidnatask));
+
+                    var sqlRatioBugsPrj = @"Update [Projetos] SET BugsRatio = (QtdBugsPrj/QtdTasksPrj) WHERE ProjetosId = @ProjetosId";
+                    _context.Database.ExecuteSqlCommand(
+                        sqlRatioBugsPrj,
+                        new SqlParameter("@ProjetosId", projetidnatask));
 
                     _context.Bugs.Remove(bugInDb);
                     _context.SaveChanges();

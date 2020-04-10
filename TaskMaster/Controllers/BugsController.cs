@@ -282,7 +282,56 @@ namespace TaskMaster.Controllers
                 EstadosBugs = _context.EstadosBugs.ToList()
             };
 
-            return View("FormBug", viewModel);
+            return View("EditarBug", viewModel);
+        }
+
+        [Authorize(Roles = NomeRoles.tester + "," + NomeRoles.admin)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SalvarEdit(Bugs bugs)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new BugsViewModel(bugs)
+                {
+                    Projetos = _context.Projetos.ToList(),
+                    Tasks = _context.Tasks.ToList(),
+                    Devs = _context.Devs.ToList(),
+                    TiposBugs = _context.TiposBugs.ToList(),
+                    EstadosBugs = _context.EstadosBugs.ToList()
+                };
+                return View("FormBug", viewModel);
+            }
+            else
+            {
+                var bugInDb = _context.Bugs.Single(p => p.BugsId == bugs.BugsId);
+                bugInDb.DescBug = bugs.DescBug;
+                bugInDb.DataBug = bugs.DataBug;
+                bugInDb.DataEstimadaBug = bugs.DataEstimadaBug;
+                //bugInDb.ProjetosId = bugs.ProjetosId;
+                bugInDb.TasksId = bugs.TasksId;
+                bugInDb.DevsId = bugs.DevsId;
+                bugInDb.TiposBugsId = bugs.TiposBugsId;
+                bugInDb.EstadosBugId = bugs.EstadosBugId;
+                bugInDb.UrlRepoCodigo = bugs.UrlRepoCodigo;
+
+                if (bugInDb.DataEstimadaBug == null)
+                {
+                    bugInDb.DataEstimadaBug = bugs.DataBug.Value.AddDays(5);
+                }
+                else if (bugInDb.DataEstimadaBug < bugs.DataBug)
+                {
+                    return Content("Data estimada não pode ser menor que data do Bug");
+                }
+                else
+                {
+                    bugInDb.TempoSolucao = (bugs.DataEstimadaBug - bugs.DataBug).Value.TotalDays;
+                }
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Bugs");
+
         }
 
         public ActionResult BugsTask(int id)

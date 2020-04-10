@@ -979,6 +979,7 @@
     <Content Include="Views\Home\ListaProjetoEstado.cshtml" />
     <Content Include="Views\Home\ListarBugTipoTask.cshtml" />
     <Content Include="Views\Home\ListarBugProjeto.cshtml" />
+    <Content Include="Views\Bugs\EditarBug.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

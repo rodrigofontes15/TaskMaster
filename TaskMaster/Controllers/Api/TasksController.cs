@@ -98,6 +98,11 @@ namespace TaskMaster.Controllers.Api
                     sqlQtdTaskPrj,
                     new SqlParameter("@ProjetosId", projetid));
 
+                var sqlRatioBugsPrj = @"Update [Projetos] SET BugsRatio = (QtdBugsPrj/QtdTasksPrj) WHERE ProjetosId = @ProjetosId";
+                _context.Database.ExecuteSqlCommand(
+                    sqlRatioBugsPrj,
+                    new SqlParameter("@ProjetosId", projetid));
+
             }
         }
     }

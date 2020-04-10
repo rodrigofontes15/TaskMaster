@@ -79,8 +79,6 @@ namespace TaskMaster.ViewModels
             BugsId = 0;
             EstadosBugId = 2;
             DataBug = DateTime.Today;
-
-
         }
 
         public BugsViewModel(Bugs bug)

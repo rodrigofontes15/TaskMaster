@@ -74,7 +74,7 @@ else
                     <td>@bug.Devs.DevNome</td>
                     <td>@bug.EstadosBug.NomeEstado</td>
                     <td>
-                        @Html.ActionLink("Ir para o Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })
+                        @Html.ActionLink("Ir ao Bug", "DetalhesBug", "Bugs", new { id = bug.BugsId }, new { @class = "btn btn-primary btn-sm" })
                         @{ if (User.IsInRole("tester"))
                             {
                                 <button data-bug-id="@bug.BugsId" class="btn btn-danger btn-sm js-excluir">Excluir</button>

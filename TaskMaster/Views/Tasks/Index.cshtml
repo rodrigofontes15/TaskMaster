@@ -19,23 +19,27 @@
 <p>
     @Html.ActionLink("Cadastrar Task", "NovaTask", "Tasks", null, new { @class = "btn btn-primary" })
 </p>
-<table id="tasks" class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th class="active">Nome da Task</th>
-            <th class="active">Projeto</th>
-            <th class="active">Tipo de Teste</th>
-            @*  <th class="active">Data de Início</th>
-                <th class="active">Data de Término</th>*@
-            <th class="active">Testador</th>
-            <th class="active">Bugs</th>
-            <th class="active">Estado</th>
-            <th class="active">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var task in Model)
-                {
+@if (!Model.Any())
+{
+    <p>Nenhuma Task Cadastrada!</p>
+}
+else
+{
+    <table id="tasks" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="active">Nome da Task</th>
+                <th class="active">Projeto</th>
+                <th class="active">Tipo de Teste</th>
+                <th class="active">Testador</th>
+                <th class="active">Bugs</th>
+                <th class="active">Estado</th>
+                <th class="active">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model)
+            {
                 <tr>
                     <td>
                         <b>@task.NomeTask</b><br />
@@ -43,59 +47,58 @@
                     </td>
                     <td>@Html.ActionLink(task.Projetos.NomeProjeto, "Detalhes", "Projetos", new { id = task.ProjetosId }, null)</td>
                     <td>@task.TiposTestes.TipoTeste</td>
-                    @*<td>@task.DataInicio.Value.ToShortDateString()</td>
-        <td>@task.DataEstimada</td>*@
                     <td>@task.Testers.Nome</td>
-                    <td>@Html.ActionLink(task.QtdBugsTsk.ToString(), "BugsTask", "Bugs", new { id = task.TasksId }, null)
-                </td>
-                    <td>@task.EstadoTask</td>
                     <td>
-                        @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
-                        <button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
-                        @Html.ActionLink("Fechar", "FecharTask", "Tasks", new { id = task.TasksId }, new { @onclick = "return confirm('Deseja Fechar a Task? Não será mais possivel abrir Bugs.');", @class = "btn btn-success btn-sm" })
-                    </td>
-                </tr>
+                        @Html.ActionLink(task.QtdBugsTsk.ToString(), "BugsTask", "Bugs", new { id = task.TasksId }, null)
+                </td>
+                <td>@task.EstadoTask</td>
+                <td>
+                    @Html.ActionLink("Reportar Bug", "FormBug", "Bugs", null, new { @class = "btn btn-primary btn-sm" })
+                    <button data-task-id="@task.TasksId" class="btn btn-danger btn-sm js-excluir">Excluir</button>
+                    @Html.ActionLink("Fechar", "FecharTask", "Tasks", new { id = task.TasksId }, new { @onclick = "return confirm('Deseja Fechar a Task? Não será mais possivel abrir Bugs.');", @class = "btn btn-success btn-sm" })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var tabela = $("#tasks").DataTable({
+                "language": {
+                    "emptyTable": "Nenhum registro encontrado!",
+                    "search": "Buscar:",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "lengthMenu": "Mostrando _MENU_ registros",
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Ultima",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    }
                 }
-            </tbody>
-        </table>
+            });
+            $("#tasks .js-excluir").on("click", function () {
+                var button = $(this);
 
-
-
-        @section scripts
-        {
-            <script>
-                $(document).ready(function () {
-                    var tabela = $("#tasks").DataTable({
-                        "language": {
-                            "emptyTable": "Nenhum registro encontrado!",
-                            "search": "Buscar:",
-                            "info": "Mostrando página _PAGE_ de _PAGES_",
-                            "lengthMenu": "Mostrando _MENU_ registros",
-                            "paginate": {
-                                "first": "Primeira",
-                                "last": "Ultima",
-                                "next": "Próxima",
-                                "previous": "Anterior"
-                            }
-                        }
-                    });
-                    $("#tasks .js-excluir").on("click", function () {
-                        var button = $(this);
-                        bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
-                            if (resultado) {
-                                $.ajax({
-                                    url: "/api/tasks/" + button.attr("data-task-id"),
-                                    method: "DELETE",
-                                    success: function () {
-                                        tabela.row(button.parents("tr")).remove().draw();
-                                    },
-                                    error: function () {
-                                        bootbox.alert("Task contem bugs cadastrados!");
-                                    }
-                                });
+                bootbox.confirm("Confirma a Exclusão da Task?", function (resultado) {
+                    if (resultado) {
+                        $.ajax({
+                            url: "/api/tasks/" + button.attr("data-task-id"),
+                            method: "DELETE",
+                            success: function () {
+                                tabela.row(button.parents("tr")).remove().draw();
+                            },
+                            error: function () {
+                                bootbox.alert("Task contem bugs cadastrados!");
                             }
                         });
-                    });
+                    }
                 });
-            </script>
-        }
+            });
+        });
+    </script>
+}
